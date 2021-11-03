@@ -116,12 +116,18 @@ class BerkasBaru extends CI_Controller {
         else {
             $update_nnseq = $this->BerkasBaru_model->Update($tahun, $bulan);
             $ovdocno = $this->input->post('OVDOCNO');
+            $ovdocdt = $this->input->post('OVDOCDT');
+            $split = explode("-", $ovdocdt);
+            $d = $split[0];
+            $m = $split[1];
+            $y = $split[2];
             // $nnyr = substr($ovdocno, 1, 4);
             // $nnmo = substr($ovdocno, 5, 2);
             
             // $this->BerkasBaru_model->Update_ovdocno($ovdocno);
             $x = $ovdocno + 1;
             $this->BerkasBaru_model->Tambah_Berkas($x);
+            $this->BerkasBaru_model->Tambah_4111($x, $m, $y);
 
             redirect('BerkasBaru/index','refresh');
         }  
@@ -170,7 +176,6 @@ class BerkasBaru extends CI_Controller {
             $ovidbuid = $this->input->post('OVIDBUID');
             $x = $ovdocno + 1;
             $this->BerkasBaru_model->Tambah_Berkas($x);
-            $this->BerkasBaru_model->Tambah_4111($x);
 
             redirect('BerkasBaru/Tambah_Baru/'.$x.'/'.$ovidbuid,'refresh');
         }  

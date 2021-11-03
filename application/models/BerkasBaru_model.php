@@ -29,7 +29,8 @@ class BerkasBaru_model extends CI_Model {
         FROM t4312 AS t4
         JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID`
         WHERE t4.`OVLST` = '400' AND t4.`OVNST` = '440'
-        GROUP BY t4.`OVDOCNO`");
+        GROUP BY t4.`OVDOCNO`
+        ORDER BY t4.`OVDTIN` DESC");
 
         return $query->result_array();
     }
