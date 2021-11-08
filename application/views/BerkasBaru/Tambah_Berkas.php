@@ -248,7 +248,7 @@
                                     </center>
                                 </div>
                             </div>
-                            <p id="result2"></p>
+                            <!-- <p id="result2"></p> -->
                         </form>
                     </div>
                 </div>
@@ -371,7 +371,7 @@
 
         // variabel dari nilai combo box kabupaten/kota
         var msty = $("#OVMSTY").val();
-        document.getElementById("result2").innerHTML = msty;
+        // document.getElementById("result2").innerHTML = msty;
         if (msty == 1) {
             // Menggunakan ajax untuk mengirim dan dan menerima data dari server
             $.ajax({

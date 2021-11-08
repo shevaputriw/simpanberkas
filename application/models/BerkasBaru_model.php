@@ -188,7 +188,12 @@ class BerkasBaru_model extends CI_Model {
         $this->db->query("UPDATE t0002 SET NNSEQ = NNSEQ + 1 WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'OV'");
     }
 
-    public function Tambah_Berkas($x) {
+    public function getOvbuid1($ovidbuid) {
+        $query = $this->db->query("SELECT BNBUID1 FROM t0021 WHERE BNIDBUID = '$ovidbuid'");
+        return $query->row();
+    }
+
+    public function Tambah_Berkas($x, $buid1) {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
         $ovdocty = "OV";
@@ -200,6 +205,7 @@ class BerkasBaru_model extends CI_Model {
         $data = [
             "OVCOID" => $this->input->post('OVCOID', true),
             "OVIDBUID" => $this->input->post('OVIDBUID', true),
+            "OVBUID1" => $buid1,
             "OVDOCNO" => $x,
             "OVDOCSQ" => $ovdocsq,
             "OVDOCDT" => $this->input->post('OVDOCDT', true),
@@ -242,7 +248,7 @@ class BerkasBaru_model extends CI_Model {
         $this->db->insert('t4312', $data);
     }
 
-    public function Tambah_4111($x) {
+    public function Tambah_4111($x, $m, $y, $buid1) {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
         $itdocty = "OV";
@@ -254,6 +260,7 @@ class BerkasBaru_model extends CI_Model {
         $data = [
             "ITCOID" => $this->input->post('OVCOID', true),
             "ITIDBUID" => $this->input->post('OVIDBUID', true),
+            "ITBUID1" => $buid1,
             "ITDOCNO" => $x,
             "ITDOCSQ" => $itdocsq,
             "ITDOCDT" => $this->input->post('OVDOCDT', true),
@@ -285,6 +292,8 @@ class BerkasBaru_model extends CI_Model {
             // "OVNST" => $this->input->post('OVNST', true),
             "ITMANAGE" => $this->input->post('OVIDBUID', true),
             "ITLOCID" => $this->input->post('OVLOCID', true),
+            "ITDOCMO" => $m,
+            "ITDOCYR" => $y,
             "ITUID" => $ituid,
             "ITUIDM" => $ituidm,
             "ITIPUID" => $ip,
@@ -296,7 +305,25 @@ class BerkasBaru_model extends CI_Model {
         $this->db->insert('t4111', $data);
     }
 
-    public function Tambah_Berkas2($x, $ovidbuid, $ovdocsq) {
+    public function Tambah_41021($buid1) {
+        date_default_timezone_set('Asia/Jakarta');
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        $data = [
+            "ILCOID" => $this->input->post('OVCOID', true),
+            "ILIDBUID" => $this->input->post('OVIDBUID', true),
+            "ILLOCID" => $this->input->post('OVLOCID', true),
+            "ILBUID1" => $buid1,
+            "ILIPUID" => $ip,
+            "ILIPUIDM" => $ip,
+            "ILDTIN" => date('Y-m-d H:i:s', time()),
+            "ILDTLU" => date('Y-m-d H:i:s', time())
+        ];
+
+        $this->db->insert('t41021', $data);
+    }
+
+    public function Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1) {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
         $ovdocty = "OV";
@@ -307,6 +334,7 @@ class BerkasBaru_model extends CI_Model {
         $data = [
             "OVCOID" => $this->input->post('OVCOID', true),
             "OVIDBUID" => $ovidbuid,
+            "OVBUID1" => $buid1,
             "OVDOCNO" => $x,
             "OVDOCSQ" => $ovdocsq,
             "OVDOCDT" => $this->input->post('OVDOCDT', true),
@@ -347,6 +375,80 @@ class BerkasBaru_model extends CI_Model {
         ];
 
         $this->db->insert('t4312', $data);
+    }
+
+    public function Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid) {
+        date_default_timezone_set('Asia/Jakarta');
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $itdocty = "OV";
+        $ituid = "admin1";
+        $ituidm = "admin1";
+        $iticu = "1";
+
+        $data = [
+            "ITCOID" => $this->input->post('OVCOID', true),
+            "ITIDBUID" => $ovidbuid,
+            "ITBUID1" => $buid1,
+            "ITDOCNO" => $x,
+            "ITDOCSQ" => $ovdocsq,
+            "ITDOCDT" => $this->input->post('OVDOCDT', true),
+            "ITINUM" => $this->input->post('OVINUM', true),
+            "ITDESB1" => $this->input->post('OVDESB1', true),
+            "ITMSTY" => $this->input->post('OVMSTY', true),
+            "ITDOCTY" => $itdocty,
+            "ITICU" => $iticu,
+            "ITBRAND" => $this->input->post('OVBRAND', true),
+            "ITCILCAP" => $this->input->post('OVCILCAP', true),
+            "ITCOMV" => $this->input->post('OVCOMV', true),
+            "ITMACHNID" => $this->input->post('OVMACHNID', true),
+            "ITVHTAXDT" => $this->input->post('OVVHTAXDT', true),
+            "ITCOLOR" => $this->input->post('OVCOLOR', true),
+            "ITMFN" => $this->input->post('OVMFN', true),
+            "ITVHRN" => $this->input->post('OVVHRN', true),
+            "ITVHRNTAXDT" => $this->input->post('OVVHRNTAXDT', true),
+            "ITCRTFID" => $this->input->post('OVCRTFID', true),
+            "ITLNDOWNST" => $this->input->post('OVLNDOWNST', true),
+            "ITLENGTH" => $this->input->post('OVLENGTH', true),
+            "ITWIDTH" => $this->input->post('OVWIDTH', true),
+            "ITWIDE" => $this->input->post('OVWIDE', true),
+            "ITCRTFDT" => $this->input->post('OVCRTFDT', true),
+            "ITASADDR" => $this->input->post('OVASADDR', true),
+            "ITCITY" => $this->input->post('OVCITY', true),
+            "ITDIST" => $this->input->post('OVDIST', true),
+            "ITSUBDIST" => $this->input->post('OVSUBDIST', true),
+            // "OVLST" => $this->input->post('OVLST', true),
+            // "OVNST" => $this->input->post('OVNST', true),
+            "ITMANAGE" => $this->input->post('OVIDBUID', true),
+            "ITLOCID" => $this->input->post('OVLOCID', true),
+            "ITDOCMO" => $m,
+            "ITDOCYR" => $y,
+            "ITUID" => $ituid,
+            "ITUIDM" => $ituidm,
+            "ITIPUID" => $ip,
+            "ITIPUIDM" => $ip,
+            "ITDTIN" => date('Y-m-d H:i:s', time()),
+            "ITDTLU" => date('Y-m-d H:i:s', time())
+        ];
+
+        $this->db->insert('t4111', $data);
+    }
+
+    public function Tambah2_41021($ovidbuid, $buid1) {
+        date_default_timezone_set('Asia/Jakarta');
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        $data = [
+            "ILCOID" => $this->input->post('OVCOID', true),
+            "ILIDBUID" => $ovidbuid,
+            "ILLOCID" => $this->input->post('OVLOCID', true),
+            "ILBUID1" => $buid1,
+            "ILIPUID" => $ip,
+            "ILIPUIDM" => $ip,
+            "ILDTIN" => date('Y-m-d H:i:s', time()),
+            "ILDTLU" => date('Y-m-d H:i:s', time())
+        ];
+
+        $this->db->insert('t41021', $data);
     }
     
     public function Update_ovdocno($ovdocno) {
@@ -468,6 +570,46 @@ class BerkasBaru_model extends CI_Model {
         ];
         
         $this->db->update('t4312', $data, array('OVDOCNO' => $post['OVDOCNO'],'OVDOCSQ' => $post['OVDOCSQ'], 'OVIDBUID' => $post['OVIDBUID']));
+    }
+
+    public function dataKonfirmasi($ovidbuid, $ovdocno) {
+        $query = $this->db->query("SELECT t21.`BNDESB1`, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVDOCDT`, t1a.ADNM AS pimpinan, t09.`DTDESC1` AS jabatan, t21.`BNCC01`, t21.`BNCC02`
+        FROM t0021 AS t21
+        JOIN t4312 AS t4 ON t4.`OVIDBUID` = t21.`BNIDBUID`
+        LEFT OUTER JOIN t0101 t1a ON t21.`BNCC01` = t1a.`ADIDANUM`
+        LEFT OUTER JOIN t0009 t09 ON t21.`BNCC02` = t09.`DTIDDC` AND t09.DTPC='15' AND t09.DTSC='JP'
+        WHERE t4.`OVIDBUID` = '$ovidbuid' AND t4.`OVDOCNO` = '$ovdocno'
+        GROUP BY t4.`OVDOCNO`");
+
+        return $query->result_array();
+    }
+
+    public function getJabatan() {
+        $query = $this->db->query("SELECT DTIDDC, DTDC, DTDESC1 from t0009 where DTPC='15' and DTSC='JP'");
+        return $query->result_array();
+    }
+
+    public function getPimpinan() {
+        $query = $this->db->query("SELECT ADIDANUM, ADNM FROM T0101 WHERE ADST = 'E'");
+        return $query->result_array();
+    }
+
+    public function Update_t0002($ovidbuid) {
+        date_default_timezone_set('Asia/Jakarta');
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $post=$this->input->post();
+
+        // $this->BNBUID = $post["BNBUID"];
+        // $this->BNDESB1 = $post["BNDESB1"];
+        // $this->BNBUTY = $post["BNBUTY"];
+        // $this->BNBUID1 = $post["BNBUID1"];
+        $this->BNCC01 = $post["BNCC01"];
+        $this->BNCC02 = $post["BNCC02"];
+        // $this->BNCC03 = $post["BNCC03"];
+        $this->BNIPUIDM = $ip;
+        $this->BNDTLU = date('Y-m-d H:i:s', time());
+        
+        $this->db->update('t0021',$this, array('BNIDBUID' => $ovidbuid));
     }
 }
 

@@ -248,6 +248,12 @@
                         <center><h4 class="card-title">DETAIL BERKAS</h4></center><br>
                     </div>
                     <div class="card-body">
+                        <?php foreach($get_data as $gt):?>
+                            <a href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>">
+                        <?php endforeach;?>
+                                <button type="button" class="btn btn-primary" style="float:right;"><i class="fa fa-print"></i>&nbsp;&nbsp;Cetak Berita Acara</button>
+                            </a>
+                        <br><br>
                         <!-- TABLE START -->
                         <div class="table-responsive">         
                             <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
