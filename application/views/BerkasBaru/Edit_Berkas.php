@@ -273,13 +273,10 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $("#opd").select2();
-</script>
 
 <script type="text/javascript">
-    $("#kode_barang").select2();
-</script>
+    $("#OVLOCID").select2();
+</script> 
 
 <!-- DOCUMENT JENIS BERKAS READY -->
 <script>
@@ -451,10 +448,10 @@
 
                 for(i=0; i<data.length; i++){
                     if(y2 == data[i].LMLOCID) {
-                        html += '<option value='+data[i].LMLOCID+' selected>'+data[i].LMLOCID+'</option>';
+                        html += '<option value='+data[i].LMLOCID+' selected>'+data[i].LMDESA2+'</option>';
                     }
                     else {
-                        html += '<option value='+data[i].LMLOCID+'>'+data[i].LMLOCID+'</option>';
+                        html += '<option value='+data[i].LMLOCID+'>'+data[i].LMDESA2+'</option>';
                     }
                 }
                 $('#OVLOCID').html(html);

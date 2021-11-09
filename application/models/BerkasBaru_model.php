@@ -55,10 +55,21 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function getBerkas2($ovdocno) {
-        $query = $this->db->query("SELECT t4.`OVDESB1`
-        FROM t4312 AS t4
-        JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID`
-        WHERE t4.`OVDOCNO` = '$ovdocno'");
+        // $query = $this->db->query("SELECT t4.`OVDESB1`, t4.`OVCOID`, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVINUM`, t4.`OVDOCTY`, t4.OVMSTY, t4.OVCOMV, t4.OVBRAND, t4.OVCOLOR, t4.OVCILCAP, t4.`OVDOCSQ`, t4.`OVLST`, t4.`OVNST`,
+        // t4.OVMFN, t4.OVVHRN, t4.OVVHTAXDT, t4.OVVHRNTAXDT, t4.OVCRTFID, t4.OVCRTFDT, t4.OVLNDOWNST, t4.OVLENGTH, t4.OVMACHNID, t4.OVWIDTH, t4.OVWIDE, t4.OVASADDR, t4.OVCITY, t4.OVDIST, t4.OVSUBDIST
+        // FROM t4312 AS t4
+        // JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID`
+        // WHERE t4.`OVDOCNO` = '$ovdocno'");
+
+        $query = $this->db->query("SELECT t4.`OVCOID`, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVINUM`, t4.`OVDOCTY`, t4.OVMSTY, t4.OVCOMV, t4.OVBRAND, t4.OVCOLOR, t4.OVCILCAP, t4.`OVDOCSQ`, t4.`OVLST`, t4.`OVNST`,
+        t4.OVMFN, t4.OVVHRN, t4.OVVHTAXDT, t4.OVVHRNTAXDT, t4.OVCRTFID, t4.OVCRTFDT, t4.OVLNDOWNST, t4.OVLENGTH, t4.OVMACHNID, t4.OVWIDTH, t4.OVWIDE, t4.OVASADDR, t4.OVCITY, t4.OVDIST, t4.OVSUBDIST,  t09.`AMOBJ`, t0009.`DTDESC1`, t09.`AMDESB1`, t21.`BNDESB1`, t4.`OVDESB1`, t4.`OVDOCDT`, t9kab.`DTDESC1` AS 'kabkota', t9kec.`DTDESC1` AS 'kecamatan', t9des.`DTDESC1` AS 'desa', t4.`OVLOCID`
+        FROM t4312 AS t4 JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID` 
+        JOIN t0901 AS t09 ON t09.`AMOBJ` = t4.`OVINUM` 
+        JOIN t0009 ON t0009.`DTDC` = t4.`OVMSTY` 
+        LEFT OUTER JOIN t0009 AS t9kab ON t9kab.`DTDC` = t4.`OVCITY` AND t9kab.`DTPC`='01' AND t9kab.`DTSC`='CY' AND t9kab.`DTDC` IN ('35.76','35.16')
+        LEFT OUTER JOIN t0009 AS t9kec ON t9kec.`DTDC` = t4.`OVDIST` AND t9kec.`DTPC`='01' AND t9kec.`DTSC`='DT' AND SUBSTRING(t9kec.`DTDC`, 1, 5) = t9kab.`DTDC`
+        LEFT OUTER JOIN t0009 AS t9des ON t9des.`DTDC` = t4.`OVSUBDIST` AND t9des.`DTPC`='01' AND t9des.`DTSC`='SD' AND SUBSTRING(t9des.`DTDC`, 1, 8) = t9kec.`DTDC`
+        WHERE t0009.`DTPC` = '20' AND t0009.`DTSC` = 'JB' AND t4.`OVLST` = '400' AND t4.`OVNST` = '440' AND t4.`OVDOCNO` = '$ovdocno'");
 
         return $query->result_array();
     }
@@ -138,7 +149,7 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function getLokasi($idbuid) {
-        $query = $this->db->query("SELECT LMIDBUID, LMLOCID
+        $query = $this->db->query("SELECT LMIDBUID, LMLOCID, LMDESA1, LMDESA2
         FROM t4100
         WHERE LMIDBUID = '$idbuid'");
 
@@ -288,8 +299,6 @@ class BerkasBaru_model extends CI_Model {
             "ITCITY" => $this->input->post('OVCITY', true),
             "ITDIST" => $this->input->post('OVDIST', true),
             "ITSUBDIST" => $this->input->post('OVSUBDIST', true),
-            // "OVLST" => $this->input->post('OVLST', true),
-            // "OVNST" => $this->input->post('OVNST', true),
             "ITMANAGE" => $this->input->post('OVIDBUID', true),
             "ITLOCID" => $this->input->post('OVLOCID', true),
             "ITDOCMO" => $m,
@@ -416,8 +425,6 @@ class BerkasBaru_model extends CI_Model {
             "ITCITY" => $this->input->post('OVCITY', true),
             "ITDIST" => $this->input->post('OVDIST', true),
             "ITSUBDIST" => $this->input->post('OVSUBDIST', true),
-            // "OVLST" => $this->input->post('OVLST', true),
-            // "OVNST" => $this->input->post('OVNST', true),
             "ITMANAGE" => $this->input->post('OVIDBUID', true),
             "ITLOCID" => $this->input->post('OVLOCID', true),
             "ITDOCMO" => $m,
@@ -484,11 +491,12 @@ class BerkasBaru_model extends CI_Model {
         // AND t9kab.`DTPC`='01' AND t9kab.`DTSC`='CY' AND t9kab.`DTDC` IN ('35.76','35.16')
         // AND t0009.`DTPC` = '20' AND t0009.`DTSC` = 'JB' AND t4.`OVDOCNO` = '$x' AND t4.`OVIDBUID` = '$ovidbuid'");
 
-        $query = $this->db->query("SELECT t4.`OVCOID`, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVINUM`, t4.`OVDOCTY`, t4.OVMSTY, t4.OVCOMV, t4.OVBRAND, t4.OVCOLOR, t4.OVCILCAP, t4.`OVDOCSQ`, t4.`OVLST`, t4.`OVNST`,
+        $query = $this->db->query("SELECT t4.`OVCOID`, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVINUM`, t41.`LMLOCID`, t41.`LMDESA2`, t4.`OVDOCTY`, t4.OVMSTY, t4.OVCOMV, t4.OVBRAND, t4.OVCOLOR, t4.OVCILCAP, t4.`OVDOCSQ`, t4.`OVLST`, t4.`OVNST`,
         t4.OVMFN, t4.OVVHRN, t4.OVVHTAXDT, t4.OVVHRNTAXDT, t4.OVCRTFID, t4.OVCRTFDT, t4.OVLNDOWNST, t4.OVLENGTH, t4.OVMACHNID, t4.OVWIDTH, t4.OVWIDE, t4.OVASADDR, t4.OVCITY, t4.OVDIST, t4.OVSUBDIST,  t09.`AMOBJ`, t0009.`DTDESC1`, t09.`AMDESB1`, t21.`BNDESB1`, t4.`OVDESB1`, t4.`OVDOCDT`, t9kab.`DTDESC1` AS 'kabkota', t9kec.`DTDESC1` AS 'kecamatan', t9des.`DTDESC1` AS 'desa', t4.`OVLOCID`
         FROM t4312 AS t4 JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID` 
         JOIN t0901 AS t09 ON t09.`AMOBJ` = t4.`OVINUM` 
         JOIN t0009 ON t0009.`DTDC` = t4.`OVMSTY` 
+        JOIN t4100 AS t41 ON t4.`OVLOCID` = t41.`LMLOCID`
         LEFT OUTER JOIN t0009 AS t9kab ON t9kab.`DTDC` = t4.`OVCITY` AND t9kab.`DTPC`='01' AND t9kab.`DTSC`='CY' AND t9kab.`DTDC` IN ('35.76','35.16')
         LEFT OUTER JOIN t0009 AS t9kec ON t9kec.`DTDC` = t4.`OVDIST` AND t9kec.`DTPC`='01' AND t9kec.`DTSC`='DT' AND SUBSTRING(t9kec.`DTDC`, 1, 5) = t9kab.`DTDC`
         LEFT OUTER JOIN t0009 AS t9des ON t9des.`DTDC` = t4.`OVSUBDIST` AND t9des.`DTPC`='01' AND t9des.`DTSC`='SD' AND SUBSTRING(t9des.`DTDC`, 1, 8) = t9kec.`DTDC`
@@ -573,12 +581,12 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function dataKonfirmasi($ovidbuid, $ovdocno) {
-        $query = $this->db->query("SELECT t21.`BNDESB1`, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVDOCDT`, t1a.ADNM AS pimpinan, t09.`DTDESC1` AS jabatan, t21.`BNCC01`, t21.`BNCC02`
+        $query = $this->db->query("SELECT t21.`BNDESB1`, t4.`OVIDBUID`, COUNT(t4.`OVDOCSQ`) AS total_berkas, t4.`OVDOCNO`, t4.`OVDOCDT`, t1a.ADNM AS pimpinan, t09.`DTDESC1` AS jabatan, t21.`BNCC01`, t21.`BNCC02`
         FROM t0021 AS t21
         JOIN t4312 AS t4 ON t4.`OVIDBUID` = t21.`BNIDBUID`
         LEFT OUTER JOIN t0101 t1a ON t21.`BNCC01` = t1a.`ADIDANUM`
         LEFT OUTER JOIN t0009 t09 ON t21.`BNCC02` = t09.`DTIDDC` AND t09.DTPC='15' AND t09.DTSC='JP'
-        WHERE t4.`OVIDBUID` = '$ovidbuid' AND t4.`OVDOCNO` = '$ovdocno'
+        WHERE t4.`OVIDBUID` = '$ovidbuid' AND t4.`OVDOCNO` = '$ovdocno' AND t4.`OVLST` = '400' AND t4.`OVNST` = '440'
         GROUP BY t4.`OVDOCNO`");
 
         return $query->result_array();
@@ -599,13 +607,8 @@ class BerkasBaru_model extends CI_Model {
         $ip = $_SERVER['REMOTE_ADDR'];
         $post=$this->input->post();
 
-        // $this->BNBUID = $post["BNBUID"];
-        // $this->BNDESB1 = $post["BNDESB1"];
-        // $this->BNBUTY = $post["BNBUTY"];
-        // $this->BNBUID1 = $post["BNBUID1"];
         $this->BNCC01 = $post["BNCC01"];
         $this->BNCC02 = $post["BNCC02"];
-        // $this->BNCC03 = $post["BNCC03"];
         $this->BNIPUIDM = $ip;
         $this->BNDTLU = date('Y-m-d H:i:s', time());
         

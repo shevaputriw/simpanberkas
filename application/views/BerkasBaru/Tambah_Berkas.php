@@ -356,7 +356,7 @@
                 var i;
 
                 for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].LMLOCID+'>'+data[i].LMLOCID+'</option>';
+                    html += '<option value='+data[i].LMLOCID+'>'+data[i].LMDESA2+'</option>';
                 }
                 $('#OVLOCID').html(html);
 

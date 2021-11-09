@@ -148,54 +148,6 @@ class BerkasBaru extends CI_Controller {
         }  
     }
 
-    // public function Simpan_Tambah() {
-    //     $data['title'] = 'Tambah Berkas';
-
-    //     // $data['opd'] = $this->BerkasBaru_model->getOpd();
-    //     $data['jenis_berkas'] = $this->BerkasBaru_model->getJenisBerkas();
-    //     $data['getKabKota'] = $this->BerkasBaru_model->getKabKota();
-    //     $data['kode_barang'] = $this->BerkasBaru_model->getKodeBarang();
-    //     $data['kodekab'] = $this->BerkasBaru_model->getKode();
-
-    //     $this->form_validation->set_rules('OVDESB1', 'Nama Barang', 'required');
-
-    //     $tanggal = date('d-m-Y');
-    //     $pecah_tgl = explode("-", $tanggal);
-
-    //     $tanggal = $pecah_tgl[0];
-    //     $bulan = $pecah_tgl[1];
-    //     $tahun = $pecah_tgl[2];
-
-    //     if($this->form_validation->run() == FALSE) {
-    //         $cek = $this->BerkasBaru_model->Cek($tahun, $bulan);
-
-    //         if($cek->num_rows() == 0) {
-    //             $tambah_tahun = $this->BerkasBaru_model->Tambah_t0002($tahun, $bulan);
-    //             $data['tampil'] = $this->BerkasBaru_model->Get($tahun, $bulan);
-
-    //             $this->load->view('template/Header',$data);
-    //             $this->load->view('BerkasBaru/Tambah_Berkas',$data);
-    //             $this->load->view('template/Footer',$data);
-    //         }
-    //         else{
-    //             $data['tampil'] = $this->BerkasBaru_model->Get($tahun, $bulan);
-
-    //             $this->load->view('template/Header',$data);
-    //             $this->load->view('BerkasBaru/Tambah_Berkas',$data);
-    //             $this->load->view('template/Footer',$data);
-    //         }
-    //     }
-    //     else {
-    //         $update_nnseq = $this->BerkasBaru_model->Update($tahun, $bulan);
-    //         $ovdocno = $this->input->post('OVDOCNO');
-    //         $ovidbuid = $this->input->post('OVIDBUID');
-    //         $x = $ovdocno + 1;
-    //         $this->BerkasBaru_model->Tambah_Berkas($x);
-
-    //         redirect('BerkasBaru/Tambah_Baru/'.$x.'/'.$ovidbuid,'refresh');
-    //     }  
-    // }
-
     public function Tambah_Baru($x, $ovidbuid) {
         $data['title'] = 'Tambah Berkas Baru 2';
         // echo $ovdocsq->OVDOCSQ;
@@ -309,14 +261,22 @@ class BerkasBaru extends CI_Controller {
         $data['jabatan'] = $this->BerkasBaru_model->getJabatan();
 
         $this->BerkasBaru_model->Update_t0002($ovidbuid);
-        // die();
+        redirect('BerkasBaru/Print/'.$ovidbuid.'/'.$ovdocno,'refresh');
+    }
+
+    public function Print($ovidbuid, $ovdocno) {
+        $data['title'] = 'Cetak Berita Acara';
+
+        $data['getData'] = $this->BerkasBaru_model->dataKonfirmasi($ovidbuid, $ovdocno);
+        $data['get_berkas2'] = $this->BerkasBaru_model->getBerkas2($ovdocno);
+        $data['pimpinan'] = $this->BerkasBaru_model->getPimpinan();
+        $data['jabatan'] = $this->BerkasBaru_model->getJabatan();
+
         $this->load->library('pdf');
 		$this->pdf->setPaper('A4', 'potrait');
-		$this->pdf->filename = "laporan-data-siswa.pdf";
+        $this->pdf->set_option('isRemoteEnabled', true); 
+		$this->pdf->filename = "Berita-acara.pdf";
 		$this->pdf->load_view('BerkasBaru/Cetak', $data);
-        // $this->load->view('template/Header',$data);
-        // $this->load->view('BerkasBaru/Cetak',$data);
-        // $this->load->view('template/Footer',$data);
     }
 
 }

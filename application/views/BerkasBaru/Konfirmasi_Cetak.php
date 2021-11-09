@@ -12,6 +12,8 @@
                             <form action="<?=base_url()?>BerkasBaru/Update_t0002/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" method="post">
                                 <input type="hidden" value="<?=$gt["OVIDBUID"];?>">
                                 <input type="hidden" value="<?=$gt["OVDOCNO"];?>">
+                                <input type="hidden" value="<?=$gt["BNCC01"];?>">
+                                <input type="hidden" value="<?=$gt["BNCC02"];?>">
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label style="color:#2b2a28;"><b>Nomor Dokuman :</b></label>
@@ -37,7 +39,6 @@
                                                     <option value="<?=$p['ADIDANUM'];?>"><?=$p['ADNM'];?></option>
                                                 <?php endforeach;?>
                                             <?php } else {?>
-                                                <!-- <option value="0">Belum Dipilih</option> -->
                                                 <?php foreach($pimpinan as $p) : ?>
                                                     <?php if($p['ADIDANUM'] == $gt["BNCC01"]) {?>
                                                         <option value="<?=$gt["BNCC01"];?>" selected><?=$gt["pimpinan"];?></option>
@@ -49,7 +50,6 @@
                                             }
                                         ?>
                                         </select>
-                                        <!-- <p style="color:#313236"><?=$gt["pimpinan"];?></p> -->
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label style="color:#2b2a28;"><b>Jabatan :</b></label>
@@ -61,7 +61,6 @@
                                                     <option value="<?=$j['DTIDDC'];?>"><?=$j['DTDESC1'];?></option>
                                                 <?php endforeach;?>
                                             <?php } else {?>
-                                                <!-- <option value="0">Belum Dipilih</option> -->
                                                 <?php foreach($jabatan as $j) : ?>
                                                     <?php if($j['DTIDDC'] == $gt["BNCC02"]) {?>
                                                         <option value="<?=$gt["BNCC02"];?>" selected><?=$gt["jabatan"];?></option>
@@ -73,7 +72,6 @@
                                             }
                                         ?>
                                         </select>
-                                        <!-- <p style="color:#313236"><?=$gt["jabatan"];?></p> -->
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label style="color:#2b2a28;"><b>Detail Berkas :</b></label>
@@ -89,7 +87,6 @@
                                         </center>
                                     </div>
                                 </div>
-                                <!-- <a href="<?=base_url()?>BerkasBaru/index"><button type="button" class="btn btn-primary" style="float:right;"><i class="fa fa-print"></i> &nbsp;&nbsp;Print</button></a> -->
                             <?php endforeach;?>
                         </form>
                     </div>

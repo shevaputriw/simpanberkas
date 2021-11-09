@@ -274,7 +274,7 @@
                                             <td><?=$gt["OVINUM"];?></td>
                                             <td><?=$gt["DTDESC1"];?></td>
                                             <td><?=$gt["OVDESB1"];?></td>
-                                            <td><?=$gt["OVLOCID"];?></td>
+                                            <td><?=$gt["LMDESA2"];?></td>
                                             <td>
                                                 <a data-toggle="modal" href="#basicModal<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                 <a href="<?=base_url()?>BerkasBaru/Edit_Berkas/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCSQ"];?>/<?=$gt["OVIDBUID"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
@@ -348,7 +348,7 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label style="color:#2b2a28;"><b>Lokasi Barang :</b></label>
-                                                        <p style="color:#313236"><?=$gt["OVLOCID"];?></p>
+                                                        <p style="color:#313236"><?=$gt["LMDESA2"];?></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -421,7 +421,7 @@
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label style="color:#2b2a28;"><b>Lokasi Barang :</b></label>
-                                                        <p style="color:#313236"><?=$gt["OVLOCID"];?></p>
+                                                        <p style="color:#313236"><?=$gt["LMDESA2"];?></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -602,7 +602,7 @@
                     //     html += '<option value='+data[i].LMLOCID+' selected>'+data[i].LMLOCID+'</option>';
                     // }
                     // else {
-                        html += '<option value='+data[i].LMLOCID+'>'+data[i].LMLOCID+'</option>';
+                        html += '<option value='+data[i].LMLOCID+'>'+data[i].LMDESA2+'</option>';
                     // }
                 }
                 $('#OVLOCID').html(html);
