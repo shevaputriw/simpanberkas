@@ -58,23 +58,23 @@
                                             <form action="<?=base_url()?>MasterUnitKerja/Tambah_OPD" method="post">
                                                 <div class="form-row">
                                                     <div class="form-group col-md-3">
-                                                        <label>Kode Kabupaten/Kota</label>
+                                                        <label style="color:#313236">Kode Kabupaten/Kota</label>
                                                         <input type="text" class="form-control" name="BNCOID" autocomplete="off" disabled style="background-color:#f2f2f2;" value="<?=$kodekab->CNCOID;?>">
                                                     </div>
                                                     <div class="form-group col-md-9">
-                                                        <label>Kode Unit Kerja</label>
+                                                        <label style="color:#313236">Kode Unit Kerja</label>
                                                         <input type="text" class="form-control" name="BNBUID" autocomplete="off" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label>Nama Unit Kerja</label>
+                                                        <label style="color:#313236">Nama Unit Kerja</label>
                                                         <input type="text" class="form-control" name="BNDESB1" autocomplete="off" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label>Tipe Unit Kerja</label>
+                                                        <label style="color:#313236">Tipe Unit Kerja</label>
                                                         <select class="form-control" name="BNBUTY" required>
                                                             <option value="" selected="true" disabled="disabled">- Pilih Tipe Unit Kerja -</option>
                                                             <?php foreach($tipe as $t) : ?>
@@ -83,7 +83,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>Relasi Unit kerja</label>
+                                                        <label style="color:#313236">Relasi Unit kerja</label>
                                                         <select class="form-control" name="BNBUID1">
                                                             <option value="" selected="true" disabled="disabled">- Pilih Relasi Unit Kerja -</option>
                                                             <option value="0">Tidak Ada</option>
@@ -95,7 +95,7 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-4">
-                                                        <label>Pimpinan</label>
+                                                        <label style="color:#313236">Pimpinan</label>
                                                         <select class="form-control" name="BNCC01" required>
                                                             <option value="" selected="true" disabled="disabled">- Pilih Pimpinan Unit Kerja -</option>
                                                             <?php foreach($pimpinan as $pimpinan) : ?>
@@ -104,7 +104,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label>Jabatan</label>
+                                                        <label style="color:#313236">Jabatan</label>
                                                         <select class="form-control" name="BNCC02" required>
                                                             <option value="" selected="true" disabled="disabled">- Pilih Jabatan -</option>
                                                             <?php foreach($jabatan as $j) : ?>
@@ -113,7 +113,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label>Pengurus Barang</label>
+                                                        <label style="color:#313236">Pengurus Barang</label>
                                                         <select class="form-control" name="BNCC03" required>
                                                             <option value="" selected="true" disabled="disabled">- Pilih Pengurus Barang -</option>
                                                             <?php foreach($pengurus_barang as $pb) : ?>
@@ -156,23 +156,23 @@
                                                 <input type="hidden" name="BNIDBUID" value="<?=$opd["BNIDBUID"];?>">
                                                 <div class="form-row">
                                                     <div class="form-group col-md-3">
-                                                        <label>Kode Kabupaten/Kota</label>
+                                                        <label style="color:#313236">Kode Kabupaten/Kota</label>
                                                         <input type="text" class="form-control" name="BNCOID" autocomplete="off" disabled style="background-color:#f2f2f2;" value="<?=$kodekab->CNCOID;?>">
                                                     </div>
                                                     <div class="form-group col-md-9">
-                                                        <label>Kode Unit Kerja</label>
+                                                        <label style="color:#313236">Kode Unit Kerja</label>
                                                         <input type="text" class="form-control" name="BNBUID" autocomplete="off" value="<?=$opd["BNBUID"];?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label>Nama Unit Kerja</label>
+                                                        <label style="color:#313236">Nama Unit Kerja</label>
                                                         <input type="text" class="form-control" name="BNDESB1" autocomplete="off" value="<?=$opd["BNDESB1"];?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label>Tipe Unit Kerja</label>
+                                                        <label style="color:#313236">Tipe Unit Kerja</label>
                                                         <select class="form-control" name="BNBUTY">
                                                             <option value="<?=$opd["DTDC"];?>" selected><?=$opd["DTDESC1"];?></option>
                                                             <?php foreach($tipe as $t) : ?>
@@ -181,7 +181,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>Relasi Unit kerja</label>
+                                                        <label style="color:#313236">Relasi Unit kerja</label>
                                                         <select class="form-control" name="BNBUID1">
                                                             <?php
                                                             if($opd["BNBUID1"] == 0) {?>
@@ -200,7 +200,7 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-4">
-                                                        <label>Pimpinan</label>
+                                                        <label style="color:#313236">Pimpinan</label>
                                                         <select class="form-control" name="BNCC01" required>
                                                             <option value="<?=$opd["BNCC01"]?>" selected="true"><?=$opd["BNCC01"]?></option>
                                                             <?php foreach($pimpinan as $p) : ?>
@@ -209,7 +209,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label>Jabatan</label>
+                                                        <label style="color:#313236">Jabatan</label>
                                                         <select class="form-control" name="BNCC02" required>
                                                             <option value="<?=$opd["BNCC02"]?>" selected="true" ><?=$opd["BNCC02"]?></option>
                                                             <?php foreach($jabatan as $j) : ?>
@@ -218,7 +218,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label>Pengurus Barang</label>
+                                                        <label style="color:#313236">Pengurus Barang</label>
                                                         <select class="form-control" name="BNCC03" required>
                                                             <option value="<?=$opd["BNCC03"]?>" selected="true"><?=$opd["BNCC03"]?></option>
                                                             <?php foreach($pengurus_barang as $pb) : ?>
@@ -266,23 +266,23 @@
                                                 <input type="hidden" name="BNIDBUID" value="<?=$opd["BNIDBUID"];?>">
                                                 <div class="form-row">
                                                     <div class="form-group col-md-3">
-                                                        <label>Kode Kabupaten/Kota</label>
+                                                        <label style="color:#313236">Kode Kabupaten/Kota</label>
                                                         <input type="text" class="form-control" name="BNCOID" autocomplete="off" disabled style="background-color:#f2f2f2;" value="<?=$kodekab->CNCOID;?>">
                                                     </div>
                                                     <div class="form-group col-md-9">
-                                                        <label>Kode Unit Kerja</label>
+                                                        <label style="color:#313236">Kode Unit Kerja</label>
                                                         <input type="text" class="form-control" name="BNBUID" autocomplete="off" value="<?=$opd["BNBUID"];?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label>Nama Unit Kerja</label>
+                                                        <label style="color:#313236">Nama Unit Kerja</label>
                                                         <input type="text" class="form-control" name="BNDESB1" autocomplete="off" value="<?=$opd["BNDESB1"];?>">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label>Tipe Unit Kerja</label>
+                                                        <label style="color:#313236">Tipe Unit Kerja</label>
                                                         <select class="form-control" name="BNBUTY">
                                                         <?php foreach($tipe as $t) : ?>
                                                             <?php if($t["DTDC"] == $opd["BNBUTY"]) {?>
@@ -299,7 +299,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>Relasi Unit kerja</label>
+                                                        <label style="color:#313236">Relasi Unit kerja</label>
                                                         <select class="form-control" name="BNBUID1">
                                                             <?php
                                                                 if($opd["BNBUID1"] == 0) {?>
@@ -337,7 +337,7 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-4">
-                                                        <label>Pimpinan</label>
+                                                        <label style="color:#313236">Pimpinan</label>
                                                         <select class="form-control" name="BNCC01" required>
                                                         <?php
                                                         if($opd["BNCC01"] == NULL || $opd["BNCC01"] == 0) {?>
@@ -365,7 +365,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label>Jabatan</label>
+                                                        <label style="color:#313236">Jabatan</label>
                                                         <select class="form-control" name="BNCC02" required>
                                                         <?php
                                                         if($opd["BNCC02"] == NULL || $opd["BNCC02"] == 0) {?>
@@ -394,7 +394,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label>Pengurus Barang</label>
+                                                        <label style="color:#313236">Pengurus Barang</label>
                                                         <select class="form-control" name="BNCC03" required>
                                                         <?php
                                                         if($opd["BNCC03"] == NULL || $opd["BNCC03"] == 0) {?>

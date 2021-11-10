@@ -19,6 +19,7 @@
                                         <th>OPD</th>
                                         <th>Tanggal Dokumen</th>
                                         <th>Jumlah Berkas</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -30,6 +31,16 @@
                                         <td><?=$gt["BNDESB1"];?></td>
                                         <td><?= date('d-m-Y', strtotime($gt["OVDOCDT"])); ?></td>
                                         <td><?=$gt["total_berkas"];?></td>
+                                        <?php if($gt["OVPOST"] == "0" || $gt["OVPOST"] == NULL) {?>
+                                            <td>
+                                                <a href="<?=base_url()?>BerkasBaru/Approval/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-warning"><?=$gt["draft"];?></span></a>
+                                            </td>
+                                            
+                                        <?php } else {?>
+                                            <td>
+                                                <a href="#"><span class="badge badge-warning"><?=$gt["approval"];?></span></a>
+                                            </td>
+                                        <?php }?>
                                         <td>
                                             <!-- <a data-toggle="modal" href="#basicModalb<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
                                             <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>

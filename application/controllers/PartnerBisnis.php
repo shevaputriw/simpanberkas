@@ -25,6 +25,7 @@ class PartnerBisnis extends CI_Controller {
 
     public function Tambah_PartnerBisnis() {
         $data['title'] = 'Tambah Partner Bisnis';
+
         $data['tipe'] = $this->PartnerBisnis_model->getTipe();
         $data['hutang'] = ['Ya', 'Tidak'];
         $data['piutang'] = ['Ya', 'Tidak'];
@@ -37,12 +38,15 @@ class PartnerBisnis extends CI_Controller {
         $this->form_validation->set_rules('ADNM', 'Nama', 'required'); 
         $this->form_validation->set_rules('ADPAN', 'Parent ID', 'required');
 
-        $tanggal = date('d-m-Y');
-        $pecah_tgl = explode("-", $tanggal);
+        // $tanggal = date('d-m-Y');
+        // $pecah_tgl = explode("-", $tanggal);
 
-        $tanggal = $pecah_tgl[0];
-        $bulan = $pecah_tgl[1];
-        $tahun = $pecah_tgl[2];
+        // $tanggal = $pecah_tgl[0];
+        // $bulan = $pecah_tgl[1];
+        // $tahun = $pecah_tgl[2];
+        $getTahunBulan = $this->PartnerBisnis_model->getTahunBulan();
+        $tahun = $getTahunBulan->CNCFY;
+        $bulan = $getTahunBulan->CNCAP;
 
         if($this->form_validation->run() == FALSE) {
             $cek_tahun = $this->PartnerBisnis_model->Cek_tahun($tahun);

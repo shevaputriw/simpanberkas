@@ -44,6 +44,12 @@ class PartnerBisnis_model extends CI_Model {
         return $query->row();
     }
 
+    public function getTahunBulan() {
+        $query=$this->db->query("SELECT CNCFY, CNCAP FROM t0020 WHERE CNCOID = '16'");
+
+        return $query->row();
+    }
+
     public function Update($tahun) {
         $ip = $_SERVER['REMOTE_ADDR'];
         date_default_timezone_set('Asia/Jakarta');

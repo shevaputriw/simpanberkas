@@ -17,17 +17,17 @@
                                 <input type="hidden" name="ADIDANUM" value="<?=$pb["ADIDANUM"]?>">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label>No. Identitas (NIK/Passport/KTP)</label>
+                                        <label style="color:#313236">No. Identitas (NIK/Passport/KTP)</label>
                                         <input type="text" class="form-control" name="ADANUM" autocomplete="off" value="<?=$pb["ADANUM"]?>">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Nama</label>
+                                        <label style="color:#313236">Nama</label>
                                         <input type="text" class="form-control" name="ADNM" autocomplete="off" value="<?=$pb["ADNM"]?>">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label>Tipe</label>
+                                        <label style="color:#313236">Tipe</label>
                                         <select class="form-control" name="ADST" required>
                                             <option value="<?=$pb["DTDC"];?>" selected><?=$pb["tipe"];?></option>
                                             <?php foreach($tipe as $t) : ?>
@@ -36,33 +36,33 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Parent ID</label>
+                                        <label style="color:#313236">Parent ID</label>
                                         <input type="text" class="form-control" name="ADPAN" autocomplete="off" value="<?=$pb["ADPAN"]?>">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label>Alamat</label>
+                                        <label style="color:#313236">Alamat</label>
                                         <input type="text" class="form-control" name="ADADDR" autocomplete="off" value="<?=$pb["ADADDR"]?>">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Email</label>
+                                        <label style="color:#313236">Email</label>
                                         <input type="email" class="form-control" name="ADEMAIL" autocomplete="off" value="<?=$pb["ADEMAIL"]?>">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label>No. Telp</label>
+                                        <label style="color:#313236">No. Telp</label>
                                         <input type="text" class="form-control" name="ADPHNO1" autocomplete="off" value="<?=$pb["ADPHNO1"]?>">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>N.P.W.P.</label>
+                                        <label style="color:#313236">N.P.W.P.</label>
                                         <input type="text" class="form-control" name="ADTAXID" autocomplete="off" value="<?=$pb["ADTAXID"]?>">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
-                                        <label>Hutang</label>
+                                        <label style="color:#313236">Hutang</label>
                                         <select class="form-control" name="ADAP">
                                             <?php
                                                 if($pb["ADAP"] == NULL) {?>
@@ -96,7 +96,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label>Piutang</label>
+                                        <label style="color:#313236">Piutang</label>
                                         <select class="form-control" name="ADAR">
                                             <?php
                                                 if($pb["ADAR"] == NULL) {?>
@@ -118,7 +118,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label>Karyawan</label>
+                                        <label style="color:#313236">Karyawan</label>
                                         <select class="form-control" name="ADEMPL">
                                             <?php
                                                 if($pb["ADEMPL"] == NULL) {?>
@@ -142,7 +142,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
-                                        <label>Pimpinan</label>
+                                        <label style="color:#313236">Pimpinan</label>
                                         <select class="form-control" name="ADCC01">
                                             <?php
                                             if($pb["ADCC01"] == NULL || $pb["ADCC01"] == 0) {?>
@@ -170,7 +170,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label>Jabatan</label>
+                                        <label style="color:#313236">Jabatan</label>
                                         <select class="form-control" name="ADCC02">
                                             <?php
                                                 if($pb["ADCC02"] == NULL || $pb["ADCC02"] == 0) {?>
@@ -206,7 +206,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label>Pengurus Barang</label>
+                                        <label style="color:#313236">Pengurus Barang</label>
                                         <select class="form-control" name="ADCC03">
                                             <?php
                                                 if($pb["ADCC03"] == NULL || $pb["ADCC03"] == 0) {?>

@@ -50,7 +50,7 @@
                                             
                                             <div class="form-row">
                                                 <!-- <div class="form-group col-md-12">
-                                                    <label>OPD</label>
+                                                    <label style="color:#313236">OPD</label>
                                                     <select class="form-control" name="OVIDBUID" id="opd">
                                                         <?php foreach($opd as $opd) : ?>
                                                             <?php if($opd["BNIDBUID"] == $berkas["OVIDBUID"]) {?>
@@ -62,29 +62,29 @@
                                                     </select>
                                                 </div> -->
                                                 <div class="form-group col-md-4">
-                                                    <label>OPD</label>
+                                                    <label style="color:#313236">OPD</label>
                                                     <input type="text" class="form-control" name="OVIDBUID" value="<?=$berkas["BNDESB1"];?>" style="background-color:#f2f2f2;" disabled>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Nomor Dokumen</label>
+                                                    <label style="color:#313236">Nomor Dokumen</label>
                                                     <input type="text" class="form-control" name="OVDOCNO" value="<?=$berkas["OVDOCNO"];?>" style="background-color:#f2f2f2;" disabled>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Tanggal</label>
+                                                    <label style="color:#313236">Tanggal</label>
                                                     <input type="text" class="form-control" name="OVDOCDT" value="<?= date('d-m-Y', strtotime($berkas["OVDOCDT"])); ?>" style="background-color:#f2f2f2;" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>Jenis Berkas</label>
+                                                    <label style="color:#313236">Jenis Berkas</label>
                                                     <input type="text" class="form-control" name="OVDOCNO" id="OVMSTY" value="<?=$berkas["DTDESC1"];?>" style="background-color:#f2f2f2;" disabled>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Kode Barang</label>
+                                                    <label style="color:#313236">Kode Barang</label>
                                                     <input type="text" class="form-control" name="OVDOCNO" value="<?=$berkas["AMDESB1"];?>" style="background-color:#f2f2f2;" disabled>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Lokasi Barang</label>
+                                                    <label style="color:#313236">Lokasi Barang</label>
                                                     <!-- <input type="text" class="form-control" name="OVLOCID" value="<?=$berkas["OVLOCID"];?>" style="background-color:#f2f2f2;"> -->
                                                     <select class="form-control" name="OVLOCID" id="OVLOCID" required>
                                                         <!-- <option value="" selected="true" disabled="disabled">- Pilih Lokasi Barang -</option> -->
@@ -94,11 +94,11 @@
                                             </div>
                                             <!-- <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label>Tanggal</label>
+                                                    <label style="color:#313236">Tanggal</label>
                                                     <input type="date" class="form-control" name="OVDOCDT" id="OVDOCDT" value="<?php echo date('Y-m-d', strtotime($berkas["OVDOCDT"])) ?>">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label>Jenis Berkas</label>
+                                                    <label style="color:#313236">Jenis Berkas</label>
                                                     <select class="form-control" name="OVMSTY" id="jenis_berkas">
                                                         <?php foreach($jenis_berkas as $jb) : ?>
                                                             <?php if($jb["DTDC"] == $berkas["OVMSTY"]) {?>
@@ -112,7 +112,7 @@
                                             </div> -->
                                             <div class="form-row">
                                                 <!-- <div class="form-group col-md-6">
-                                                    <label>Kode Barang</label>
+                                                    <label style="color:#313236">Kode Barang</label>
                                                     <select class="form-control" name="OVINUM" id="kode_barang" required>
                                                         <?php foreach($kode_barang as $kb) : ?>
                                                             <?php if($kb["AMOBJ"] == $berkas["OVINUM"]) {?>
@@ -124,7 +124,7 @@
                                                     </select>
                                                 </div> -->
                                                 <div class="form-group col-md-12">
-                                                    <label>Nama Barang</label>
+                                                    <label style="color:#313236">Nama Barang</label>
                                                     <input type="text" class="form-control" name="OVDESB1" value="<?=$berkas["OVDESB1"];?>">
                                                 </div>
                                             </div>
@@ -139,45 +139,45 @@
                                             <center><h4 class="card-title" style="margin-top:-10px;">EDIT BERKAS</h4></center><br>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
-                                                    <label>No. BPKB</label>
+                                                    <label style="color:#313236">No. BPKB</label>
                                                     <input type="text" class="form-control" name="OVCOMV" value="<?=$berkas["OVCOMV"];?>">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>Merk</label>
+                                                    <label style="color:#313236">Merk</label>
                                                     <input type="text" class="form-control" name="OVBRAND" value="<?=$berkas["OVBRAND"];?>">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Warna</label>
+                                                    <label style="color:#313236">Warna</label>
                                                     <input type="text" class="form-control" name="OVCOLOR" value="<?=$berkas["OVCOLOR"];?>">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Kapasitas Mesin</label>
+                                                    <label style="color:#313236">Kapasitas Mesin</label>
                                                     <input type="text" class="form-control" name="OVCILCAP" value="<?=$berkas["OVCILCAP"];?>">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>No. Rangka</label>
+                                                    <label style="color:#313236">No. Rangka</label>
                                                     <input type="text" class="form-control" name="OVMFN" value="<?=$berkas["OVMFN"];?>">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>No. Mesin</label>
+                                                    <label style="color:#313236">No. Mesin</label>
                                                     <input type="text" class="form-control" name="OVMACHNID" value="<?=$berkas["OVMACHNID"];?>">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>No. Polisi</label>
+                                                    <label style="color:#313236">No. Polisi</label>
                                                     <input type="text" class="form-control" name="OVVHRN" value="<?=$berkas["OVVHRN"];?>">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label>Tanggal Akhir Pajak</label>
+                                                    <label style="color:#313236">Tanggal Akhir Pajak</label>
                                                     <input type="date" class="form-control" name="OVVHTAXDT" id="OVVHTAXDT" value="<?php echo date('Y-m-d', strtotime($berkas["OVVHTAXDT"])) ?>">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label>Tanggal Akhir STNK</label>
+                                                    <label style="color:#313236">Tanggal Akhir STNK</label>
                                                     <input type="date" class="form-control" name="OVVHRNTAXDT" id="OVVHRNTAXDT" value="<?php echo date('Y-m-d', strtotime($berkas["OVVHRNTAXDT"])) ?>">
                                                 </div>
                                             </div>
@@ -191,41 +191,41 @@
                                             <center><h4 class="card-title" style="margin-top:-10px;">EDIT BERKAS</h4></center><br>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>No. Serifikat</label>
+                                                    <label style="color:#313236">No. Serifikat</label>
                                                     <input type="text" class="form-control" name="OVCRTFID" value="<?=$berkas["OVCRTFID"];?>">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Tanggal Serifikat</label>
+                                                    <label style="color:#313236">Tanggal Serifikat</label>
                                                     <input type="date" class="form-control" name="OVCRTFDT" id="OVCRTFDT" value="<?php echo date('Y-m-d', strtotime($berkas["OVCRTFDT"])) ?>">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Status Kepemilikan</label>
+                                                    <label style="color:#313236">Status Kepemilikan</label>
                                                     <input type="text" class="form-control" name="OVLNDOWNST" value="<?=$berkas["OVLNDOWNST"];?>">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>Panjang</label>
+                                                    <label style="color:#313236">Panjang</label>
                                                     <input type="text" class="form-control" name="OVLENGTH" value="<?=$berkas["OVLENGTH"];?>">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Lebar</label>
+                                                    <label style="color:#313236">Lebar</label>
                                                     <input type="text" class="form-control" name="OVWIDTH" value="<?=$berkas["OVWIDTH"];?>">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Luas</label>
+                                                    <label style="color:#313236">Luas</label>
                                                     <input type="text" class="form-control" name="OVWIDE" value="<?=$berkas["OVWIDE"];?>">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
-                                                    <label>Alamat</label>
+                                                    <label style="color:#313236">Alamat</label>
                                                     <input type="text" class="form-control" name="OVASADDR" value="<?=$berkas["OVASADDR"];?>">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>Kabupaten/Kota</label>
+                                                    <label style="color:#313236">Kabupaten/Kota</label>
                                                     <select class="form-control" name="OVCITY" id="OVCITY">
                                                         <?php foreach($KabKota as $gkk) : ?>
                                                             <?php if($gkk["DTDC"] == $berkas["OVCITY"]) {?>
@@ -237,13 +237,13 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Kecamatan</label>
+                                                    <label style="color:#313236">Kecamatan</label>
                                                     <select class="form-control" name="OVDIST" id="OVDIST">
                                                         <option value="<?=$berkas["OVDIST"];?>" selected><?=$berkas["kecamatan"];?></option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Desa</label>
+                                                    <label style="color:#313236">Desa</label>
                                                     <select class="form-control" name="OVSUBDIST" id="OVSUBDIST">
                                                         <option value="<?=$berkas["OVSUBDIST"];?>" selected><?=$berkas["desa"];?></option>
                                                     </select>

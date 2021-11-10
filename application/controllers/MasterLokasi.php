@@ -84,7 +84,6 @@ class MasterLokasi extends CI_Controller {
             redirect('MasterLokasi/index','refresh');
         }   
     }
-
 }
 
 /* End of file MasterLokasi.php */

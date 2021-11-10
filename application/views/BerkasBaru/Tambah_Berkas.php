@@ -69,11 +69,11 @@
                                             <?php endforeach;?>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label>Tanggal</label>
+                                                    <label style="color:#313236">Tanggal</label>
                                                     <input type="date" class="form-control" name="OVDOCDT" value="<?php echo date('Y-m-d') ?>" style="background-color:#f2f2f2;">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label>OPD</label>
+                                                    <label style="color:#313236">OPD</label>
                                                     <select class="form-control" name="OVIDBUID" id="OVIDBUID" required>
                                                         <option value="" selected="true" disabled="disabled">- Pilih OPD -</option>
                                                         <?php foreach($opd as $opd) : ?>
@@ -84,7 +84,7 @@
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>Jenis Berkas</label>
+                                                    <label style="color:#313236">Jenis Berkas</label>
                                                     <select class="form-control" name="OVMSTY" id="OVMSTY">
                                                         <option value="" selected="true" disabled="disabled">- Pilih Jenis Berkas -</option>
                                                         <?php foreach($jenis_berkas as $jb) : ?>
@@ -93,14 +93,14 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Kode Barang</label>
+                                                    <label style="color:#313236">Kode Barang</label>
                                                     <select class="form-control" name="OVINUM" id="OVINUM" required>
                                                         <option value="" selected="true" disabled="disabled">- Pilih Kode Barang -</option>
                                                         
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Lokasi Barang</label>
+                                                    <label style="color:#313236">Lokasi Barang</label>
                                                     <select class="form-control" name="OVLOCID" id="OVLOCID" required>
                                                         <option value="" selected="true" disabled="disabled">- Pilih Lokasi Barang -</option>
                                                         
@@ -109,7 +109,7 @@
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
-                                                    <label>Nama Barang</label>
+                                                    <label style="color:#313236">Nama Barang</label>
                                                     <input type="text" class="form-control" name="OVDESB1" autocomplete="off" required>
                                                 </div>
                                             </div>
@@ -124,45 +124,45 @@
                                             <center><h4 class="card-title" style="margin-top:-10px;">TAMBAH BERKAS BARU</h4></center><br>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
-                                                    <label>No. BPKB</label>
+                                                    <label style="color:#313236">No. BPKB</label>
                                                     <input type="text" class="form-control" name="OVCOMV" autocomplete="off" >
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>Merk</label>
+                                                    <label style="color:#313236">Merk</label>
                                                     <input type="text" class="form-control" name="OVBRAND" autocomplete="off" >
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Warna</label>
+                                                    <label style="color:#313236">Warna</label>
                                                     <input type="text" class="form-control" name="OVCOLOR" autocomplete="off">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Kapasitas Mesin</label>
+                                                    <label style="color:#313236">Kapasitas Mesin</label>
                                                     <input type="text" class="form-control" name="OVCILCAP" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>No. Rangka</label>
+                                                    <label style="color:#313236">No. Rangka</label>
                                                     <input type="text" class="form-control" name="OVMFN" autocomplete="off">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>No. Mesin</label>
+                                                    <label style="color:#313236">No. Mesin</label>
                                                     <input type="text" class="form-control" name="OVMACHNID" autocomplete="off">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>No. Polisi</label>
+                                                    <label style="color:#313236">No. Polisi</label>
                                                     <input type="text" class="form-control" name="OVVHRN" autocomplete="off" >
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label>Tanggal Akhir Pajak</label>
+                                                    <label style="color:#313236">Tanggal Akhir Pajak</label>
                                                     <input type="date" class="form-control" name="OVVHTAXDT" autocomplete="off" >
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label>Tanggal Akhir STNK</label>
+                                                    <label style="color:#313236">Tanggal Akhir STNK</label>
                                                     <input type="date" class="form-control" name="OVVHRNTAXDT" autocomplete="off" >
                                                 </div>
                                             </div>
@@ -176,41 +176,41 @@
                                             <center><h4 class="card-title" style="margin-top:-10px;">TAMBAH BERKAS BARU</h4></center><br>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>No. Serifikat</label>
+                                                    <label style="color:#313236">No. Serifikat</label>
                                                     <input type="text" class="form-control" name="OVCRTFID" autocomplete="off" >
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Tanggal Serifikat</label>
+                                                    <label style="color:#313236">Tanggal Serifikat</label>
                                                     <input type="date" class="form-control" name="OVCRTFDT" autocomplete="off" >
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Status Kepemilikan</label>
+                                                    <label style="color:#313236">Status Kepemilikan</label>
                                                     <input type="text" class="form-control" name="OVLNDOWNST" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>Panjang</label>
+                                                    <label style="color:#313236">Panjang</label>
                                                     <input type="text" class="form-control" name="OVLENGTH" autocomplete="off">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Lebar</label>
+                                                    <label style="color:#313236">Lebar</label>
                                                     <input type="text" class="form-control" name="OVWIDTH" autocomplete="off">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Luas</label>
+                                                    <label style="color:#313236">Luas</label>
                                                     <input type="text" class="form-control" name="OVWIDE" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
-                                                    <label>Alamat</label>
+                                                    <label style="color:#313236">Alamat</label>
                                                     <input type="text" class="form-control" name="OVASADDR" autocomplete="off">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label>Kabupaten/Kota</label>
+                                                    <label style="color:#313236">Kabupaten/Kota</label>
                                                     <select class="form-control" name="OVCITY" id="OVCITY">
                                                         <option value="" selected="true" disabled="disabled">- Pilih Kabupaten/Kota -</option>
                                                         <?php foreach($getKabKota as $gkk) : ?>
@@ -219,13 +219,13 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Kecamatan</label>
+                                                    <label style="color:#313236">Kecamatan</label>
                                                     <select class="form-control" name="OVDIST" id="OVDIST">
                                                     <option value="" selected="true" disabled="disabled">- Pilih Kecamatan -</option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label>Desa</label>
+                                                    <label style="color:#313236">Desa</label>
                                                     <select class="form-control" name="OVSUBDIST" id="OVSUBDIST">
                                                     <option value="" selected="true" disabled="disabled">- Pilih Desa -</option>
                                                     </select>

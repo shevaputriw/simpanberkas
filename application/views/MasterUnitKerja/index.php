@@ -19,7 +19,7 @@
                                     <form>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <label>Status Data</label>
+                                                <label style="color:#313236">Status Data</label>
                                                 <select id="inputState" class="form-control">
                                                     <option selected>Choose...</option>
                                                     <option>Option 1</option>
@@ -28,7 +28,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label>Tanggal Awal</label>
+                                                <label style="color:#313236">Tanggal Awal</label>
                                                 <select id="inputState" class="form-control">
                                                     <option selected>Choose...</option>
                                                     <option>Option 1</option>
@@ -37,7 +37,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label>Tanggal Akhir</label>
+                                                <label style="color:#313236">Tanggal Akhir</label>
                                                 <select id="inputState" class="form-control">
                                                     <option selected>Choose...</option>
                                                     <option>Option 1</option>
@@ -114,21 +114,21 @@
                                             <form action="<?=base_url()?>MasterUnitKerja/Tambah_unit" method="post">
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label>Kode</label>
+                                                        <label style="color:#313236">Kode</label>
                                                         <input type="text" class="form-control" name="CNCOID" autocomplete="off">
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>Tahun Fiksal</label>
+                                                        <label style="color:#313236">Tahun Fiksal</label>
                                                         <input type="text" class="form-control" name="CNCFY" autocomplete="off" placeholder="yyyy">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label>Kabupaten/Kota</label>
+                                                        <label style="color:#313236">Kabupaten/Kota</label>
                                                         <input type="text" class="form-control" name="CNDESB1" autocomplete="off">
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <label>Bulan</label>
+                                                        <label style="color:#313236">Bulan</label>
                                                         <input type="text" class="form-control" name="CNCAP" autocomplete="off" placeholder="dd">
                                                     </div>
                                                 </div>
@@ -170,21 +170,21 @@
                                                     <input type="hidden" name="CNCOID" value="<?=$uk["CNCOID"];?>">
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>Kode</label>
+                                                            <label style="color:#313236">Kode</label>
                                                             <input type="text" class="form-control" name="CNCOID" autocomplete="off" value="<?=$uk["CNCOID"];?>" disabled style="background-color:#f2f2f2;">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>Tahun Fiksal</label>
+                                                            <label style="color:#313236">Tahun Fiksal</label>
                                                             <input type="text" class="form-control" name="CNCFY" autocomplete="off" value="<?=$uk["CNCFY"];?>" placeholder="yyyy">
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">
-                                                            <label>Kabupaten/Kota</label>
+                                                            <label style="color:#313236">Kabupaten/Kota</label>
                                                             <input type="text" class="form-control" name="CNDESB1" autocomplete="off" value="<?=$uk["CNDESB1"];?>" disabled style="background-color:#f2f2f2;">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>Bulan</label>
+                                                            <label style="color:#313236">Bulan</label>
                                                             <input type="text" class="form-control" name="CNCAP" autocomplete="off" value="<?=$uk["CNCAP"];?>" placeholder="dd">
                                                         </div>
                                                     </div>

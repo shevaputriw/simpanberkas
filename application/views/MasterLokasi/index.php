@@ -16,7 +16,7 @@
                                     <form>
                                         <div class="form-row">
                                             <div class="form-group col-md-4">
-                                                <label>Status Data</label>
+                                                <label style="color:#313236">Status Data</label>
                                                 <select id="inputState" class="form-control">
                                                     <option selected>Choose...</option>
                                                     <option>Option 1</option>
@@ -25,7 +25,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label>Tanggal Awal</label>
+                                                <label style="color:#313236">Tanggal Awal</label>
                                                 <select id="inputState" class="form-control">
                                                     <option selected>Choose...</option>
                                                     <option>Option 1</option>
@@ -34,7 +34,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-4">
-                                                <label>Tanggal Akhir</label>
+                                                <label style="color:#313236">Tanggal Akhir</label>
                                                 <select id="inputState" class="form-control">
                                                     <option selected>Choose...</option>
                                                     <option>Option 1</option>
@@ -113,7 +113,7 @@
                                                 <input type="hidden" class="form-control" name="LMCOID" value="<?=$kodekab->CNCOID;?>">
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label>Unit Kerja/OPD</label>
+                                                        <label style="color:#313236">Unit Kerja/OPD</label>
                                                         <select class="form-control" name="LMIDBUID" id="LMIDBUID" required>
                                                             <option value="" selected="true" disabled="disabled">- Pilih OPD -</option>
                                                             <?php foreach($opd as $opd) : ?>
@@ -124,25 +124,25 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-4">
-                                                        <label>Kode Gudang</label>
+                                                        <label style="color:#313236">Kode Gudang</label>
                                                         <input type="text" class="form-control" name="LMWHC" autocomplete="off">
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label>No. Rak</label>
+                                                        <label style="color:#313236">No. Rak</label>
                                                         <input type="text" class="form-control" name="LMAISLE" autocomplete="off">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label>No. Baris</label>
+                                                        <label style="color:#313236">No. Baris</label>
                                                         <input type="text" class="form-control" name="LMROW" autocomplete="off">
                                                     </div>
                                                     <div class="form-group col-md-2">
-                                                        <label>No. Kolom</label>
+                                                        <label style="color:#313236">No. Kolom</label>
                                                         <input type="text" class="form-control" name="LMCOL" autocomplete="off">
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-12">
-                                                        <label>Keterangan</label>
+                                                        <label style="color:#313236">Keterangan</label>
                                                         <input type="text" class="form-control" name="LMDESA2" autocomplete="off">
                                                     </div>
                                                 </div>
@@ -266,7 +266,7 @@
                                                     <input type="hidden" class="form-control" name="LMIDBUID" value="<?=$ga["LMIDBUID"];?>">
                                                     <div class="form-row">
                                                         <div class="form-group col-md-12">
-                                                            <label>Unit Kerja/OPD</label>
+                                                            <label style="color:#313236">Unit Kerja/OPD</label>
                                                             <input type="text" class="form-control" name="LMBIDBUID" value="<?=$ga["BNDESB1"];?>" readonly style="background-color:#f2f2f2;">
                                                             <!-- <select class="form-control" name="LMIDBUID" id="LMIDBUID">
                                                                 <option value="<?=$ga["LMIDBUID"];?>" selected="true"><?=$ga["BNDESB1"];?></option>
@@ -278,25 +278,25 @@
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-4">
-                                                            <label>Kode Gudang</label>
+                                                            <label style="color:#313236">Kode Gudang</label>
                                                             <input type="text" class="form-control" name="LMWHC" autocomplete="off" value="<?=$ga["LMWHC"];?>">
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <label>No. Rak</label>
+                                                            <label style="color:#313236">No. Rak</label>
                                                             <input type="text" class="form-control" name="LMAISLE" autocomplete="off" value="<?=$ga["LMAISLE"];?>">
                                                         </div>
                                                         <div class="form-group col-md-2">
-                                                            <label>No. Baris</label>
+                                                            <label style="color:#313236">No. Baris</label>
                                                             <input type="text" class="form-control" name="LMROW" autocomplete="off" value="<?=$ga["LMROW"];?>">
                                                         </div>
                                                         <div class="form-group col-md-2">
-                                                            <label>No. Kolom</label>
+                                                            <label style="color:#313236">No. Kolom</label>
                                                             <input type="text" class="form-control" name="LMCOL" autocomplete="off" value="<?=$ga["LMCOL"];?>">
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-12">
-                                                            <label>Keterangan</label>
+                                                            <label style="color:#313236">Keterangan</label>
                                                             <input type="text" class="form-control" name="LMDESA2" autocomplete="off" value="<?=$ga["LMDESA2"];?>">
                                                         </div>
                                                     </div>
