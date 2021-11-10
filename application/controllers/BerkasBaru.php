@@ -276,7 +276,7 @@ class BerkasBaru extends CI_Controller {
         $status = $getStatus->DTDC;
 
         // edit status di t4312 tipe dokumen OV = Approv
-        // $this->BerkasBaru_model->Edit_Status($ovdocno, $status);
+        $this->BerkasBaru_model->Edit_Status($ovdocno, $status);
 
         //Get tahun dan bulan sesuai data t0020
         $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
