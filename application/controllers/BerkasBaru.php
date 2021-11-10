@@ -162,12 +162,6 @@ class BerkasBaru extends CI_Controller {
 
         $this->form_validation->set_rules('OVDESB1', 'Nama Barang', 'required');
 
-        // $tanggal = date('d-m-Y');
-        // $pecah_tgl = explode("-", $tanggal);
-
-        // $tanggal = $pecah_tgl[0];
-        // $bulan = $pecah_tgl[1];
-        // $tahun = $pecah_tgl[2];
         $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
         $tahun = $getTahunBulan->CNCFY;
         $bulan = $getTahunBulan->CNCAP;
@@ -192,13 +186,54 @@ class BerkasBaru extends CI_Controller {
             }
         }
         else {
+            // $update_nnseq = $this->BerkasBaru_model->Update($tahun, $bulan);
+            // $ovdocno = $this->input->post('OVDOCNO');
+            // $ovidbuid = $this->input->post('OVIDBUID');
+            // $x = $ovdocno + 1;
+            // $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status);
+            // $this->BerkasBaru_model->Tambah_4111($x);
             $update_nnseq = $this->BerkasBaru_model->Update($tahun, $bulan);
             $ovdocno = $this->input->post('OVDOCNO');
+            $ovdocdt = $this->input->post('OVDOCDT');
+            $split = explode("-", $ovdocdt);
+            $d = $split[0];
+            $m = $split[1];
+            $y = $split[2];
             $ovidbuid = $this->input->post('OVIDBUID');
-            $x = $ovdocno + 1;
-            $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status);
-            $this->BerkasBaru_model->Tambah_4111($x);
+            $ovbuid1 = $this->BerkasBaru_model->getOvbuid1($ovidbuid);
+            $ovlnty = $this->BerkasBaru_model->getLineType();
+            $linetype = $ovlnty->DTDC;
+            $ovpost = $this->BerkasBaru_model->getStatusDraft();
+            $status = $ovpost->DTDC;
 
+            $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
+            if($cekICU->num_rows() == 0) {
+                $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
+            }
+            else{
+                //NNSEQ + 1 (ICU)
+                $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
+            }
+
+            // Prosedur penomoran tipe dokumen ICU
+            $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            $nnseqICU= $getICU->NNSEQ;
+            $no = sprintf("%09d", $nnseqICU);
+
+            if($ovbuid1->BNBUID1 == 0) {
+                $buid1 = 0;
+                $x = $ovdocno + 1;
+                $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no);
+                $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no);
+                // $this->BerkasBaru_model->Tambah_41021($buid1);
+            }
+            else{
+                $x = $ovdocno + 1;
+                $buid1 = $ovbuid1->BNBUID1;
+                $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no);
+                $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no);
+                // $this->BerkasBaru_model->Tambah_41021($buid1);
+            }
             redirect('BerkasBaru/Tambah_Baru/'.$x.'/'.$ovidbuid,'refresh');
         }  
     }
