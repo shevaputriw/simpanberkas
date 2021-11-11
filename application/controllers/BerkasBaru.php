@@ -119,17 +119,19 @@ class BerkasBaru extends CI_Controller {
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
-            $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
-            if($cekICU->num_rows() == 0) {
-                $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
-            }
-            else{
+            // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
+            // if($cekICU->num_rows() == 0) {
+            //     $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
+            // }
+            // else{
                 //NNSEQ + 1 (ICU)
-                $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-            }
+                // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
+                $this->BerkasBaru_model->Update_ICU($tahun);
+            // }
 
             // Prosedur penomoran tipe dokumen ICU
-            $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            // $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            $getICU = $this->BerkasBaru_model->getICU($tahun);
             $nnseqICU= $getICU->NNSEQ;
             $no = sprintf("%09d", $nnseqICU);
 
@@ -206,17 +208,20 @@ class BerkasBaru extends CI_Controller {
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
-            $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
-            if($cekICU->num_rows() == 0) {
-                $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
-            }
-            else{
+            // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
+            // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
+            // if($cekICU->num_rows() == 0) {
+            //     $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
+            // }
+            // else{
                 //NNSEQ + 1 (ICU)
-                $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-            }
+                // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
+                $this->BerkasBaru_model->Update_ICU($tahun);
+            // }
 
             // Prosedur penomoran tipe dokumen ICU
-            $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            // $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            $getICU = $this->BerkasBaru_model->getICU($tahun);
             $nnseqICU= $getICU->NNSEQ;
             $no = sprintf("%09d", $nnseqICU);
 
@@ -274,17 +279,19 @@ class BerkasBaru extends CI_Controller {
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
-            $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
-            if($cekICU->num_rows() == 0) {
-                $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
-            }
-            else{
+            // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
+            // if($cekICU->num_rows() == 0) {
+            //     $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
+            // }
+            // else{
                 //NNSEQ + 1 (ICU)
-                $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-            }
+                // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
+                $this->BerkasBaru_model->Update_ICU($tahun);
+            // }
 
             // Prosedur penomoran tipe dokumen ICU
-            $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            // $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            $getICU = $this->BerkasBaru_model->getICU($tahun);
             $nnseqICU= $getICU->NNSEQ;
             $no = sprintf("%09d", $nnseqICU);
 
@@ -320,7 +327,7 @@ class BerkasBaru extends CI_Controller {
 
         //Periksa tahun dan bulan sudah ada di t0002 atau belum
         $cek = $this->BerkasBaru_model->Cek_IT($tahun, $bulan);
-        $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
+        // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
 
         if($cek->num_rows() == 0) {
             $this->BerkasBaru_model->Tambah_t0002_IT($tahun, $bulan);
@@ -348,16 +355,18 @@ class BerkasBaru extends CI_Controller {
             ];
             // end
 
-            if($cekICU->num_rows() == 0) {
-                $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
-            }
-            else{
+            // if($cekICU->num_rows() == 0) {
+            //     $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
+            // }
+            // else{
                 //NNSEQ + 1 (ICU)
-                $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-            }
+                // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
+                $this->BerkasBaru_model->Update_ICU($tahun);
+            // }
 
             // Prosedur penomoran tipe dokumen ICU
-            $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            // $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            $getICU = $this->BerkasBaru_model->getICU($tahun);
             $nnseqICU= $getICU->NNSEQ;
             $no = sprintf("%09d", $nnseqICU);
             // echo $no;

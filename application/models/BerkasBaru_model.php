@@ -289,8 +289,14 @@ class BerkasBaru_model extends CI_Model {
         return $query->row();
     }
 
-    public function getICU($tahun, $bulan) {
-        $query=$this->db->query("SELECT NNYR, NNSEQ, NNMO FROM t0002 WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'ICU' ORDER BY NNDTIN DESC LIMIT 1");
+    // public function getICU($tahun, $bulan) {
+    //     $query=$this->db->query("SELECT NNYR, NNSEQ, NNMO FROM t0002 WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'ICU' ORDER BY NNDTIN DESC LIMIT 1");
+
+    //     return $query->row();
+    // }
+
+    public function getICU($tahun) {
+        $query=$this->db->query("SELECT NNYR, NNSEQ, NNMO FROM t0002 WHERE NNYR = '$tahun' AND NNDOCBTY = 'ICU' ORDER BY NNDTIN DESC LIMIT 1");
 
         return $query->row();
     }
@@ -309,8 +315,12 @@ class BerkasBaru_model extends CI_Model {
         $this->db->query("UPDATE t0002 SET NNSEQ = NNSEQ + 1 WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'IT'");
     }
 
-    public function Update_ICU($tahun, $bulan) {
-        $this->db->query("UPDATE t0002 SET NNSEQ = NNSEQ + 1 WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'ICU'");
+    // public function Update_ICU($tahun, $bulan) {
+    //     $this->db->query("UPDATE t0002 SET NNSEQ = NNSEQ + 1 WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'ICU'");
+    // }
+
+    public function Update_ICU($tahun) {
+        $this->db->query("UPDATE t0002 SET NNSEQ = NNSEQ + 1 WHERE NNYR = '$tahun' AND NNDOCBTY = 'ICU'");
     }
 
     public function getOvbuid1($ovidbuid) {
