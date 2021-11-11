@@ -413,6 +413,9 @@ class BerkasBaru_model extends CI_Model {
             "ITBUID1" => $buid1,
             "ITDOCNO" => $x,
             "ITDOCSQ" => $itdocsq,
+            "ITDOCONO" => $x,
+            "ITDOCOTY" => $itdocty,
+            "ITDOCOSQ" => $itdocsq,
             "ITDOCDT" => $this->input->post('OVDOCDT', true),
             "ITDOCTM" => date('Y-m-d H:i:s', time()),
             "ITINUM" => $this->input->post('OVINUM', true),
@@ -467,6 +470,7 @@ class BerkasBaru_model extends CI_Model {
 
     public function Edit_Status($ovdocno, $status) {
         $this->db->query("UPDATE t4312 SET OVPOST = '$status' WHERE OVDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$ovdocno'");
     }
 
     public function getDataApprov($ovidbuid, $ovdocno, $ovdocty) {
@@ -571,6 +575,9 @@ class BerkasBaru_model extends CI_Model {
             "ITBUID1" => $buid1,
             "ITDOCNO" => $x,
             "ITDOCSQ" => $ovdocsq,
+            "ITDOCONO" => $x,
+            "ITDOCOTY" => $itdocty,
+            "ITDOCOSQ" => $ovdocsq,
             "ITDOCDT" => $this->input->post('OVDOCDT', true),
             "ITINUM" => $this->input->post('OVINUM', true),
             "ITDESB1" => $this->input->post('OVDESB1', true),
@@ -795,6 +802,30 @@ class BerkasBaru_model extends CI_Model {
         
         $this->db->update('t0021',$this, array('BNIDBUID' => $ovidbuid));
     }
+
+    public function UbahKeDraft($ovdocno, $ovidbuid, $status) {
+        $this->db->query("UPDATE t4312 SET OVPOST = '$status' WHERE OVDOCNO = '$ovdocno' AND OVIDBUID = '$ovidbuid'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$ovdocno' AND ITIDBUID = '$ovidbuid' AND ITDOCTY = 'OV'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCONO = '$ovdocno'");
+    }
+
+    public function CekIT($ovdocono) {
+        $query=$this->db->query("SELECT *
+        FROM t4111 AS t41
+        JOIN t4312 AS t4 ON t4.`OVDOCNO` = t41.`ITDOCONO`
+        WHERE t4.`OVDOCNO` = '$ovdocono' AND t41.`ITDOCONO` = '$ovdocono' AND t41.`ITDOCTY` ='IT'
+        ORDER BY t41.`ITDOCONO` DESC LIMIT 1");
+        return $query;  
+
+        if($query->num_rows() > 0)
+            return 1;
+        else
+            return 0;
+    }
+
+    // public function StatusUpdate($ovdocno, $status) {
+    //     $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCONO = '$ovdocno'");
+    // }
 }
 
 /* End of file BerkasBaruModelName.php */

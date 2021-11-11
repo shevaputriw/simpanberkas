@@ -26,26 +26,30 @@
                                 <tbody>
                                     <?php $no=1; foreach($getAll as $gt):?>
                                         <tr>
-                                        <td><?=$no++;?></td>
-                                        <td><?=$gt["OVDOCNO"];?></td>
-                                        <td><?=$gt["BNDESB1"];?></td>
-                                        <td><?= date('d-m-Y', strtotime($gt["OVDOCDT"])); ?></td>
-                                        <td><?=$gt["total_berkas"];?></td>
-                                        <?php if($gt["OVPOST"] == "0" || $gt["OVPOST"] == NULL) {?>
-                                            <td>
-                                                <a href="<?=base_url()?>BerkasBaru/Approval/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-warning"><?=$gt["draft"];?></span></a>
-                                            </td>
+                                            <td><?=$no++;?></td>
+                                            <td><?=$gt["OVDOCNO"];?></td>
+                                            <td><?=$gt["BNDESB1"];?></td>
+                                            <td><?= date('d-m-Y', strtotime($gt["OVDOCDT"])); ?></td>
+                                            <td><?=$gt["total_berkas"];?></td>
                                             
-                                        <?php } else {?>
-                                            <td>
-                                                <a href="#"><span class="badge badge-warning"><?=$gt["approval"];?></span></a>
-                                            </td>
-                                        <?php }?>
-                                        <td>
-                                            <!-- <a data-toggle="modal" href="#basicModalb<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
-                                            <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="<?=base_url()?>BerkasBaru/Tambah_Baru/<?=$gt['OVDOCNO'];?>/<?=$gt['OVIDBUID'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                            <a data-toggle="modal" href="#basicModal2<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
+                                            <?php if($gt["OVPOST"] == "0" || $gt["OVPOST"] == NULL) {?>
+                                                <td>
+                                                    <a href="<?=base_url()?>BerkasBaru/Approval/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-warning"><?=$gt["draft"];?></span></a>
+                                                </td>
+                                                <td>
+                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <a href="<?=base_url()?>BerkasBaru/Tambah_Baru/<?=$gt['OVDOCNO'];?>/<?=$gt['OVIDBUID'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                    <a data-toggle="modal" href="#basicModal2<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            <?php } else {?>
+                                                <td>
+                                                    <a href="#"><span class="badge badge-warning"><?=$gt["approval"];?></span></a>
+                                                </td>
+                                                <td>
+                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <a data-toggle="modal" href="#basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a>
+                                                </td>
+                                            <?php }?>
                                         </tr>
                                     <?php endforeach;?>
                                 </tbody>
@@ -79,6 +83,33 @@
                             </div>
                         <?php endforeach;?>
                         <!-- MODAL HAPUS BERKAS BARU END -->
+
+                        <!-- MODAL UBAH DRAFT BERKAS BARU START -->
+                        <?php foreach($getAll as $gt):?>
+                            <div class="modal fade" id="basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Ubah Berkas</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="basic-form">
+                                                <form method="post" action="<?=base_url('BerkasBaru/Edit_Berkas2/'.$gt['OVDOCNO'].'/'.$gt["OVIDBUID"])?>">
+                                                    <p style="color:#2b2a28;">Dokumen ini telah diusulkan. Jika Anda mengubah data, maka status dokumen akan menjadi <b>Draft</b>. 
+                                                    <br><br>Apakah Anda tetap ingin mengubahnya?</p>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" name="submit" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i> &nbsp;&nbsp;Ubah</button>
+                                                        <button type="button" class="btn btn-primary" class="close" data-dismiss="modal"><i class="fa fa-times-circle"></i> &nbsp;&nbsp;Batal</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach;?>
+                        <!-- MODAL UBAH DRAFT BERKAS BARU END -->
 
                         <!-- MODAL DETAIL PARTNER BISNIS START -->
                         <!-- <?php foreach($getAll as $gt):?>
