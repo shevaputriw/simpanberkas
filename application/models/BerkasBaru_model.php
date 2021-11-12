@@ -51,7 +51,7 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function GetBerkasById($ovdocno, $ovdocsq, $ovidbuid) {
-        $query = $this->db->query("SELECT t4.`OVCOID`, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVINUM`, t4.`OVDOCTY`, t4.OVMSTY, t4.OVCOMV, t4.OVBRAND, t4.OVCOLOR, t4.OVCILCAP, t4.`OVDOCSQ`, t4.`OVLST`, t4.`OVNST`,
+        $query = $this->db->query("SELECT t4.`OVCOID`, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVINUM`, t4.`OVDOCTY`, t4.OVMSTY, t4.OVCOMV, t4.OVBRAND, t4.OVCOLOR, t4.OVCILCAP, t4.`OVDOCSQ`, t4.`OVLST`, t4.`OVNST`, T4.`OVICU`, t4.`OVLNTY`, t4.`OVPOST`,
         t4.OVMFN, t4.OVVHRN, t4.OVVHTAXDT, t4.OVVHRNTAXDT, t4.OVCRTFID, t4.OVCRTFDT, t4.OVLNDOWNST, t4.OVLENGTH, t4.OVMACHNID, t4.OVWIDTH, t4.OVWIDE, t4.OVASADDR, t4.OVCITY, t4.OVDIST, t4.OVSUBDIST,  t09.`AMOBJ`, t0009.`DTDESC1`, t09.`AMDESB1`, t21.`BNDESB1`, t4.`OVDESB1`, t4.`OVDOCDT`, t9kab.`DTDESC1` AS 'kabkota', t9kec.`DTDESC1` AS 'kecamatan', t9des.`DTDESC1` AS 'desa', t4.`OVLOCID`
         FROM t4312 AS t4 JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID` 
         JOIN t0901 AS t09 ON t09.`AMOBJ` = t4.`OVINUM` 
@@ -413,9 +413,9 @@ class BerkasBaru_model extends CI_Model {
             "ITBUID1" => $buid1,
             "ITDOCNO" => $x,
             "ITDOCSQ" => $itdocsq,
-            "ITDOCONO" => $x,
-            "ITDOCOTY" => $itdocty,
-            "ITDOCOSQ" => $itdocsq,
+            // "ITDOCONO" => $x,
+            // "ITDOCOTY" => $itdocty,
+            // "ITDOCOSQ" => $itdocsq,
             "ITDOCDT" => $this->input->post('OVDOCDT', true),
             "ITDOCTM" => date('Y-m-d H:i:s', time()),
             "ITINUM" => $this->input->post('OVINUM', true),
@@ -448,8 +448,8 @@ class BerkasBaru_model extends CI_Model {
             "ITMANAGE" => $this->input->post('OVIDBUID', true),
             "ITLOCID" => $this->input->post('OVLOCID', true),
             // iya/tidak
-            "ITDOCMO" => $m,
-            "ITDOCYR" => $y,
+            // "ITDOCMO" => $m,
+            // "ITDOCYR" => $y,
 
             "ITUID" => $ituid,
             "ITUIDM" => $ituidm,
@@ -475,6 +475,18 @@ class BerkasBaru_model extends CI_Model {
 
     public function getDataApprov($ovidbuid, $ovdocno, $ovdocty) {
         $query=$this->db->query("SELECT * FROM t4111 WHERE ITIDBUID = '$ovidbuid' AND ITDOCNO = '$ovdocno' AND ITDOCTY = '$ovdocty'");
+
+        return $query->result_array();
+    }
+
+    public function getITfrom($ovdocno, $ovdocsq) {
+        $query=$this->db->query("SELECT * FROM t4111 WHERE ITDOCOTY = 'OV' AND ITDOCONO = '$ovdocno' AND ITDOCOSQ = '$ovdocsq' AND ITDOCTY = 'IT' AND ITFT = 'F'");
+
+        return $query->result_array();
+    }
+
+    public function getITto($ovdocno, $ovdocsq) {
+        $query=$this->db->query("SELECT * FROM t4111 WHERE ITDOCOTY = 'OV' AND ITDOCONO = '$ovdocno' AND ITDOCOSQ = '$ovdocsq' AND ITDOCTY = 'IT' AND ITFT = 'T'");
 
         return $query->result_array();
     }
@@ -575,9 +587,9 @@ class BerkasBaru_model extends CI_Model {
             "ITBUID1" => $buid1,
             "ITDOCNO" => $x,
             "ITDOCSQ" => $ovdocsq,
-            "ITDOCONO" => $x,
-            "ITDOCOTY" => $itdocty,
-            "ITDOCOSQ" => $ovdocsq,
+            // "ITDOCONO" => $x,
+            // "ITDOCOTY" => $itdocty,
+            // "ITDOCOSQ" => $ovdocsq,
             "ITDOCDT" => $this->input->post('OVDOCDT', true),
             "ITINUM" => $this->input->post('OVINUM', true),
             "ITDESB1" => $this->input->post('OVDESB1', true),
@@ -609,8 +621,8 @@ class BerkasBaru_model extends CI_Model {
             "ITSUBDIST" => $this->input->post('OVSUBDIST', true),
             "ITMANAGE" => $this->input->post('OVIDBUID', true),
             "ITLOCID" => $this->input->post('OVLOCID', true),
-            "ITDOCMO" => $m,
-            "ITDOCYR" => $y,
+            // "ITDOCMO" => $m,
+            // "ITDOCYR" => $y,
             "ITUID" => $ituid,
             "ITUIDM" => $ituidm,
             "ITIPUID" => $ip,
@@ -762,10 +774,66 @@ class BerkasBaru_model extends CI_Model {
             "OVLOCID" => $this->input->post('OVLOCID', true),
             "OVUIDM" => $ovuidm,
             "OVIPUIDM" => $ip,
-            "OVDTLU" => date('Y-m-d H:i:s', time())
+            "OVDTLU" => date('Y-m-d H:i:s', time()),
+            "OVPOST" => $this->input->post('OVPOST', true),
+            "OVICU" => $this->input->post('OVICU', true),
+            "OVLNTY" => $this->input->post('OVLNTY', true),
         ];
         
         $this->db->update('t4312', $data, array('OVDOCNO' => $post['OVDOCNO'],'OVDOCSQ' => $post['OVDOCSQ'], 'OVIDBUID' => $post['OVIDBUID']));
+    }
+
+    public function Edit_Berkas_T4111($ovdocno, $ovdocsq, $ovidbuid) {
+        date_default_timezone_set('Asia/Jakarta');
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $ovdocty = "OV";
+        $ovuid = "admin1";
+        $ovuidm = "admin1";
+        $ovicu = "1";
+        $post=$this->input->post();
+
+        $data = [
+            "ITCOID" => $this->input->post('OVCOID', true),
+            "ITIDBUID" => $ovidbuid,
+            "ITDOCNO" => $ovdocno,
+            "ITDOCSQ" => $ovdocsq,
+            "ITDOCDT" => $this->input->post('OVDOCDT', true),
+            "ITINUM" => $this->input->post('OVINUM', true),
+            "ITDESB1" => $this->input->post('OVDESB1', true),
+            "ITMSTY" => $this->input->post('OVMSTY', true),
+            "ITDOCTY" => $ovdocty,
+            "ITICU" => $ovicu,
+            "ITBRAND" => $this->input->post('OVBRAND', true),
+            "ITCILCAP" => $this->input->post('OVCILCAP', true),
+            "ITCOMV" => $this->input->post('OVCOMV', true),
+            "ITMACHNID" => $this->input->post('OVMACHNID', true),
+            "ITVHTAXDT" => $this->input->post('OVVHTAXDT', true),
+            "ITCOLOR" => $this->input->post('OVCOLOR', true),
+            "ITMFN" => $this->input->post('OVMFN', true),
+            "ITVHRN" => $this->input->post('OVVHRN', true),
+            "ITVHRNTAXDT" => $this->input->post('OVVHRNTAXDT', true),
+            "ITCRTFID" => $this->input->post('OVCRTFID', true),
+            "ITLNDOWNST" => $this->input->post('OVLNDOWNST', true),
+            "ITLENGTH" => $this->input->post('OVLENGTH', true),
+            "ITWIDTH" => $this->input->post('OVWIDTH', true),
+            "ITWIDE" => $this->input->post('OVWIDE', true),
+            "ITCRTFDT" => $this->input->post('OVCRTFDT', true),
+            "ITASADDR" => $this->input->post('OVASADDR', true),
+            "ITCITY" => $this->input->post('OVCITY', true),
+            "ITDIST" => $this->input->post('OVDIST', true),
+            "ITSUBDIST" => $this->input->post('OVSUBDIST', true),
+            // "ITLST" => $this->input->post('OVLST', true),
+            // "ITNST" => $this->input->post('OVNST', true),
+            "ITLOCID" => $this->input->post('OVLOCID', true),
+            "ITUIDM" => $ovuidm,
+            "ITIPUIDM" => $ip,
+            "ITDTLU" => date('Y-m-d H:i:s', time()),
+            "ITPOST" => $this->input->post('OVPOST', true),
+            "ITICU" => $this->input->post('OVICU', true),
+            "ITLNTY" => $this->input->post('OVLNTY', true),
+        ];
+        
+        $this->db->update('t4111', $data, array('ITDOCNO' => $post['OVDOCNO'],'ITDOCSQ' => $post['OVDOCSQ'], 'ITIDBUID' => $post['OVIDBUID']));
     }
 
     public function dataKonfirmasi($ovidbuid, $ovdocno) {

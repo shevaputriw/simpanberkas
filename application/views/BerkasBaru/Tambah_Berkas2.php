@@ -277,7 +277,7 @@
                                             <td><?=$gt["LMDESA2"];?></td>
                                             <td>
                                                 <a data-toggle="modal" href="#basicModal<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                <a href="<?=base_url()?>BerkasBaru/Edit_Berkas/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCSQ"];?>/<?=$gt["OVIDBUID"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                <a href="<?=base_url()?>BerkasBaru/Edit_Berkas/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCSQ"];?>/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCTY"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                                 <a data-toggle="modal" href="#basicModal2<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>

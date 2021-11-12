@@ -9,7 +9,7 @@
                     <br>
                     <div class="basic-form">
                         <!-- <form action="<?=base_url('BerkasBaru/Edit_Berkas/'.$berkas['OVIDBUID'].'/'.$berkas['OVDOCNO'])?>" method="post"> -->
-                        <form action="<?=base_url('BerkasBaru/Edit_Berkas/'.$berkas['OVDOCNO'].'/'.$berkas['OVDOCSQ'].'/'.$berkas['OVIDBUID'])?>" method="post">
+                        <form action="<?=base_url('BerkasBaru/Edit_Berkas/'.$berkas['OVDOCNO'].'/'.$berkas['OVDOCSQ'].'/'.$berkas['OVIDBUID'].'/'.$berkas['OVDOCTY'])?>" method="post">
                             <div class="card-body">
                                 <?php if (validation_errors()): ?>
                                     <div class="alert alert-danger" role="alert">
@@ -44,23 +44,13 @@
                                             <input type="hidden" name="OVDOCDT" value="<?=$berkas["OVDOCDT"];?>">
                                             <input type="hidden" name="OVLST" value="<?=$berkas["OVLST"];?>">
                                             <input type="hidden" name="OVNST" value="<?=$berkas["OVNST"];?>">
-                                            <input type="hidden" name="OVMSTY" value="<?=$berkas["OVMSTY"];?>">
+                                            <input type="hidden" id="OVMSTY" name="OVMSTY" value="<?=$berkas["OVMSTY"];?>">
                                             <input type="hidden" name="OVINUM" value="<?=$berkas["OVINUM"];?>">
-                                            <!-- <input type="hidden" name="OVLOCID" value="<?=$berkas["OVLOCID"];?>"> -->
+                                            <input type="text" name="OVPOST" value="<?=$berkas["OVPOST"];?>">
+                                            <input type="text" name="OVLNTY" value="<?=$berkas["OVLNTY"];?>">
+                                            <input type="text" name="OVICU" value="<?=$berkas["OVICU"];?>">
                                             
                                             <div class="form-row">
-                                                <!-- <div class="form-group col-md-12">
-                                                    <label style="color:#313236">OPD</label>
-                                                    <select class="form-control" name="OVIDBUID" id="opd">
-                                                        <?php foreach($opd as $opd) : ?>
-                                                            <?php if($opd["BNIDBUID"] == $berkas["OVIDBUID"]) {?>
-                                                                <option value="<?=$opd["BNIDBUID"]?>" selected><?=$opd["BNDESB1"]?></option>
-                                                            <?php } else {?>
-                                                                <option value="<?=$opd["BNIDBUID"]?>"><?=$opd["BNDESB1"]?></option>
-                                                            <?php }?>
-                                                        <?php endforeach;?>
-                                                    </select>
-                                                </div> -->
                                                 <div class="form-group col-md-4">
                                                     <label style="color:#313236">OPD</label>
                                                     <input type="text" class="form-control" name="OVIDBUID" value="<?=$berkas["BNDESB1"];?>" style="background-color:#f2f2f2;" disabled>
@@ -77,7 +67,7 @@
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
                                                     <label style="color:#313236">Jenis Berkas</label>
-                                                    <input type="text" class="form-control" name="OVDOCNO" id="OVMSTY" value="<?=$berkas["DTDESC1"];?>" style="background-color:#f2f2f2;" disabled>
+                                                    <input type="text" class="form-control" name="OVDOCNO" value="<?=$berkas["DTDESC1"];?>" style="background-color:#f2f2f2;" disabled>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label style="color:#313236">Kode Barang</label>

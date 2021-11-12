@@ -126,7 +126,7 @@ class BerkasBaru extends CI_Controller {
             // else{
                 //NNSEQ + 1 (ICU)
                 // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-                $this->BerkasBaru_model->Update_ICU($tahun);
+            $this->BerkasBaru_model->Update_ICU($tahun);
             // }
 
             // Prosedur penomoran tipe dokumen ICU
@@ -635,10 +635,10 @@ class BerkasBaru extends CI_Controller {
                             'ITQTY' => $itqtyt,
                             'ITDOCONO' => $gda["ITDOCNO"],
                             'ITDOCOTY' => $gda["ITDOCTY"],
-                            'ITDOCOSQ' => $gda["ITDOCSQ"],
+                            'ITDOCOSQ' => $sq,
                         );
                         array_push($result2, $data_array2);
-                        $sq += 10 ;
+                        // $sq += 10 ;
                     }
                     else{
                         $data_array2 = array(             
@@ -691,10 +691,10 @@ class BerkasBaru extends CI_Controller {
                             'ITQTY' => $itqtyt,
                             'ITDOCONO' => $gda["ITDOCNO"],
                             'ITDOCOTY' => $gda["ITDOCTY"],
-                            'ITDOCOSQ' => $gda["ITDOCSQ"],
+                            'ITDOCOSQ' => $sq,
                         );
                         array_push($result2, $data_array2);
-                        $sq += 10 ;
+                        // $sq += 10 ;
                     }
                 endforeach;
             }
@@ -721,7 +721,7 @@ class BerkasBaru extends CI_Controller {
         redirect('BerkasBaru/index','refresh');
     }
 
-    public function Edit_Berkas($ovdocno, $ovdocsq, $ovidbuid) {
+    public function Edit_Berkas($ovdocno, $ovdocsq, $ovidbuid, $ovdocty) {
         $data['title'] = 'Edit Berkas';
 
         $data['berkas'] = $this->BerkasBaru_model->GetBerkasById($ovdocno, $ovdocsq, $ovidbuid);
@@ -731,15 +731,147 @@ class BerkasBaru extends CI_Controller {
         $data['kode_barang'] = $this->BerkasBaru_model->getKodeBarang();
         $data['kodekab'] = $this->BerkasBaru_model->getKode();
 
+        $ovpost = $this->BerkasBaru_model->getStatusDraft();
+        $status = $ovpost->DTDC;
+
         $this->form_validation->set_rules('OVDESB1', 'Nama Barang', 'required');
 
         if($this->form_validation->run() == FALSE) {
+            // $getITF = $this->BerkasBaru_model->getITfrom($ovdocno, $ovdocsq);
+            // dd($getITF);
             $this->load->view('template/Header',$data);
             $this->load->view('BerkasBaru/Edit_Berkas',$data);
             $this->load->view('template/Footer',$data);
         }
         else{
             $this->BerkasBaru_model->Edit_Berkas($ovdocno, $ovdocsq, $ovidbuid);
+            $this->BerkasBaru_model->Edit_Berkas_T4111($ovdocno, $ovdocsq, $ovidbuid);
+
+            $getITF = $this->BerkasBaru_model->getITfrom($ovdocno, $ovdocsq);
+
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $post = $this->input->post();
+            $itft = "F";
+            $docty = "IT";
+
+            // FROM (RECORD 1)
+            foreach($getITF as $gda) :
+                $result = [            
+                    'ITCOID' => $gda['ITCOID'],
+                    'ITIDBUID' => $gda['ITIDBUID'],
+                    'ITDOCNO' => $gda['ITDOCNO'],
+                    'ITDOCTY' => $gda['ITDOCTY'],
+                    'ITDOCSQ' => $gda['ITDOCSQ'],
+                    'ITDOCDT' => $gda['ITDOCDT'],
+                    'ITBUID1' => $gda['ITBUID1'],
+                    'ITLNTY' => $gda['ITLNTY'],
+                    'ITICU' => $gda['ITICU'],
+                    'ITICUT' => $gda['ITICUT'],
+                    'ITDOCMO' => $gda['ITDOCMO'],
+                    'ITDOCYR' => $gda['ITDOCYR'],
+                    'ITDOCTM' => $gda['ITDOCTM'],
+                    'ITMSTY' => $gda['ITMSTY'],
+                    'ITFT' => $gda['ITFT'],
+                    'ITIDINUM' => $gda['ITIDINUM'],
+                    'ITINUM' => $gda['ITINUM'],
+                    'ITLOCID' => $gda['ITLOCID'],
+                    'ITDESB1' => $this->input->post('OVDESB1', true),
+                    'ITPOST' => $gda['ITPOST'],
+                    'ITBRAND' => $this->input->post('OVBRAND', true),
+                    'ITCOLOR' => $this->input->post('OVCOLOR', true),
+                    'ITLENGTH' => $this->input->post('OVLENGTH', true),
+                    'ITWIDTH' => $this->input->post('OVWIDTH', true),
+                    'ITWIDE' => $this->input->post('OVWIDE', true),
+                    'ITCILCAP' => $this->input->post('OVCILCAP', true),
+                    'ITMFN' => $this->input->post('OVMFN', true),
+                    'ITMACHNID' => $this->input->post('OVMACHNID', true),
+                    'ITVHRN' => $this->input->post('OVVHRN', true),
+                    'ITVHTAXDT' => $this->input->post('OVVHTAXDT', true),
+                    'ITVHRNTAXDT' => $this->input->post('OVVHTAXRNDT', true),
+                    'ITLNDOWNST' => $this->input->post('OVLNDOWNST', true),
+                    'ITCRTFID' => $this->input->post('OVCRTFID', true),
+                    'ITCRTFDT' => $this->input->post('OVCRTFDT', true),
+                    'ITASADDR' => $this->input->post('OVASADDR', true),
+                    'ITCITY' => $this->input->post('OVCITY', true),
+                    'ITDIST' => $this->input->post('OVDIST', true),
+                    'ITSUBDIST' => $this->input->post('OVSUBDIST', true),
+                    'ITMANAGE' => $gda['ITMANAGE'],
+                    'ITUID' => $gda['ITUID'],
+                    'ITUIDM' => $gda['ITUIDM'],
+                    'ITDTIN' => $gda['ITDTIN'],
+                    'ITDTLU' => date('Y-m-d H:i:s', time()),
+                    'ITIPUID' => $gda['ITIPUID'],
+                    'ITIPUIDM' => $ip,
+                    'ITCOMV' => $this->input->post('OVCOMV', true),
+                    'ITQTY' => $gda['ITQTY'],
+                    'ITDOCONO' => $ovdocno,
+                    'ITDOCOTY' => $ovdocty,
+                    'ITDOCOSQ' => $ovdocsq,
+                ];
+                $this->db->update('t4111', $result, array('ITDOCONO' => $ovdocno,'ITDOCOSQ' => $ovdocsq, 'ITFT' => $itft, 'ITDOCTY' => $docty));
+            endforeach;
+
+            // TO (RECORD 2)
+            $getITT = $this->BerkasBaru_model->getITto($ovdocno, $ovdocsq);
+            $itft2 = "T";
+            
+            foreach($getITT as $gda2) :
+                    $result2 = [         
+                        'ITCOID' => $gda2['ITCOID'],
+                        'ITIDBUID' => $gda2['ITIDBUID'],
+                        'ITDOCNO' => $gda2['ITDOCNO'],
+                        'ITDOCTY' => $gda2['ITDOCTY'],
+                        'ITDOCSQ' => $gda2['ITDOCSQ'],
+                        'ITDOCDT' => $gda2['ITDOCDT'],
+                        'ITBUID1' => $gda2['ITBUID1'],
+                        'ITLNTY' => $gda2['ITLNTY'],
+                        'ITICU' => $gda2['ITICU'],
+                        'ITICUT' => $gda2['ITICUT'],
+                        'ITDOCMO' => $gda2['ITDOCMO'],
+                        'ITDOCYR' => $gda2['ITDOCYR'],
+                        'ITDOCTM' => $gda2['ITDOCTM'],
+                        'ITMSTY' => $gda2['ITMSTY'],
+                        'ITFT' => $gda2['ITFT'],
+                        'ITIDINUM' => $gda2['ITIDINUM'],
+                        'ITINUM' => $gda2['ITINUM'],
+                        'ITLOCID' => $gda2['ITLOCID'],
+                        'ITDESB1' => $this->input->post('OVDESB1', true),
+                        'ITPOST' => $gda2['ITPOST'],
+                        'ITBRAND' => $this->input->post('OVBRAND', true),
+                        'ITCOLOR' => $this->input->post('OVCOLOR', true),
+                        'ITLENGTH' => $this->input->post('OVLENGTH', true),
+                        'ITWIDTH' => $this->input->post('OVWIDTH', true),
+                        'ITWIDE' => $this->input->post('OVWIDE', true),
+                        'ITCILCAP' => $this->input->post('OVCILCAP', true),
+                        'ITMFN' => $this->input->post('OVMFN', true),
+                        'ITMACHNID' => $this->input->post('OVMACHNID', true),
+                        'ITVHRN' => $this->input->post('OVVHRN', true),
+                        'ITVHTAXDT' => $this->input->post('OVVHTAXDT', true),
+                        'ITVHRNTAXDT' => $this->input->post('OVVHTAXRNDT', true),
+                        'ITLNDOWNST' => $this->input->post('OVLNDOWNST', true),
+                        'ITCRTFID' => $this->input->post('OVCRTFID', true),
+                        'ITCRTFDT' => $this->input->post('OVCRTFDT', true),
+                        'ITASADDR' => $this->input->post('OVASADDR', true),
+                        'ITCITY' => $this->input->post('OVCITY', true),
+                        'ITDIST' => $this->input->post('OVDIST', true),
+                        'ITSUBDIST' => $this->input->post('OVSUBDIST', true),
+                        'ITMANAGE' => $gda2['ITMANAGE'],
+                        'ITUID' => $gda2['ITUID'],
+                        'ITUIDM' => $gda2['ITUIDM'],
+                        'ITDTIN' => $gda2['ITDTIN'],
+                        'ITDTLU' => date('Y-m-d H:i:s', time()),
+                        'ITIPUID' => $gda2['ITIPUID'],
+                        'ITIPUIDM' => $ip,
+                        'ITCOMV' => $this->input->post('OVCOMV', true),
+                        'ITQTY' => $gda2['ITQTY'],
+                        'ITDOCONO' => $ovdocno,
+                        'ITDOCOTY' => $ovdocty,
+                        'ITDOCOSQ' => $ovdocsq,
+                    ];
+                    $this->db->update('t4111', $result2, array('ITDOCONO' => $ovdocno,'ITDOCOSQ' => $ovdocsq, 'ITFT' => $itft2, 'ITDOCTY' => $docty));
+            endforeach;
+            
+
             redirect('BerkasBaru/Tambah_Baru/'.$ovdocno.'/'.$ovidbuid,'refresh');
         }
     }
