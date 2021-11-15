@@ -71,7 +71,7 @@ class BerkasBaru_model extends CI_Model {
         // JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID`
         // WHERE t4.`OVDOCNO` = '$ovdocno'");
 
-        $query = $this->db->query("SELECT t4.`OVCOID`, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVINUM`, t4.`OVDOCTY`, t4.OVMSTY, t4.OVCOMV, t4.OVBRAND, t4.OVCOLOR, t4.OVCILCAP, t4.`OVDOCSQ`, t4.`OVLST`, t4.`OVNST`,
+        $query = $this->db->query("SELECT t41.`LMDESA2`, t4.`OVCOID`, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVINUM`, t4.`OVDOCTY`, t4.OVMSTY, t4.OVCOMV, t4.OVBRAND, t4.OVCOLOR, t4.OVCILCAP, t4.`OVDOCSQ`, t4.`OVLST`, t4.`OVNST`,
         t4.OVMFN, t4.OVVHRN, t4.OVVHTAXDT, t4.OVVHRNTAXDT, t4.OVCRTFID, t4.OVCRTFDT, t4.OVLNDOWNST, t4.OVLENGTH, t4.OVMACHNID, t4.OVWIDTH, t4.OVWIDE, t4.OVASADDR, t4.OVCITY, t4.OVDIST, t4.OVSUBDIST,  t09.`AMOBJ`, t0009.`DTDESC1`, t09.`AMDESB1`, t21.`BNDESB1`, t4.`OVDESB1`, t4.`OVDOCDT`, t9kab.`DTDESC1` AS 'kabkota', t9kec.`DTDESC1` AS 'kecamatan', t9des.`DTDESC1` AS 'desa', t4.`OVLOCID`
         FROM t4312 AS t4 JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID` 
         JOIN t0901 AS t09 ON t09.`AMOBJ` = t4.`OVINUM` 
@@ -485,6 +485,12 @@ class BerkasBaru_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function getITfrom2($ovdocno) {
+        $query=$this->db->query("SELECT * FROM t4111 WHERE ITDOCOTY = 'OV' AND ITDOCONO = '$ovdocno' AND ITDOCTY = 'IT' AND ITFT = 'F'");
+
+        return $query->result_array();
+    }
+
     public function getITto($ovdocno, $ovdocsq) {
         $query=$this->db->query("SELECT * FROM t4111 WHERE ITDOCOTY = 'OV' AND ITDOCONO = '$ovdocno' AND ITDOCOSQ = '$ovdocsq' AND ITDOCTY = 'IT' AND ITFT = 'T'");
 
@@ -690,7 +696,7 @@ class BerkasBaru_model extends CI_Model {
         FROM t4312 AS t4 JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID` 
         JOIN t0901 AS t09 ON t09.`AMOBJ` = t4.`OVINUM` 
         JOIN t0009 ON t0009.`DTDC` = t4.`OVMSTY` 
-        JOIN t4100 AS t41 ON t4.`OVLOCID` = t41.`LMLOCID`
+        LEFT OUTER JOIN t4100 AS t41 ON t4.`OVLOCID` = t41.`LMLOCID`
         LEFT OUTER JOIN t0009 AS t9kab ON t9kab.`DTDC` = t4.`OVCITY` AND t9kab.`DTPC`='01' AND t9kab.`DTSC`='CY' AND t9kab.`DTDC` IN ('35.76','35.16')
         LEFT OUTER JOIN t0009 AS t9kec ON t9kec.`DTDC` = t4.`OVDIST` AND t9kec.`DTPC`='01' AND t9kec.`DTSC`='DT' AND SUBSTRING(t9kec.`DTDC`, 1, 5) = t9kab.`DTDC`
         LEFT OUTER JOIN t0009 AS t9des ON t9des.`DTDC` = t4.`OVSUBDIST` AND t9des.`DTPC`='01' AND t9des.`DTSC`='SD' AND SUBSTRING(t9des.`DTDC`, 1, 8) = t9kec.`DTDC`
@@ -889,6 +895,34 @@ class BerkasBaru_model extends CI_Model {
             return 1;
         else
             return 0;
+    }
+
+    public function Check($ovdocno, $ovdocty) {
+        $query = $this->db->query("SELECT * FROM t4111 WHERE ITDOCOTY = '$ovdocty' AND ITDOCONO = '$ovdocno'");
+
+        return $query;  
+
+        if($query->num_rows() > 0)
+            return 1;
+        else
+            return 0;
+    }
+
+    public function It() {
+        $query = $this->db->query("SELECT * FROM t4111 AS a WHERE NOT EXISTS (SELECT * FROM t4111 AS b WHERE a.ITDOCSQ = b.`ITDOCOSQ`)");
+        return $query->result_array();
+    }
+
+    public function Check_It() {
+        $query = $this->db->query("SELECT * FROM t4111 AS a WHERE NOT EXISTS (SELECT * FROM t4111 AS b WHERE a.ITDOCSQ = b.`ITDOCOSQ`)");
+        return $query;
+        
+    }
+
+    public function getItdocsqIt($nnseqICU) {
+        $query = $this->db->query("SELECT * FROM t4111 WHERE ITICU = '$nnseqICU' AND ITFT = 'F' ORDER BY ITDOCSQ DESC LIMIT 1");
+        return $query->row();
+        
     }
 
     // public function StatusUpdate($ovdocno, $status) {

@@ -249,6 +249,7 @@ class BerkasBaru extends CI_Controller {
 
         $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();
         $data['get_data'] = $this->BerkasBaru_model->GetData($x, $ovidbuid);
+        // $data['get_berkas2'] = $this->BerkasBaru_model->getBerkas2($x);
         $data['opd'] = $this->BerkasBaru_model->GetOpdById($x, $ovidbuid);
         $data['jenis_berkas'] = $this->BerkasBaru_model->getJenisBerkas();
         $data['getKabKota'] = $this->BerkasBaru_model->getKabKota();
@@ -291,7 +292,7 @@ class BerkasBaru extends CI_Controller {
             // else{
                 //NNSEQ + 1 (ICU)
                 // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-                $this->BerkasBaru_model->Update_ICU($tahun);
+                // $this->BerkasBaru_model->Update_ICU($tahun);
             // }
 
             // Prosedur penomoran tipe dokumen ICU
@@ -321,6 +322,7 @@ class BerkasBaru extends CI_Controller {
 
         $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();
         $data['get_data'] = $this->BerkasBaru_model->GetData($x, $ovidbuid);
+        $data['get_berkas2'] = $this->BerkasBaru_model->getBerkas2($ovdocno);
         $data['opd'] = $this->BerkasBaru_model->GetOpdById($x, $ovidbuid);
         $data['jenis_berkas'] = $this->BerkasBaru_model->getJenisBerkas();
         $data['getKabKota'] = $this->BerkasBaru_model->getKabKota();
@@ -357,7 +359,7 @@ class BerkasBaru extends CI_Controller {
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
-            $this->BerkasBaru_model->Update_ICU($tahun);
+            // $this->BerkasBaru_model->Update_ICU($tahun);
 
             // Prosedur penomoran tipe dokumen ICU
             $getICU = $this->BerkasBaru_model->getICU($tahun);
@@ -384,17 +386,17 @@ class BerkasBaru extends CI_Controller {
 
         $cekIT = $this->BerkasBaru_model->cekIT($ovdocno);
 
+        //Get tahun dan bulan sesuai data t0020
+        $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
+        $tahun = $getTahunBulan->CNCFY;
+        $bulan = $getTahunBulan->CNCAP;
+
         if($cekIT->num_rows() == 0) {
             $getStatus = $this->BerkasBaru_model->getStatusApprov();
             $status = $getStatus->DTDC;
 
             // edit status di t4312 tipe dokumen OV = Approv
             $this->BerkasBaru_model->Edit_Status($ovdocno, $status);
-
-            //Get tahun dan bulan sesuai data t0020
-            $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
-            $tahun = $getTahunBulan->CNCFY;
-            $bulan = $getTahunBulan->CNCAP;
 
             //Periksa tahun dan bulan sudah ada di t0002 atau belum
             $cek = $this->BerkasBaru_model->Cek_IT($tahun, $bulan);
@@ -432,7 +434,7 @@ class BerkasBaru extends CI_Controller {
                 // else{
                     //NNSEQ + 1 (ICU)
                     // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-                    $this->BerkasBaru_model->Update_ICU($tahun);
+                    // $this->BerkasBaru_model->Update_ICU($tahun);
                 // }
 
                 // Prosedur penomoran tipe dokumen ICU
@@ -443,7 +445,8 @@ class BerkasBaru extends CI_Controller {
                 // echo $no;
                 // die();
                 // end
-
+                $getStatus = $this->BerkasBaru_model->getStatusApprov();
+                $status = $getStatus->DTDC;     
                 //Mendapatkan berkas yang akan diusulkan OPD
                 $getDataApprov = $this->BerkasBaru_model->getDataApprov($ovidbuid, $ovdocno, $ovdocty);
                 $result = array();
@@ -464,243 +467,288 @@ class BerkasBaru extends CI_Controller {
 
                 // FROM (RECORD 1)
                 foreach($getDataApprov as $gda) :
-                    if($gda["ITMSTY"] == "1") {
-                        $data_array = array(             
-                            'ITCOID' => $gda['ITCOID'],
-                            'ITIDBUID' => $gda['ITIDBUID'],
-                            'ITDOCNO' => $docno["a"].$docno["b"].$docno["c"],
-                            'ITDOCTY' => $docty,
-                            'ITDOCSQ' => $sq,
-                            'ITDOCDT' => $gda['ITDOCDT'],
-                            'ITBUID1' => $gda['ITBUID1'],
-                            'ITLNTY' => $gda['ITLNTY'],
-                            'ITICU' => $no,
-                            'ITICUT' => $iticut,
-                            'ITDOCMO' => $docno["b"],
-                            'ITDOCYR' => $nnyr,
-                            'ITDOCTM' => $gda['ITDOCTM'],
-                            'ITMSTY' => $gda['ITMSTY'],
-                            'ITFT' => $itft,
-                            'ITIDINUM' => $gda['ITIDINUM'],
-                            'ITINUM' => $gda['ITINUM'],
-                            'ITLOCID' => $gda['ITLOCID'],
-                            'ITDESB1' => $gda['ITDESB1'],
-                            'ITPOST' => $status,
-                            'ITBRAND' => $gda['ITBRAND'],
-                            'ITCOLOR' => $gda['ITCOLOR'],
-                            'ITLENGTH' => $gda['ITLENGTH'],
-                            'ITWIDTH' => $gda['ITWIDTH'],
-                            'ITWIDE' => $gda['ITWIDE'],
-                            'ITCILCAP' => $gda['ITCILCAP'],
-                            'ITMFN' => $gda['ITMFN'],
-                            'ITMACHNID' => $gda['ITMACHNID'],
-                            'ITVHRN' => $gda['ITVHRN'],
-                            'ITVHTAXDT' => $gda['ITVHTAXDT'],
-                            'ITVHRNTAXDT' => $gda['ITVHRNTAXDT'],
-                            'ITLNDOWNST' => $gda['ITLNDOWNST'],
-                            'ITCRTFID' => $gda['ITCRTFID'],
-                            'ITCRTFDT' => $gda['ITCRTFDT'],
-                            'ITASADDR' => $gda['ITASADDR'],
-                            'ITCITY' => $gda['ITCITY'],
-                            'ITDIST' => $gda['ITDIST'],
-                            'ITSUBDIST' => $gda['ITSUBDIST'],
-                            'ITMANAGE' => $gda['ITMANAGE'],
-                            'ITUID' => $ituid,
-                            'ITUIDM' => $ituid,
-                            'ITDTIN' => date('Y-m-d H:i:s', time()),
-                            'ITDTLU' => date('Y-m-d H:i:s', time()),
-                            'ITIPUID' => $ip,
-                            'ITIPUIDM' => $ip,
-                            'ITCOMV' => $gda['ITCOMV'],
-                            'ITQTY' => $itqtyf,
-                            'ITDOCONO' => $gda["ITDOCNO"],
-                            'ITDOCOTY' => $gda["ITDOCTY"],
-                            'ITDOCOSQ' => $gda["ITDOCSQ"],
-                        );
-                        array_push($result, $data_array);
-                        $sq += 10 ;
-                        }
-                    else{
-                        $data_array = array(             
-                            'ITCOID' => $gda['ITCOID'],
-                            'ITIDBUID' => $gda['ITIDBUID'],
-                            'ITDOCNO' => $docno["a"].$docno["b"].$docno["c"],
-                            'ITDOCTY' => $docty,
-                            'ITDOCSQ' => $sq,
-                            'ITDOCDT' => $gda['ITDOCDT'],
-                            'ITBUID1' => $gda['ITBUID1'],
-                            'ITLNTY' => $gda['ITLNTY'],
-                            'ITICU' => $no,
-                            'ITICUT' => $iticut,
-                            'ITDOCMO' => $docno["b"],
-                            'ITDOCYR' => $nnyr,
-                            'ITDOCTM' => $gda['ITDOCTM'],
-                            'ITMSTY' => $gda['ITMSTY'],
-                            'ITFT' => $itft,
-                            'ITIDINUM' => $gda['ITIDINUM'],
-                            'ITINUM' => $gda['ITINUM'],
-                            'ITLOCID' => $gda['ITLOCID'],
-                            'ITDESB1' => $gda['ITDESB1'],
-                            'ITPOST' => $status,
-                            'ITBRAND' => $gda['ITBRAND'],
-                            'ITCOLOR' => $gda['ITCOLOR'],
-                            'ITLENGTH' => $gda['ITLENGTH'],
-                            'ITWIDTH' => $gda['ITWIDTH'],
-                            'ITWIDE' => $gda['ITWIDE'],
-                            'ITCILCAP' => $gda['ITCILCAP'],
-                            'ITMFN' => $gda['ITMFN'],
-                            'ITMACHNID' => $gda['ITMACHNID'],
-                            'ITVHRN' => $gda['ITVHRN'],
-                            'ITVHTAXDT' => $gda['ITVHTAXDT'],
-                            'ITVHRNTAXDT' => $gda['ITVHRNTAXDT'],
-                            'ITLNDOWNST' => $gda['ITLNDOWNST'],
-                            'ITCRTFID' => $gda['ITCRTFID'],
-                            'ITCRTFDT' => $gda['ITCRTFDT'],
-                            'ITASADDR' => $gda['ITASADDR'],
-                            'ITCITY' => $gda['ITCITY'],
-                            'ITDIST' => $gda['ITDIST'],
-                            'ITSUBDIST' => $gda['ITSUBDIST'],
-                            'ITMANAGE' => $gda['ITMANAGE'],
-                            'ITUID' => $ituid,
-                            'ITUIDM' => $ituid,
-                            'ITDTIN' => date('Y-m-d H:i:s', time()),
-                            'ITDTLU' => date('Y-m-d H:i:s', time()),
-                            'ITIPUID' => $ip,
-                            'ITIPUIDM' => $ip,
-                            'ITCOMV' => $gda['ITCOMV'],
-                            'ITQTY' => $itqtyf,
-                            'ITDOCONO' => $gda["ITDOCNO"],
-                            'ITDOCOTY' => $gda["ITDOCTY"],
-                            'ITDOCOSQ' => $gda["ITDOCSQ"],
-                        );
-                        array_push($result, $data_array);
-                        $sq += 10;
-                    }
+                    $data_array = array(             
+                        'ITCOID' => $gda['ITCOID'],
+                        'ITIDBUID' => $gda['ITIDBUID'],
+                        'ITDOCNO' => $docno["a"].$docno["b"].$docno["c"],
+                        'ITDOCTY' => $docty,
+                        'ITDOCSQ' => $sq,
+                        'ITDOCDT' => $gda['ITDOCDT'],
+                        'ITBUID1' => $gda['ITBUID1'],
+                        'ITLNTY' => $gda['ITLNTY'],
+                        'ITICU' => $gda['ITICU'],
+                        'ITICUT' => $iticut,
+                        'ITDOCMO' => $docno["b"],
+                        'ITDOCYR' => $nnyr,
+                        'ITDOCTM' => $gda['ITDOCTM'],
+                        'ITMSTY' => $gda['ITMSTY'],
+                        'ITFT' => $itft,
+                        'ITIDINUM' => $gda['ITIDINUM'],
+                        'ITINUM' => $gda['ITINUM'],
+                        'ITLOCID' => $gda['ITLOCID'],
+                        'ITDESB1' => $gda['ITDESB1'],
+                        'ITPOST' => $status,
+                        'ITBRAND' => $gda['ITBRAND'],
+                        'ITCOLOR' => $gda['ITCOLOR'],
+                        'ITLENGTH' => $gda['ITLENGTH'],
+                        'ITWIDTH' => $gda['ITWIDTH'],
+                        'ITWIDE' => $gda['ITWIDE'],
+                        'ITCILCAP' => $gda['ITCILCAP'],
+                        'ITMFN' => $gda['ITMFN'],
+                        'ITMACHNID' => $gda['ITMACHNID'],
+                        'ITVHRN' => $gda['ITVHRN'],
+                        'ITVHTAXDT' => $gda['ITVHTAXDT'],
+                        'ITVHRNTAXDT' => $gda['ITVHRNTAXDT'],
+                        'ITLNDOWNST' => $gda['ITLNDOWNST'],
+                        'ITCRTFID' => $gda['ITCRTFID'],
+                        'ITCRTFDT' => $gda['ITCRTFDT'],
+                        'ITASADDR' => $gda['ITASADDR'],
+                        'ITCITY' => $gda['ITCITY'],
+                        'ITDIST' => $gda['ITDIST'],
+                        'ITSUBDIST' => $gda['ITSUBDIST'],
+                        'ITMANAGE' => $gda['ITMANAGE'],
+                        'ITUID' => $ituid,
+                        'ITUIDM' => $ituid,
+                        'ITDTIN' => date('Y-m-d H:i:s', time()),
+                        'ITDTLU' => date('Y-m-d H:i:s', time()),
+                        'ITIPUID' => $ip,
+                        'ITIPUIDM' => $ip,
+                        'ITCOMV' => $gda['ITCOMV'],
+                        'ITQTY' => $itqtyf,
+                        'ITDOCONO' => $gda["ITDOCNO"],
+                        'ITDOCOTY' => $gda["ITDOCTY"],
+                        'ITDOCOSQ' => $gda["ITDOCSQ"],
+                    );
+                    array_push($result, $data_array);
+                    $sq += 10 ;
                 endforeach;
                 $this->db->insert_batch('t4111', $result);
 
                 // TO (RECORD 2)
                 $getDataApprov2 = $this->BerkasBaru_model->getDataApprov2($no, $itft);
+                // $getDataApprov2 = $this->BerkasBaru_model->getITfrom2($ovdocno);
                 $result2 = array();
                 
                 foreach($getDataApprov2 as $gda2) :
-                    if($gda2["ITMSTY"] == "1") {
-                        $data_array2 = array(             
-                            'ITCOID' => $gda2['ITCOID'],
-                            'ITIDBUID' => $itidbuid,
-                            'ITDOCNO' => $docno["a"].$docno["b"].$docno["c"],
-                            'ITDOCTY' => $docty,
-                            'ITDOCSQ' => $sq,
-                            'ITDOCDT' => $gda2['ITDOCDT'],
-                            'ITBUID1' => $gda2['ITBUID1'],
-                            'ITLNTY' => $gda2['ITLNTY'],
-                            'ITICU' => $no,
-                            'ITICUT' => $iticut,
-                            'ITDOCMO' => $docno["b"],
-                            'ITDOCYR' => $nnyr,
-                            'ITDOCTM' => $gda2['ITDOCTM'],
-                            'ITMSTY' => $gda2['ITMSTY'],
-                            'ITFT' => $itft2,
-                            'ITIDINUM' => $gda['ITIDINUM'],
-                            'ITINUM' => $gda2['ITINUM'],
-                            'ITLOCID' => $itlocid,
-                            'ITDESB1' => $gda2['ITDESB1'],
-                            'ITPOST' => $status,
-                            'ITBRAND' => $gda2['ITBRAND'],
-                            'ITCOLOR' => $gda2['ITCOLOR'],
-                            'ITLENGTH' => $gda2['ITLENGTH'],
-                            'ITWIDTH' => $gda2['ITWIDTH'],
-                            'ITWIDE' => $gda2['ITWIDE'],
-                            'ITCILCAP' => $gda2['ITCILCAP'],
-                            'ITMFN' => $gda2['ITMFN'],
-                            'ITMACHNID' => $gda2['ITMACHNID'],
-                            'ITVHRN' => $gda2['ITVHRN'],
-                            'ITVHTAXDT' => $gda2['ITVHTAXDT'],
-                            'ITVHRNTAXDT' => $gda2['ITVHRNTAXDT'],
-                            'ITLNDOWNST' => $gda2['ITLNDOWNST'],
-                            'ITCRTFID' => $gda2['ITCRTFID'],
-                            'ITCRTFDT' => $gda2['ITCRTFDT'],
-                            'ITASADDR' => $gda2['ITASADDR'],
-                            'ITCITY' => $gda2['ITCITY'],
-                            'ITDIST' => $gda2['ITDIST'],
-                            'ITSUBDIST' => $gda2['ITSUBDIST'],
-                            'ITMANAGE' => $gda2['ITMANAGE'],
-                            'ITUID' => $ituid,
-                            'ITUIDM' => $ituid,
-                            'ITDTIN' => date('Y-m-d H:i:s', time()),
-                            'ITDTLU' => date('Y-m-d H:i:s', time()),
-                            'ITIPUID' => $ip,
-                            'ITIPUIDM' => $ip,
-                            'ITCOMV' => $gda2['ITCOMV'],
-                            'ITQTY' => $itqtyt,
-                            'ITDOCONO' => $gda["ITDOCNO"],
-                            'ITDOCOTY' => $gda["ITDOCTY"],
-                            'ITDOCOSQ' => $sq,
-                        );
-                        array_push($result2, $data_array2);
-                        // $sq += 10 ;
-                    }
-                    else{
-                        $data_array2 = array(             
-                            'ITCOID' => $gda2['ITCOID'],
-                            'ITIDBUID' => $itidbuid,
-                            'ITDOCNO' => $docno["a"].$docno["b"].$docno["c"],
-                            'ITDOCTY' => $docty,
-                            'ITDOCSQ' => $sq,
-                            'ITDOCDT' => $gda2['ITDOCDT'],
-                            'ITBUID1' => $gda2['ITBUID1'],
-                            'ITLNTY' => $gda2['ITLNTY'],
-                            'ITICU' => $no,
-                            'ITICUT' => $iticut,
-                            'ITDOCMO' => $docno["b"],
-                            'ITDOCYR' => $nnyr,
-                            'ITDOCTM' => $gda2['ITDOCTM'],
-                            'ITMSTY' => $gda2['ITMSTY'],
-                            'ITFT' => $itft2,
-                            'ITIDINUM' => $gda['ITIDINUM'],
-                            'ITINUM' => $gda2['ITINUM'],
-                            'ITLOCID' => $itlocid,
-                            'ITDESB1' => $gda2['ITDESB1'],
-                            'ITPOST' => $status,
-                            'ITBRAND' => $gda2['ITBRAND'],
-                            'ITCOLOR' => $gda2['ITCOLOR'],
-                            'ITLENGTH' => $gda2['ITLENGTH'],
-                            'ITWIDTH' => $gda2['ITWIDTH'],
-                            'ITWIDE' => $gda2['ITWIDE'],
-                            'ITCILCAP' => $gda2['ITCILCAP'],
-                            'ITMFN' => $gda2['ITMFN'],
-                            'ITMACHNID' => $gda2['ITMACHNID'],
-                            'ITVHRN' => $gda2['ITVHRN'],
-                            'ITVHTAXDT' => $gda2['ITVHTAXDT'],
-                            'ITVHRNTAXDT' => $gda2['ITVHRNTAXDT'],
-                            'ITLNDOWNST' => $gda2['ITLNDOWNST'],
-                            'ITCRTFID' => $gda2['ITCRTFID'],
-                            'ITCRTFDT' => $gda2['ITCRTFDT'],
-                            'ITASADDR' => $gda2['ITASADDR'],
-                            'ITCITY' => $gda2['ITCITY'],
-                            'ITDIST' => $gda2['ITDIST'],
-                            'ITSUBDIST' => $gda2['ITSUBDIST'],
-                            'ITMANAGE' => $gda2['ITMANAGE'],
-                            'ITUID' => $ituid,
-                            'ITUIDM' => $ituid,
-                            'ITDTIN' => date('Y-m-d H:i:s', time()),
-                            'ITDTLU' => date('Y-m-d H:i:s', time()),
-                            'ITIPUID' => $ip,
-                            'ITIPUIDM' => $ip,
-                            'ITCOMV' => $gda2['ITCOMV'],
-                            'ITQTY' => $itqtyt,
-                            'ITDOCONO' => $gda["ITDOCNO"],
-                            'ITDOCOTY' => $gda["ITDOCTY"],
-                            'ITDOCOSQ' => $sq,
-                        );
-                        array_push($result2, $data_array2);
-                        // $sq += 10 ;
-                    }
+                    $data_array2 = array(             
+                        'ITCOID' => $gda2['ITCOID'],
+                        'ITIDBUID' => $itidbuid,
+                        'ITDOCNO' => $gda2['ITDOCNO'],
+                        'ITDOCTY' => $docty,
+                        'ITDOCSQ' => $gda2['ITDOCSQ'],
+                        'ITDOCDT' => $gda2['ITDOCDT'],
+                        'ITBUID1' => $gda2['ITBUID1'],
+                        'ITLNTY' => $gda2['ITLNTY'],
+                        'ITICU' => $gda2['ITICU'],
+                        'ITICUT' => $iticut,
+                        'ITDOCMO' => $gda2['ITDOCMO'],
+                        'ITDOCYR' => $gda2['ITDOCYR'],
+                        'ITDOCTM' => $gda2['ITDOCTM'],
+                        'ITMSTY' => $gda2['ITMSTY'],
+                        'ITFT' => $itft2,
+                        'ITIDINUM' => $gda2['ITIDINUM'],
+                        'ITINUM' => $gda2['ITINUM'],
+                        'ITLOCID' => $itlocid,
+                        'ITDESB1' => $gda2['ITDESB1'],
+                        'ITPOST' => $status,
+                        'ITBRAND' => $gda2['ITBRAND'],
+                        'ITCOLOR' => $gda2['ITCOLOR'],
+                        'ITLENGTH' => $gda2['ITLENGTH'],
+                        'ITWIDTH' => $gda2['ITWIDTH'],
+                        'ITWIDE' => $gda2['ITWIDE'],
+                        'ITCILCAP' => $gda2['ITCILCAP'],
+                        'ITMFN' => $gda2['ITMFN'],
+                        'ITMACHNID' => $gda2['ITMACHNID'],
+                        'ITVHRN' => $gda2['ITVHRN'],
+                        'ITVHTAXDT' => $gda2['ITVHTAXDT'],
+                        'ITVHRNTAXDT' => $gda2['ITVHRNTAXDT'],
+                        'ITLNDOWNST' => $gda2['ITLNDOWNST'],
+                        'ITCRTFID' => $gda2['ITCRTFID'],
+                        'ITCRTFDT' => $gda2['ITCRTFDT'],
+                        'ITASADDR' => $gda2['ITASADDR'],
+                        'ITCITY' => $gda2['ITCITY'],
+                        'ITDIST' => $gda2['ITDIST'],
+                        'ITSUBDIST' => $gda2['ITSUBDIST'],
+                        'ITMANAGE' => $gda2['ITMANAGE'],
+                        'ITUID' => $ituid,
+                        'ITUIDM' => $ituid,
+                        'ITDTIN' => date('Y-m-d H:i:s', time()),
+                        'ITDTLU' => date('Y-m-d H:i:s', time()),
+                        'ITIPUID' => $ip,
+                        'ITIPUIDM' => $ip,
+                        'ITCOMV' => $gda2['ITCOMV'],
+                        'ITQTY' => $itqtyt,
+                        'ITDOCONO' => $gda2["ITDOCONO"],
+                        'ITDOCOTY' => $gda2["ITDOCOTY"],
+                        'ITDOCOSQ' => $gda2["ITDOCOSQ"],
+                    );
+                    array_push($result2, $data_array2);
                 endforeach;
+                $this->db->insert_batch('t4111', $result2);
             }
-            $this->db->insert_batch('t4111',$result2);
         }
         else {
+            $getStatus = $this->BerkasBaru_model->getStatusApprov();
+            $status = $getStatus->DTDC; 
+            $check = $this->BerkasBaru_model->Check_It();
+            if($check->num_rows() > 0) {
+                //Prosedur Penomoran Tipe Dokumen IT
+                $getIT = $this->BerkasBaru_model->getIT($tahun, $bulan);
+
+                $nnseq= $getIT->NNSEQ;
+                $fzeropadded = sprintf("%05d", $nnseq);
+
+                $nnyr = $getIT->NNYR;
+                $x = substr($nnyr, 2);
+
+                $nnmo = $getIT->NNMO;
+                $fzeropadded2 = sprintf("%02d", $nnmo);
+                
+                $docno = [
+                    'a' => $x,
+                    'b' => $fzeropadded2,
+                    'c' => $fzeropadded
+                ];
+                $getICU = $this->BerkasBaru_model->getICU($tahun);
+                $nnseqICU= $getICU->NNSEQ;
+                $n = $this->BerkasBaru_model->getItdocsqIt($nnseqICU);
+                $x = $n->ITDOCSQ + 10;
+                $sq = $x;
+
+                $itfrom = $this->BerkasBaru_model->It();
+                $result3 = array();
+                date_default_timezone_set('Asia/Jakarta');
+                $ip = $_SERVER['REMOTE_ADDR'];
+                $ituid = "admin1";
+                $docty = "IT";
+                $iticut = "I";
+                $itft = "F";
+                $itft2 = "T";
+                $itqtyf = "-1";
+                $itqtyt = "1";
+                $idbuid = $this->BerkasBaru_model->getBnidbuid();
+                $itidbuid = $idbuid->BNIDBUID;
+                $locid = $this->BerkasBaru_model->getLocid();
+                $itlocid = $locid->LMLOCID;
+
+                // FROM (RECORD 1)
+                foreach($itfrom as $itf) :
+                    $data_array3 = array(             
+                        'ITCOID' => $itf['ITCOID'],
+                        'ITIDBUID' => $itf['ITIDBUID'],
+                        'ITDOCNO' => $docno["a"].$docno["b"].$docno["c"],
+                        'ITDOCTY' => $docty,
+                        'ITDOCSQ' => $sq,
+                        'ITDOCDT' => $itf['ITDOCDT'],
+                        'ITBUID1' => $itf['ITBUID1'],
+                        'ITLNTY' => $itf['ITLNTY'],
+                        'ITICU' => $itf['ITICU'],
+                        'ITICUT' => $iticut,
+                        'ITDOCMO' => $docno["b"],
+                        'ITDOCYR' => $nnyr,
+                        'ITDOCTM' => $itf['ITDOCTM'],
+                        'ITMSTY' => $itf['ITMSTY'],
+                        'ITFT' => $itft,
+                        'ITIDINUM' => $itf['ITIDINUM'],
+                        'ITINUM' => $itf['ITINUM'],
+                        'ITLOCID' => $itf['ITLOCID'],
+                        'ITDESB1' => $itf['ITDESB1'],
+                        'ITPOST' => $status,
+                        'ITBRAND' => $itf['ITBRAND'],
+                        'ITCOLOR' => $itf['ITCOLOR'],
+                        'ITLENGTH' => $itf['ITLENGTH'],
+                        'ITWIDTH' => $itf['ITWIDTH'],
+                        'ITWIDE' => $itf['ITWIDE'],
+                        'ITCILCAP' => $itf['ITCILCAP'],
+                        'ITMFN' => $itf['ITMFN'],
+                        'ITMACHNID' => $itf['ITMACHNID'],
+                        'ITVHRN' => $itf['ITVHRN'],
+                        'ITVHTAXDT' => $itf['ITVHTAXDT'],
+                        'ITVHRNTAXDT' => $itf['ITVHRNTAXDT'],
+                        'ITLNDOWNST' => $itf['ITLNDOWNST'],
+                        'ITCRTFID' => $itf['ITCRTFID'],
+                        'ITCRTFDT' => $itf['ITCRTFDT'],
+                        'ITASADDR' => $itf['ITASADDR'],
+                        'ITCITY' => $itf['ITCITY'],
+                        'ITDIST' => $itf['ITDIST'],
+                        'ITSUBDIST' => $itf['ITSUBDIST'],
+                        'ITMANAGE' => $itf['ITMANAGE'],
+                        'ITUID' => $ituid,
+                        'ITUIDM' => $ituid,
+                        'ITDTIN' => date('Y-m-d H:i:s', time()),
+                        'ITDTLU' => date('Y-m-d H:i:s', time()),
+                        'ITIPUID' => $ip,
+                        'ITIPUIDM' => $ip,
+                        'ITCOMV' => $itf['ITCOMV'],
+                        'ITQTY' => $itqtyf,
+                        'ITDOCONO' => $itf["ITDOCNO"],
+                        'ITDOCOTY' => $itf["ITDOCTY"],
+                        'ITDOCOSQ' => $itf["ITDOCSQ"],
+                    );
+                    array_push($result3, $data_array3);
+                    $sq += 10 ;
+                endforeach;
+                $this->db->insert_batch('t4111', $result3);
+
+                // TO (RECORD 2)
+                $result4 = array();
+                foreach($itfrom as $itf) :
+                    $data_array4 = array(             
+                        'ITCOID' => $itf['ITCOID'],
+                        'ITIDBUID' => $itidbuid,
+                        'ITDOCNO' => $docno["a"].$docno["b"].$docno["c"],
+                        'ITDOCTY' => $docty,
+                        'ITDOCSQ' => $itf['ITDOCSQ'],
+                        'ITDOCDT' => $itf['ITDOCDT'],
+                        'ITBUID1' => $itf['ITBUID1'],
+                        'ITLNTY' => $itf['ITLNTY'],
+                        'ITICU' => $itf['ITICU'],
+                        'ITICUT' => $iticut,
+                        'ITDOCMO' => $docno["b"],
+                        'ITDOCYR' => $nnyr,
+                        'ITDOCTM' => $itf['ITDOCTM'],
+                        'ITMSTY' => $itf['ITMSTY'],
+                        'ITFT' => $itft2,
+                        'ITIDINUM' => $itf['ITIDINUM'],
+                        'ITINUM' => $itf['ITINUM'],
+                        'ITLOCID' => $itlocid,
+                        'ITDESB1' => $itf['ITDESB1'],
+                        'ITPOST' => $status,
+                        'ITBRAND' => $itf['ITBRAND'],
+                        'ITCOLOR' => $itf['ITCOLOR'],
+                        'ITLENGTH' => $itf['ITLENGTH'],
+                        'ITWIDTH' => $itf['ITWIDTH'],
+                        'ITWIDE' => $itf['ITWIDE'],
+                        'ITCILCAP' => $itf['ITCILCAP'],
+                        'ITMFN' => $itf['ITMFN'],
+                        'ITMACHNID' => $itf['ITMACHNID'],
+                        'ITVHRN' => $itf['ITVHRN'],
+                        'ITVHTAXDT' => $itf['ITVHTAXDT'],
+                        'ITVHRNTAXDT' => $itf['ITVHRNTAXDT'],
+                        'ITLNDOWNST' => $itf['ITLNDOWNST'],
+                        'ITCRTFID' => $itf['ITCRTFID'],
+                        'ITCRTFDT' => $itf['ITCRTFDT'],
+                        'ITASADDR' => $itf['ITASADDR'],
+                        'ITCITY' => $itf['ITCITY'],
+                        'ITDIST' => $itf['ITDIST'],
+                        'ITSUBDIST' => $itf['ITSUBDIST'],
+                        'ITMANAGE' => $itf['ITMANAGE'],
+                        'ITUID' => $ituid,
+                        'ITUIDM' => $ituid,
+                        'ITDTIN' => date('Y-m-d H:i:s', time()),
+                        'ITDTLU' => date('Y-m-d H:i:s', time()),
+                        'ITIPUID' => $ip,
+                        'ITIPUIDM' => $ip,
+                        'ITCOMV' => $itf['ITCOMV'],
+                        'ITQTY' => $itqtyt,
+                        'ITDOCONO' => $itf["ITDOCNO"],
+                        'ITDOCOTY' => $itf["ITDOCTY"],
+                        'ITDOCOSQ' => $itf["ITDOCSQ"],
+                    );
+                    array_push($result4, $data_array4);
+                endforeach;
+                $this->db->insert_batch('t4111', $result4);
+            }
             $getStatus = $this->BerkasBaru_model->getStatusApprov();
             $status = $getStatus->DTDC;
             // ubah status jadi approval->draft di t4312 dan t4111 OV IT
