@@ -49,6 +49,8 @@
                                             <input type="text" name="OVPOST" value="<?=$berkas["OVPOST"];?>">
                                             <input type="text" name="OVLNTY" value="<?=$berkas["OVLNTY"];?>">
                                             <input type="text" name="OVICU" value="<?=$berkas["OVICU"];?>">
+                                            <input type="text" name="OVUOM1" value="<?=$berkas["OVUOM1"];?>">
+                                            <input type="text" name="OVGLCLS" value="<?=$berkas["OVGLCLS"];?>">
                                             
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">

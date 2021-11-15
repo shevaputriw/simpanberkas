@@ -119,6 +119,12 @@ class BerkasBaru extends CI_Controller {
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
+            //get OVIDINUM
+            $ovidinum = $this->input->post('OVINUM');
+            $id = $this->BerkasBaru_model->getIdinum($ovidinum);
+            $idinum = $id->AMOAN;
+            $glcls = $id->AMGLCLS;
+
             // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
             // if($cekICU->num_rows() == 0) {
             //     $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
@@ -138,16 +144,14 @@ class BerkasBaru extends CI_Controller {
             if($ovbuid1->BNBUID1 == 0) {
                 $buid1 = 0;
                 $x = $ovdocno + 1;
-                $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no);
-                $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no);
-                // $this->BerkasBaru_model->Tambah_41021($buid1);
+                $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no, $idinum, $glcls);
             }
             else{
                 $x = $ovdocno + 1;
                 $buid1 = $ovbuid1->BNBUID1;
-                $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no);
-                $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no);
-                // $this->BerkasBaru_model->Tambah_41021($buid1);
+                $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no, $idinum, $glcls);
             }
             redirect('BerkasBaru/index','refresh');
         }  
@@ -208,6 +212,11 @@ class BerkasBaru extends CI_Controller {
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
+            $ovidinum = $this->input->post('OVINUM');
+            $id = $this->BerkasBaru_model->getIdinum($ovidinum);
+            $idinum = $id->AMOAN;
+            $glcls = $id->AMGLCLS;
+
             // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
             // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
             // if($cekICU->num_rows() == 0) {
@@ -228,15 +237,15 @@ class BerkasBaru extends CI_Controller {
             if($ovbuid1->BNBUID1 == 0) {
                 $buid1 = 0;
                 $x = $ovdocno + 1;
-                $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no);
-                $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no);
+                $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no, $idinum, $glcls);
                 // $this->BerkasBaru_model->Tambah_41021($buid1);
             }
             else{
                 $x = $ovdocno + 1;
                 $buid1 = $ovbuid1->BNBUID1;
-                $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no);
-                $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no);
+                $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no, $idinum, $glcls);
                 // $this->BerkasBaru_model->Tambah_41021($buid1);
             }
             redirect('BerkasBaru/Tambah_Baru/'.$x.'/'.$ovidbuid,'refresh');
@@ -285,6 +294,11 @@ class BerkasBaru extends CI_Controller {
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
+            $ovidinum = $this->input->post('OVINUM');
+            $id = $this->BerkasBaru_model->getIdinum($ovidinum);
+            $idinum = $id->AMOAN;
+            $glcls = $id->AMGLCLS;
+
             // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
             // if($cekICU->num_rows() == 0) {
             //     $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
@@ -303,15 +317,13 @@ class BerkasBaru extends CI_Controller {
 
             if($ovbuid1->BNBUID1 == 0) {
                 $buid1 = 0;
-                $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no);
-                $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no);
-                // $this->BerkasBaru_model->Tambah2_41021($ovidbuid, $buid1);
+                $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no, $idinum, $glcls);
             }
             else{
                 $buid1 = $ovbuid1->BNBUID1;
-                $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no);
-                $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no);
-                // $this->BerkasBaru_model->Tambah2_41021($ovidbuid, $buid1);
+                $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no, $idinum, $glcls);
             }
             redirect('BerkasBaru/Tambah_Baru/'.$x.'/'.$ovidbuid,'refresh');
         }
@@ -322,7 +334,7 @@ class BerkasBaru extends CI_Controller {
 
         $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();
         $data['get_data'] = $this->BerkasBaru_model->GetData($x, $ovidbuid);
-        $data['get_berkas2'] = $this->BerkasBaru_model->getBerkas2($ovdocno);
+        $data['get_berkas2'] = $this->BerkasBaru_model->getBerkas2($x);
         $data['opd'] = $this->BerkasBaru_model->GetOpdById($x, $ovidbuid);
         $data['jenis_berkas'] = $this->BerkasBaru_model->getJenisBerkas();
         $data['getKabKota'] = $this->BerkasBaru_model->getKabKota();
@@ -359,6 +371,11 @@ class BerkasBaru extends CI_Controller {
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
+            $ovidinum = $this->input->post('OVINUM');
+            $id = $this->BerkasBaru_model->getIdinum($ovidinum);
+            $idinum = $id->AMOAN;
+            $glcls = $id->AMGLCLS;
+
             // $this->BerkasBaru_model->Update_ICU($tahun);
 
             // Prosedur penomoran tipe dokumen ICU
@@ -368,13 +385,13 @@ class BerkasBaru extends CI_Controller {
 
             if($ovbuid1->BNBUID1 == 0) {
                 $buid1 = 0;
-                $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no);
-                $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no);
+                $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no, $idinum, $glcls);
             }
             else{
                 $buid1 = $ovbuid1->BNBUID1;
-                $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no);
-                $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no);
+                $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no, $idinum, $glcls);
             }
             redirect('BerkasBaru/Tambah_Baru/'.$x.'/'.$ovidbuid,'refresh');
         }
@@ -484,6 +501,8 @@ class BerkasBaru extends CI_Controller {
                         'ITMSTY' => $gda['ITMSTY'],
                         'ITFT' => $itft,
                         'ITIDINUM' => $gda['ITIDINUM'],
+                        'ITGLCLS' => $gda['ITGLCLS'],
+                        'ITUOM1' => $gda['ITUOM1'],
                         'ITINUM' => $gda['ITINUM'],
                         'ITLOCID' => $gda['ITLOCID'],
                         'ITDESB1' => $gda['ITDESB1'],
@@ -547,6 +566,8 @@ class BerkasBaru extends CI_Controller {
                         'ITMSTY' => $gda2['ITMSTY'],
                         'ITFT' => $itft2,
                         'ITIDINUM' => $gda2['ITIDINUM'],
+                        'ITGLCLS' => $gda2['ITGLCLS'],
+                        'ITUOM1' => $gda2['ITUOM1'],
                         'ITINUM' => $gda2['ITINUM'],
                         'ITLOCID' => $itlocid,
                         'ITDESB1' => $gda2['ITDESB1'],
@@ -650,6 +671,8 @@ class BerkasBaru extends CI_Controller {
                         'ITMSTY' => $itf['ITMSTY'],
                         'ITFT' => $itft,
                         'ITIDINUM' => $itf['ITIDINUM'],
+                        'ITGLCLS' => $itf['ITGLCLS'],
+                        'ITUOM1' => $itf['ITUOM1'],
                         'ITINUM' => $itf['ITINUM'],
                         'ITLOCID' => $itf['ITLOCID'],
                         'ITDESB1' => $itf['ITDESB1'],
@@ -710,6 +733,8 @@ class BerkasBaru extends CI_Controller {
                         'ITMSTY' => $itf['ITMSTY'],
                         'ITFT' => $itft2,
                         'ITIDINUM' => $itf['ITIDINUM'],
+                        'ITGLCLS' => $itf['ITGLCLS'],
+                        'ITUOM1' => $itf['ITUOM1'],
                         'ITINUM' => $itf['ITINUM'],
                         'ITLOCID' => $itlocid,
                         'ITDESB1' => $itf['ITDESB1'],
@@ -754,6 +779,105 @@ class BerkasBaru extends CI_Controller {
             // ubah status jadi approval->draft di t4312 dan t4111 OV IT
             $this->BerkasBaru_model->UbahKeDraft($ovdocno, $ovidbuid, $status);
         }
+        redirect('BerkasBaru/index','refresh');
+    }
+
+    public function Acc($ovidbuid, $ovdocno, $ovdocty) {
+        $data['title'] = 'Berkas Baru';
+        $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();
+
+        //Get tahun dan bulan sesuai data t0020
+        $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
+        $tahun = $getTahunBulan->CNCFY;
+        $bulan = $getTahunBulan->CNCAP;
+
+        $getStatus = $this->BerkasBaru_model->getStatusDone();
+        $status = $getStatus->DTDC;
+
+        // edit status di t4312 dan t4111 tipe dokumen OV dan IT = Done
+        $this->BerkasBaru_model->Done($ovdocno, $status);
+
+        //insert t41021
+        $getDataIT = $this->BerkasBaru_model->getDataIT($ovdocno);
+        $hasil = array();
+        date_default_timezone_set('Asia/Jakarta');
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $iluid = "admin1";
+        $ilsqoh = "0";
+
+        foreach($getDataIT as $gdit) :
+            if($gdit["ITQTY"] == "1.00000") {
+                $data_array = array(
+                    'ILCOID' => $gdit["ITCOID"],
+                    'ILIDBUID' => $gdit["ITIDBUID"],
+                    'ILIDINUM' => $gdit["ITIDINUM"],
+                    'ILINUM' => $gdit["ITINUM"],
+                    'ILLOCID' => $gdit["ITLOCID"],
+                    'ILBUID1' => $gdit["ITBUID1"],
+                    'ILGLCLS' => $gdit["ITGLCLS"],
+                    'ILPQOH' => 1,
+                    'ILSQOH' => $ilsqoh,
+                    'ILMANAGE' => $gdit["ITMANAGE"],
+                    'ILVHRN' => $gdit["ITVHRN"],
+                    'ILVHTAXDT' => $gdit["ITVHTAXDT"],
+                    'ILVHRNTAXDT' => $gdit["ITVHRNTAXDT"],
+                    'ILMACHNID' => $gdit["ITMACHNID"],
+                    'ILMFN' => $gdit["ITMFN"],
+                    'ILUOM1' => $gdit["ITUOM1"],
+                    'ILCILCAP' => $gdit["ITCILCAP"],
+                    'ILCRTFID' => $gdit["ITCRTFID"],
+                    'ILCRTFDT' => $gdit["ITCRTFDT"],
+                    // 'ILULTZ' => $gdit["ITULTZ"],
+                    'ILASADDR' => $gdit["ITASADDR"],
+                    'ILCITY' => $gdit["ITCITY"],
+                    'ILDIST' => $gdit["ITDIST"],
+                    'ILSUBDIST' => $gdit["ITSUBDIST"],
+                    'ILUID' => $gdit["ITUID"],
+                    'ILUIDM' => $gdit["ITUIDM"],
+                    'ILDTIN' => date('Y-m-d H:i:s', time()),
+                    'ILDTLU' => date('Y-m-d H:i:s', time()),
+                    'ILIPUID' => $ip,
+                    'ILIPUIDM' => $ip,
+                );
+            }
+            else if($gdit["ITQTY"] == "-1.00000") {
+                $data_array = array(
+                    'ILCOID' => $gdit["ITCOID"],
+                    'ILIDBUID' => $gdit["ITIDBUID"],
+                    'ILIDINUM' => $gdit["ITIDINUM"],
+                    'ILINUM' => $gdit["ITINUM"],
+                    'ILLOCID' => $gdit["ITLOCID"],
+                    'ILBUID1' => $gdit["ITBUID1"],
+                    'ILGLCLS' => $gdit["ITGLCLS"],
+                    'ILPQOH' => 0,
+                    'ILSQOH' => $ilsqoh,
+                    'ILMANAGE' => $gdit["ITMANAGE"],
+                    'ILVHRN' => $gdit["ITVHRN"],
+                    'ILVHTAXDT' => $gdit["ITVHTAXDT"],
+                    'ILVHRNTAXDT' => $gdit["ITVHRNTAXDT"],
+                    'ILMACHNID' => $gdit["ITMACHNID"],
+                    'ILMFN' => $gdit["ITMFN"],
+                    'ILUOM1' => $gdit["ITUOM1"],
+                    'ILCILCAP' => $gdit["ITCILCAP"],
+                    'ILCRTFID' => $gdit["ITCRTFID"],
+                    'ILCRTFDT' => $gdit["ITCRTFDT"],
+                    // 'ILULTZ' => $gdit["ITULTZ"],
+                    'ILASADDR' => $gdit["ITASADDR"],
+                    'ILCITY' => $gdit["ITCITY"],
+                    'ILDIST' => $gdit["ITDIST"],
+                    'ILSUBDIST' => $gdit["ITSUBDIST"],
+                    'ILUID' => $gdit["ITUID"],
+                    'ILUIDM' => $gdit["ITUIDM"],
+                    'ILDTIN' => date('Y-m-d H:i:s', time()),
+                    'ILDTLU' => date('Y-m-d H:i:s', time()),
+                    'ILIPUID' => $ip,
+                    'ILIPUIDM' => $ip,
+                );
+            }
+            array_push($hasil, $data_array);
+        endforeach;
+        $this->db->insert_batch('t41021', $hasil);
+
         redirect('BerkasBaru/index','refresh');
     }
 
@@ -821,6 +945,8 @@ class BerkasBaru extends CI_Controller {
                     'ITMSTY' => $gda['ITMSTY'],
                     'ITFT' => $gda['ITFT'],
                     'ITIDINUM' => $gda['ITIDINUM'],
+                    'ITGLCLS' => $gda['ITGLCLS'],
+                    'ITUOM1' => $gda['ITUOM1'],
                     'ITINUM' => $gda['ITINUM'],
                     'ITLOCID' => $gda['ITLOCID'],
                     'ITDESB1' => $this->input->post('OVDESB1', true),
@@ -881,6 +1007,8 @@ class BerkasBaru extends CI_Controller {
                         'ITMSTY' => $gda2['ITMSTY'],
                         'ITFT' => $gda2['ITFT'],
                         'ITIDINUM' => $gda2['ITIDINUM'],
+                        'ITGLCLS' => $gda2['ITGLCLS'],
+                        'ITUOM1' => $gda2['ITUOM1'],
                         'ITINUM' => $gda2['ITINUM'],
                         'ITLOCID' => $gda2['ITLOCID'],
                         'ITDESB1' => $this->input->post('OVDESB1', true),

@@ -41,13 +41,21 @@
                                                     <a href="<?=base_url()?>BerkasBaru/Tambah_Baru/<?=$gt['OVDOCNO'];?>/<?=$gt['OVIDBUID'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                                     <a data-toggle="modal" href="#basicModal2<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
                                                 </td>
-                                            <?php } else {?>
+                                            <?php } else if($gt["OVPOST"] == "A") {?>
                                                 <td>
-                                                    <a href="#"><span class="badge badge-warning"><?=$gt["approval"];?></span></a>
+                                                    <a href="<?=base_url()?>BerkasBaru/Acc/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-warning"><?=$gt["approval"];?></span></a>
                                                 </td>
                                                 <td>
                                                     <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                     <a data-toggle="modal" href="#basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a>
+                                                </td>
+                                            <?php } else if($gt["OVPOST"] == "D") {?>
+                                                <td>
+                                                    <a href="#"><span class="badge badge-success"><?=$gt["done"];?></span></a>
+                                                </td>
+                                                <td>
+                                                    <!-- <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <a data-toggle="modal" href="#basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a> -->
                                                 </td>
                                             <?php }?>
                                         </tr>
