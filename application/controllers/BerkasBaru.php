@@ -299,21 +299,29 @@ class BerkasBaru extends CI_Controller {
             $idinum = $id->AMOAN;
             $glcls = $id->AMGLCLS;
 
-            // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
-            // if($cekICU->num_rows() == 0) {
-            //     $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
-            // }
-            // else{
-                //NNSEQ + 1 (ICU)
-                // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-                // $this->BerkasBaru_model->Update_ICU($tahun);
-            // }
+            $no = 0;
+            $ovmsty = $this->input->post('OVMSTY');
+            $cek_ovmsty_1 = $this->BerkasBaru_model->Cek_ovmsty_1($x, $ovidbuid);
+            $hasil_cek_1 = $cek_ovmsty_1->OVMSTY;
+            $icu_1 = $cek_ovmsty_1->OVICU;
 
-            // Prosedur penomoran tipe dokumen ICU
-            // $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
-            $getICU = $this->BerkasBaru_model->getICU($tahun);
-            $nnseqICU= $getICU->NNSEQ;
-            $no = sprintf("%09d", $nnseqICU);
+            if($ovmsty == $hasil_cek_1) {
+                $no = $cek_ovmsty_1->OVICU;
+            }
+            else{
+                $cek_ovmsty_2 = $this->BerkasBaru_model->Cek_ovmsty_2($x, $ovidbuid, $ovmsty);
+                if($cek_ovmsty_2->num_rows() == 0) {
+                    $this->BerkasBaru_model->Update_ICU($tahun);
+                    $getICU = $this->BerkasBaru_model->getICU($tahun);
+                    $nnseqICU= $getICU->NNSEQ;
+                    $no = sprintf("%09d", $nnseqICU);
+                }
+                else{
+                    $getICU = $this->BerkasBaru_model->getICU($tahun);
+                    $nnseqICU= $getICU->NNSEQ;
+                    $no = sprintf("%09d", $nnseqICU);
+                }
+            }
 
             if($ovbuid1->BNBUID1 == 0) {
                 $buid1 = 0;
@@ -544,8 +552,8 @@ class BerkasBaru extends CI_Controller {
                 $this->db->insert_batch('t4111', $result);
 
                 // TO (RECORD 2)
-                $getDataApprov2 = $this->BerkasBaru_model->getDataApprov2($no, $itft);
-                // $getDataApprov2 = $this->BerkasBaru_model->getITfrom2($ovdocno);
+                // $getDataApprov2 = $this->BerkasBaru_model->getDataApprov2($no, $itft);
+                $getDataApprov2 = $this->BerkasBaru_model->getDataApprov2($ovdocno, $itft);
                 $result2 = array();
                 
                 foreach($getDataApprov2 as $gda2) :

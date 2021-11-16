@@ -516,8 +516,8 @@ class BerkasBaru_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function getDataApprov2($iticu, $itft) {
-        $query=$this->db->query("SELECT * FROM t4111 WHERE ITICU = '$iticu' AND ITFT = '$itft'");
+    public function getDataApprov2($ovdocno, $itft) {
+        $query=$this->db->query("SELECT * FROM t4111 WHERE ITDOCONO = '$ovdocno' AND ITFT = '$itft'");
 
         return $query->result_array();
     }
@@ -728,6 +728,22 @@ class BerkasBaru_model extends CI_Model {
         WHERE t0009.`DTPC` = '20' AND t0009.`DTSC` = 'JB' AND t4.`OVDOCNO` = '$x' AND t4.`OVIDBUID` = '$ovidbuid' AND t4.`OVLST` = '400' AND t4.`OVNST` = '440'");
         
         return $query->result_array();
+    }
+
+    public function Cek_ovmsty_1($x, $ovidbuid) {
+        $query = $this->db->query("SELECT t4.`OVMSTY`, t4.`OVICU` FROM t4312 AS t4 WHERE OVDOCNO = '$x' AND OVIDBUID = '$ovidbuid' AND OVLST = '400' AND OVNST = '440' ORDER BY OVDOCSQ ASC LIMIT 1");
+        
+        return $query->row();
+    }
+
+    public function Cek_ovmsty_2($x, $ovidbuid, $ovmsty) {
+        $query = $this->db->query("SELECT t4.`OVMSTY`, t4.`OVICU` FROM t4312 AS t4 WHERE OVDOCNO = '$x' AND OVIDBUID = '$ovidbuid' AND t4.`OVMSTY` = '$ovmsty' AND OVLST = '400' AND OVNST = '440' ORDER BY OVDOCSQ ASC LIMIT 1");
+        return $query;
+
+        if($query->num_rows() > 0)
+            return 1;
+        else
+            return 0;
     }
 
     public function Cek_ovdocsq($x) {
