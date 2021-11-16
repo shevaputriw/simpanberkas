@@ -544,7 +544,7 @@ class BerkasBaru extends CI_Controller {
                         'ITQTY' => $itqtyf,
                         'ITDOCONO' => $gda["ITDOCNO"],
                         'ITDOCOTY' => $gda["ITDOCTY"],
-                        'ITDOCOSQ' => $gda["ITDOCSQ"],
+                        'ITDOCOSQ' => $gda["ITDOCSQ"]
                     );
                     array_push($result, $data_array);
                     $sq += 10 ;

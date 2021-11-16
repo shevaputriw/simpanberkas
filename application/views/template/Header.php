@@ -205,7 +205,7 @@
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-paste"></i><span class="nav-text">Pinjam Berkas</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Lorem Ipsum</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas</a></li>
                             <li><a href="#">Lorem Ipsum</a></li>
                             <li><a href="#">Lorem Ipsum</a></li>
                         </ul>

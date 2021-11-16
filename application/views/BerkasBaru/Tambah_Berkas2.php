@@ -353,7 +353,7 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label style="color:#2b2a28;"><b>Tanggal :</b></label>
+                                                        <label style="color:#2b2a28;"><b>Tanggal Dokumen :</b></label>
                                                         <p style="color:#313236"><?= date('d-m-Y', strtotime($gt["OVDOCDT"])); ?></p>
                                                     </div>
                                                     <div class="form-group col-md-6">
@@ -426,7 +426,7 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <label style="color:#2b2a28;"><b>Tanggal :</b></label>
+                                                        <label style="color:#2b2a28;"><b>Tanggal Dokumen :</b></label>
                                                         <p style="color:#313236"><?= date('d-m-Y', strtotime($gt["OVDOCDT"])); ?></p>
                                                     </div>
                                                     <div class="form-group col-md-6">
