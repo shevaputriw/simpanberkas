@@ -8,12 +8,47 @@
             parent::__construct();
             $this->load->helper('url');
             $this->load->helper('form');
-            $this->load->model('login_model');
+            $this->load->model('Login_model');
+            $this->load->library('form_validation');
         }
 
         public function index() {
-            $data['title'] = 'Login Aplikasi Simpan Berkas';
-            $this->load->view('Login',$data);
+            $data['title'] = 'Login';
+            $data['level'] = $this->Login_model->getLevel();
+
+            $this->load->view('Login/index', $data);
+        }
+
+        public function proses_login() {
+            $username = htmlspecialchars($this->input->post('username'));
+            $password = htmlspecialchars($this->input->post('password'));
+            $level = $this->input->post('level');
+
+            $login = $this->Login_model->cek_login($level, $username, $password);
+
+            if($login->num_rows() > 0) {
+                if($level == 'bpkad') {
+                    $this->Login_model->Update_last_login($level, $username, $password);
+                    redirect('Admin/index');
+                }
+                else{
+                    $this->Login_model->Update_last_login($level, $username, $password);
+                    redirect('BerkasBaru/index');
+                }
+            }
+            else {
+                $data['title'] = 'Login';
+                $data['pesan'] = 'Username atau Password Salah';
+
+                $this->load->view('Login/index', $data);
+            }
+        }
+
+        public function logout()
+        {
+            $this->Login_model->logout();
+
+            redirect(site_url());
         }
 
     }

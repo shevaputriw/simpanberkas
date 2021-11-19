@@ -1099,6 +1099,19 @@ class BerkasBaru extends CI_Controller {
 		$this->pdf->filename = "Berita-acara.pdf";
 		$this->pdf->load_view('BerkasBaru/Cetak', $data);
     }
+
+    public function Upload_BA() {
+        $data['title'] = 'Upload Berita Acara';
+
+        if($this->form_validation->run() == FALSE) {
+            $this->load->view('template/Header',$data);
+            $this->load->view('BerkasBaru/Upload_BA',$data);
+            $this->load->view('template/Footer',$data);
+        }
+        else{
+            //function upload dokumen
+        }
+    }
 }
 
 /* End of file BerkasBaru.php */

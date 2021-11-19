@@ -35,6 +35,7 @@
                                             <?php if($gt["OVPOST"] == "0" || $gt["OVPOST"] == NULL) {?>
                                                 <td>
                                                     <a href="<?=base_url()?>BerkasBaru/Approval/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-warning"><?=$gt["draft"];?></span></a>
+                                                    <a href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>"><span class="badge badge-primary">Cetak BA</span></a>
                                                 </td>
                                                 <td>
                                                     <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
@@ -54,8 +55,14 @@
                                                     <a href="#"><span class="badge badge-success"><?=$gt["done"];?></span></a>
                                                 </td>
                                                 <td>
-                                                    <!-- <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                    <a data-toggle="modal" href="#basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a> -->
+                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                </td>
+                                            <?php } else if($gt["OVPOST"] == "2") {?>
+                                                <td>
+                                                    <a href="#"><span class="badge badge-success"><?=$gt["pengajuan_pinjam"];?></span></a>
+                                                </td>
+                                                <td>
+                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                 </td>
                                             <?php }?>
                                         </tr>

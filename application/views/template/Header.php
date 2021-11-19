@@ -72,6 +72,27 @@
         .hidden {
             display: none;
         }
+
+        .countup {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+            /* .countup .timeel {
+            display: inline-block;
+            padding: 10px;
+            background: #151515;
+            margin: 0;
+            color: white;
+            min-width: 2.6rem;
+            margin-left: 13px;
+            border-radius: 10px 0 0 10px;
+        }
+            .countup span[class*="timeRef"] {
+            border-radius: 0 10px 10px 0;
+            margin-left: 0;
+            background: #e8c152;
+            color: black;
+        } */
     </style>
 </head>
 
@@ -197,7 +218,7 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder-plus"></i><span class="nav-text">Berkas Baru</span></a>
                         <ul aria-expanded="false">
                             <li><a href="<?=base_url()?>BerkasBaru/index">Berkas Baru</a></li>
-                            <li><a href="#">Lorem Ipsum</a></li>
+                            <li><a href="<?=base_url()?>BerkasBaru/Upload_BA">Upload Berita Acara</a></li>
                             <li><a href="#">Lorem Ipsum</a></li>
 
                         </ul>
@@ -205,15 +226,14 @@
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-paste"></i><span class="nav-text">Pinjam Berkas</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas</a></li>
-                            <li><a href="#">Lorem Ipsum</a></li>
-                            <li><a href="#">Lorem Ipsum</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas (OPD)</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/PinjamBerkas_BPKAD_index">Pinjam Berkas (BPKAD)</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/Pengembalian">Pengembalian (BPKAD)</a></li>
                         </ul>
                     </li>
                     <!-- <li class="nav-label">Forms</li> -->
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder-minus"></i><span class="nav-text">Berkas Keluar</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Lorem Ipsum</a></li>
                             <li><a href="#">Lorem Ipsum</a></li>
                             <li><a href="#">Lorem Ipsum</a></li>
                         </ul>

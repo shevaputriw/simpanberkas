@@ -32,12 +32,13 @@ class BerkasBaru_model extends CI_Model {
         // GROUP BY t4.`OVDOCNO`
         // ORDER BY t4.`OVDTIN` DESC");
 
-        $query = $this->db->query("SELECT t21.`BNDESB1`, t9.`DTDC`, t9.`DTDESC1` AS draft, t09.`DTDESC1` AS approval, t009.`DTDESC1` AS done, t4.`OVDOCDT`, COUNT(t4.`OVDOCSQ`) AS total_berkas, t4.`OVIDBUID`, t4.`OVDOCTY`,
+        $query = $this->db->query("SELECT t21.`BNDESB1`, t9.`DTDC`, t9.`DTDESC1` AS draft, t09.`DTDESC1` AS approval, t009.`DTDESC1` AS done, t4.`OVDOCDT`, COUNT(t4.`OVDOCSQ`) AS total_berkas, t4.`OVIDBUID`, t4.`OVDOCTY`, t.`DTDESC1` AS pengajuan_pinjam, 
         t4.`OVDOCNO`, t4.`OVDESB1`, t4.`OVLST`, t4.`OVNST`, t4.`OVLST`, t4.`OVNST`, t4.`OVDOCNO`, t4.`OVLOCID`, t4.`OVPOST`
                 FROM t4312 AS t4
                 JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID`
                 LEFT OUTER JOIN t0009 AS t9 ON t4.`OVPOST` = t9.`DTDC` AND t9.`DTPC`='00' AND t9.`DTIDDC`= '130400'
                 LEFT OUTER JOIN t0009 AS t09 ON t4.`OVPOST` = t09.`DTDC` AND t09.`DTPC`='00' AND t09.`DTIDDC` = '3200'
+                LEFT OUTER JOIN t0009 AS t ON t4.`OVPOST` = t.`DTDC` AND t.`DTPC`='00' AND t.`DTIDDC` = '130420'
                 LEFT OUTER JOIN t0009 AS t009 ON t4.`OVPOST` = t009.`DTDC` AND t009.`DTPC`='00' AND t009.`DTIDDC` = '3210'
                 WHERE t4.`OVLST` = '400' AND t4.`OVNST` = '440'
                 GROUP BY t4.`OVDOCNO`

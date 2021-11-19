@@ -13,29 +13,59 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <!-- <th>Kode Barang</th> -->
                                         <th>OPD</th>
                                         <th>Jenis Berkas</th>
                                         <th>Nama Barang</th>
-                                        <!-- <th>Lokasi Barang</th> -->
                                         <th>Aksi</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach($getAllBerkas as $gab):?>
                                         <tr>
                                             <td><?=$no++;?></td>
-                                            <!-- <td><?=$gab["ITINUM"];?></td> -->
                                             <td><?=$gab["BNDESB1"];?></td>
                                             <td><?=$gab["DTDESC1"];?></td>
                                             <td><?=$gab["ITDESB1"];?></td>
-                                            <!-- <td><?=$gab["LMDESA2"];?></td> -->
-                                            <td>
-                                                <!-- <a href="#"><span class="badge badge-success">Lihat</span></a> -->
-                                                <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITDOCSQ"];?><?=$gab["ITIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-success">Lihat</span></a>
-                                                <a href="<?=base_url()?>PinjamBerkas/Pinjam/<?=$gab["ITIDBUID"];?>/<?=$gab["ITDOCNO"];?>/<?=$gab["ITDOCTY"];?>/<?=$gab["ITDOCSQ"];?>"><span class="badge badge-warning">Pinjam</span></a>
-                                                <a href="<?=base_url()?>PinjamBerkas/Pinjam/<?=$gab["ITIDBUID"];?>/<?=$gab["ITDOCNO"];?>/<?=$gab["ITDOCTY"];?>/<?=$gab["ITDOCSQ"];?>"><span class="badge badge-danger">Kembalikan</span></a>
-                                            </td>
+                                            <?php if($gab["ITPOST"] == "0" || $gab["ITPOST"] == NULL) {?>
+                                                <td>
+                                                    <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITDOCSQ"];?><?=$gab["ITIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-success">Lihat</span></a>
+                                                    <a href="<?=base_url()?>PinjamBerkas/Ubah_status_pengajuan_pinjam/<?=$gab["ITIDBUID"];?>/<?=$gab["ITDOCNO"];?>/<?=$gab["ITDOCSQ"];?>"><span class="badge badge-warning">Pinjam</span></a>
+                                                </td>
+                                                <td>
+                                                    <a href="#"><span class="badge badge-warning"><?=$gab["a"];?></span></a>
+                                                </td>
+                                            <?php } else if($gab["ITPOST"] == "A") {?>
+                                                <td>
+                                                    <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITDOCSQ"];?><?=$gab["ITIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-success">Lihat</span></a>
+                                                    <a href="<?=base_url()?>PinjamBerkas/Ubah_status_pengajuan_pinjam/<?=$gab["ITIDBUID"];?>/<?=$gab["ITDOCNO"];?>/<?=$gab["ITDOCSQ"];?>"><span class="badge badge-warning">Pinjam</span></a>
+                                                </td>
+                                                <td>
+                                                    <a href="#"><span class="badge badge-warning"><?=$gab["b"];?></span></a>
+                                                </td>
+                                            <?php } else if($gab["ITPOST"] == "D") {?>
+                                                <td>
+                                                    <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITDOCSQ"];?><?=$gab["ITIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-success">Lihat</span></a>
+                                                    <a href="<?=base_url()?>PinjamBerkas/Ubah_status_pengajuan_pinjam/<?=$gab["ITIDBUID"];?>/<?=$gab["ITDOCNO"];?>/<?=$gab["ITDOCSQ"];?>"><span class="badge badge-warning">Pinjam</span></a>
+                                                </td>
+                                                <td>
+                                                    <a href="#"><span class="badge badge-success"><?=$gab["d"];?></span></a>
+                                                </td>
+                                            <?php } else if($gab["ITPOST"] == "2") {?>
+                                                <td>
+                                                    <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITDOCSQ"];?><?=$gab["ITIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-success">Lihat</span></a>
+                                                </td>
+                                                <td>
+                                                    <a href="#"><span class="badge badge-danger"><?=$gab["c"];?></span></a>
+                                                </td>
+                                            <?php } else if($gab["ITPOST"] == "3") {?>
+                                                <td>
+                                                    <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITDOCSQ"];?><?=$gab["ITIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-success">Lihat</span></a>
+                                                </td>
+                                                <td>
+                                                    <a href="#"><span class="badge badge-danger"><?=$gab["e"];?></span></a>
+                                                </td>
+                                            <?php }?>
                                         </tr>
                                     <?php endforeach;?>
                                 </tbody>
