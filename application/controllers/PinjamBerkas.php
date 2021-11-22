@@ -23,6 +23,36 @@ class PinjamBerkas extends CI_Controller {
         $this->load->view('template/Footer',$data);
     }
 
+    public function get_Kecamatan($dtdc)
+    {
+        $data = $this->PinjamBerkas_model->getKecamatan($dtdc);
+        echo json_encode($data);
+    }
+
+    public function get_Desa($dtdc1)
+    {
+        $data = $this->PinjamBerkas_model->getDesa($dtdc1);
+        echo json_encode($data);
+    }
+
+    public function get_Lokasi($idbuid)
+    {
+        $data = $this->PinjamBerkas_model->getLokasi($idbuid);
+        echo json_encode($data);
+    }
+
+    public function get_Sertifikat()
+    {
+        $data = $this->PinjamBerkas_model->getSertifikat();
+        echo json_encode($data);
+    }
+
+    public function get_Kendaraan()
+    {
+        $data = $this->PinjamBerkas_model->getKendaraan();
+        echo json_encode($data);
+    }
+
     public function Ubah_status_pengajuan_pinjam($itidbuid, $itdocno, $itdocsq) {
         //get status = '2' => pengajuan peminjaman berkas
         $ovpost = $this->PinjamBerkas_model->getStatusPengajuanPinjam();

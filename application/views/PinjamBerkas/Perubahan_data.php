@@ -63,19 +63,19 @@
                                                     <label style="color:#313236">Tanggal</label>
                                                     <input type="text" class="form-control" name="ITDOCDT" value="<?= date('d-m-Y', strtotime($perubahan["ITDOCDT"])); ?>" style="background-color:#f2f2f2;" disabled>
                                                 </div>
-                                            </div>
+                                            </div> 
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label style="color:#313236">Jenis perubahan</label>
-                                                    <input type="text" class="form-control" name="ITDOCNO" value="<?=$perubahan["DTDESC1"];?>" style="background-color:#f2f2f2;" disabled>
+                                                    <label style="color:#313236">Jenis Berkas</label>
+                                                    <input type="text" class="form-control" name="ITMSTY" value="<?=$perubahan["DTDESC1"];?>" style="background-color:#f2f2f2;" disabled>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label style="color:#313236">Kode Barang</label>
-                                                    <input type="text" class="form-control" name="ITDOCNO" value="<?=$perubahan["AMDESB1"];?>" style="background-color:#f2f2f2;" disabled>
+                                                    <input type="text" class="form-control" name="ITINUM" value="<?=$perubahan["AMDESB1"];?>" style="background-color:#f2f2f2;" disabled>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label style="color:#313236">Lokasi Barang</label>
-                                                    <input type="text" class="form-control" name="ITDOCNO" value="<?=$perubahan["ITLOCID"];?>" style="background-color:#f2f2f2;" disabled>
+                                                    <input type="text" class="form-control" name="ITLOCID" value="<?=$perubahan["LMDESA2"];?>" style="background-color:#f2f2f2;" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -92,7 +92,7 @@
                                     <!-- TAB TANAH START -->
                                     <div class="tab-pane fade" id="kendaraan" role="tabpanel">
                                         <div class="pt-4">
-                                            <center><h4 class="card-title" style="margin-top:-10px;">EDIT perubahan</h4></center><br>
+                                            <center><h4 class="card-title" style="margin-top:-10px;">PERUBAHAN DATA</h4></center><br>
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
                                                     <label style="color:#313236">No. BPKB</label>
@@ -144,7 +144,7 @@
                                     <!-- TAB SERTIFIKAT START -->
                                     <div class="tab-pane fade" id="tanah" role="tabpanel">
                                         <div class="pt-4">
-                                            <center><h4 class="card-title" style="margin-top:-10px;">EDIT perubahan</h4></center><br>
+                                            <center><h4 class="card-title" style="margin-top:-10px;">PERUBAHAN DATA</h4></center><br>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
                                                     <label style="color:#313236">No. Serifikat</label>
@@ -219,7 +219,7 @@
                                         <!-- <p id="result"></p>
                                         <p id="result2"></p> -->
                                     </center>
-                                    <!-- <p id="result2"></p> -->
+                                    <p id="result2"></p>
                                 </div>
                             </div>
                         </form>
@@ -266,7 +266,7 @@
 
         // Menggunakan ajax untuk mengirim dan dan menerima data dari server
         $.ajax({
-            url: '<?= base_url() ?>perubahanBaru/get_Kecamatan/' + dtdcx,
+            url: '<?= base_url() ?>PinjamBerkas/get_Kecamatan/' + dtdcx,
             method : "POST",
             data : {dtdcx:dtdcx},
             async : false,
@@ -302,7 +302,7 @@
 
         // Menggunakan ajax untuk mengirim dan dan menerima data dari server
         $.ajax({
-            url: '<?= base_url() ?>perubahanBaru/get_Desa/' + b2,
+            url: '<?= base_url() ?>PinjamBerkas/get_Desa/' + b2,
             method : "POST",
             data : {b2:b2},
             async : false,
@@ -332,10 +332,11 @@
 
         // variabel dari nilai combo box kabupaten/kota
         var dtdc = $("#ITCITY").val();
+        // document.getElementById("result2").innerHTML = dtdc;
 
         // Menggunakan ajax untuk mengirim dan dan menerima data dari server
         $.ajax({
-            url: '<?= base_url() ?>perubahanBaru/get_Kecamatan/' + dtdc,
+            url: '<?= base_url() ?>PinjamBerkas/get_Kecamatan/' + dtdc,
             method : "POST",
             data : {dtdc:dtdc},
             async : false,
@@ -360,7 +361,7 @@
 
         // Menggunakan ajax untuk mengirim dan dan menerima data dari server
         $.ajax({
-            url: '<?= base_url() ?>perubahanBaru/get_Desa/' + dtdc1,
+            url: '<?= base_url() ?>PinjamBerkas/get_Desa/' + dtdc1,
             method : "POST",
             data : {dtdc1:dtdc1},
             async : false,
@@ -393,7 +394,7 @@
 
         // Menggunakan ajax untuk mengirim dan dan menerima data dari server
         $.ajax({
-            url: '<?= base_url() ?>perubahanBaru/get_Lokasi/' + x,
+            url: '<?= base_url() ?>PinjamBerkas/get_Lokasi/' + x,
             method : "POST",
             data : {x:x},
             async : false,

@@ -19,7 +19,7 @@ class PinjamBerkas_model extends CI_Model {
         // LEFT OUTER JOIN t0009 AS t9kec ON t9kec.`DTDC` = t4.`ITDIST` AND t9kec.`DTPC`='01' AND t9kec.`DTSC`='DT' AND SUBSTRING(t9kec.`DTDC`, 1, 5) = t9kab.`DTDC`
         // LEFT OUTER JOIN t0009 AS t9des ON t9des.`DTDC` = t4.`ITSUBDIST` AND t9des.`DTPC`='01' AND t9des.`DTSC`='SD' AND SUBSTRING(t9des.`DTDC`, 1, 8) = t9kec.`DTDC`
         // WHERE t0009.`DTPC` = '20' AND t0009.`DTSC` = 'JB' AND t4.`ITDOCTY` = 'OV'");
-        $query = $this->db->query("SELECT t4.`ITPOST`,t9.`DTDESC1` AS a, c.`DTDESC1` AS b, t.`DTDESC1`AS c, t009.`DTDESC1` AS d, v.`DTDESC1` AS e, t4.`ITCOID`, t4.`ITIDBUID`, t4.`ITDOCNO`, t4.`ITINUM`, t41.`LMLOCID`, t41.`LMDESA2`,
+        $query = $this->db->query("SELECT t4.`ITPOST`,t9.`DTDESC1` AS a, c.`DTDESC1` AS b, t.`DTDESC1`AS c, t009.`DTDESC1` AS d, v.`DTDESC1` AS e, k.`DTDESC1` AS f, t4.`ITCOID`, t4.`ITIDBUID`, t4.`ITDOCNO`, t4.`ITINUM`, t41.`LMLOCID`, t41.`LMDESA2`,
         t4.`ITDOCTY`, t4.ITMSTY, t4.ITCOMV, t4.ITBRAND, t4.ITCOLOR, t4.ITCILCAP, t4.`ITDOCSQ`,
         t4.ITMFN, t4.ITVHRN, t4.ITVHTAXDT, t4.ITVHRNTAXDT, t4.ITCRTFID, t4.ITCRTFDT, 
         t4.ITLNDOWNST, t4.ITLENGTH, t4.ITMACHNID, t4.ITWIDTH, t4.ITWIDE, t4.ITASADDR, t4.ITCITY, 
@@ -29,6 +29,7 @@ class PinjamBerkas_model extends CI_Model {
         JOIN t0901 AS t09 ON t09.`AMOBJ` = t4.`ITINUM` 
         JOIN t0009 AS t0009 ON t0009.`DTDC` = t4.`ITMSTY` 
         LEFT OUTER JOIN t0009 AS t9 ON t4.`ITPOST` = t9.`DTDC` AND t9.`DTPC`='00' AND t9.`DTIDDC`= '130400'
+        LEFT OUTER JOIN t0009 AS k ON t4.`ITPOST` = k.`DTDC` AND k.`DTPC`='00' AND k.`DTIDDC`= '130480'
         LEFT OUTER JOIN t0009 AS c ON t4.`ITPOST` = c.`DTDC` AND c.`DTPC`='00' AND c.`DTIDDC` = '3200'
         LEFT OUTER JOIN t0009 AS t ON t4.`ITPOST` = t.`DTDC` AND t.`DTPC`='00' AND t.`DTIDDC` = '130420'
         LEFT OUTER JOIN t0009 AS v ON t4.`ITPOST` = v.`DTDC` AND v.`DTPC`='00' AND v.`DTIDDC` = '130430'
@@ -37,7 +38,34 @@ class PinjamBerkas_model extends CI_Model {
         LEFT OUTER JOIN t0009 AS t9kab ON t9kab.`DTDC` = t4.`ITCITY` AND t9kab.`DTPC`='01' AND t9kab.`DTSC`='CY' AND t9kab.`DTDC` IN ('35.76','35.16')
         LEFT OUTER JOIN t0009 AS t9kec ON t9kec.`DTDC` = t4.`ITDIST` AND t9kec.`DTPC`='01' AND t9kec.`DTSC`='DT' AND SUBSTRING(t9kec.`DTDC`, 1, 5) = t9kab.`DTDC`
         LEFT OUTER JOIN t0009 AS t9des ON t9des.`DTDC` = t4.`ITSUBDIST` AND t9des.`DTPC`='01' AND t9des.`DTSC`='SD' AND SUBSTRING(t9des.`DTDC`, 1, 8) = t9kec.`DTDC`
-        WHERE t0009.`DTPC` = '20' AND t0009.`DTSC` = 'JB' AND t4.`ITDOCTY` = 'OV' AND t4.`ITPOST` IN ('D','2','3')");
+        WHERE t0009.`DTPC` = '20' AND t0009.`DTSC` = 'JB' AND t4.`ITDOCTY` = 'OV' AND t4.`ITPOST` IN ('D','2','3','8')");
+
+        return $query->result_array();
+    }
+
+    public function getKecamatan($dtdc) {
+        $query = $this->db->query("SELECT DTIDDC, DTDC, DTDESC1 FROM t0009 WHERE DTPC='01' AND DTSC='DT' AND SUBSTRING(DTDC, 1, 5) = $dtdc");
+        return $query->result_array();
+    }
+
+    public function getDesa($dtdc1) {
+        $query = $this->db->query("SELECT DTIDDC, DTDC, DTDESC1 FROM t0009 WHERE DTPC='01' AND DTSC='SD' AND SUBSTRING(DTDC, 1, 8) = '$dtdc1'");
+        return $query->result_array();
+    }
+
+    public function getKendaraan() {
+        $query = $this->db->query("SELECT AMDESB2,AMOBJ , AMDESB1 , AMPEC , AMGLC08 KIB, AMOAN, AMGLC10
+        FROM t0901
+        WHERE AMPEC='Y' AND
+        amglc10 ='BPKB'");
+
+        return $query->result_array();
+    }
+
+    public function getLokasi($idbuid) {
+        $query = $this->db->query("SELECT LMIDBUID, LMLOCID, LMDESA1, LMDESA2
+        FROM t4100
+        WHERE LMIDBUID = '$idbuid'");
 
         return $query->result_array();
     }
@@ -215,8 +243,8 @@ class PinjamBerkas_model extends CI_Model {
 
     public function getData($itidbuid, $itdocno, $itdocsq) {
         $query = $this->db->query("SELECT t4.`ITPOST`,t9.`DTDESC1` AS a, c.`DTDESC1` AS b, t.`DTDESC1`AS c, t009.`DTDESC1` AS d, v.`DTDESC1` AS e, t4.`ITCOID`, t4.`ITIDBUID`, t4.`ITDOCNO`, t4.`ITINUM`, t41.`LMLOCID`, t41.`LMDESA2`, t4.`ITLNTY`, t4.`ITUOM1`, t4.`ITICU`, t4.`ITGLCLS`,
-        t4.`ITDOCTY`, t4.ITMSTY, t4.ITCOMV, t4.ITBRAND, t4.ITCOLOR, t4.ITCILCAP, t4.`ITDOCSQ`,
-        t4.ITMFN, t4.ITVHRN, t4.ITVHTAXDT, t4.ITVHRNTAXDT, t4.ITCRTFID, t4.ITCRTFDT, 
+        t4.`ITDOCTY`, t4.ITMSTY, t4.ITCOMV, t4.ITBRAND, t4.ITCOLOR, t4.ITCILCAP, t4.`ITDOCSQ`, t41.`LMDESA2`,
+        t4.ITMFN, t4.ITVHRN, t4.ITVHTAXDT, t4.ITVHRNTAXDT, t4.ITCRTFID, t4.`ITCRTFDT`,
         t4.ITLNDOWNST, t4.ITLENGTH, t4.ITMACHNID, t4.ITWIDTH, t4.ITWIDE, t4.ITASADDR, t4.ITCITY, 
         t4.ITDIST, t4.ITSUBDIST,  t09.`AMOBJ`, t0009.`DTDESC1`, t09.`AMDESB1`, t21.`BNDESB1`, 
         t4.`ITDESB1`, t4.`ITDOCDT`, t9kab.`DTDESC1` AS 'kabkota', t9kec.`DTDESC1` AS 'kecamatan', t9des.`DTDESC1` AS 'desa', t4.`ITLOCID`
