@@ -23,6 +23,16 @@ class BerkasBaru extends CI_Controller {
         $this->load->view('template/Footer',$data);
     }
 
+    public function Berkas_baru_bpkad_pengajuan() {
+        $data['title'] = 'Berkas Baru';
+        $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();
+        $data['getAllBerkas'] = $this->BerkasBaru_model->Berkas_bpkad();
+
+        $this->load->view('template/Header',$data);
+        $this->load->view('BerkasBaru/Berkas_baru_bpkad',$data);
+        $this->load->view('template/Footer',$data);
+    }
+
     public function Detail($ovdocno) {
         $data['title'] = 'Detail Berkas';
         $data['get_berkas'] = $this->BerkasBaru_model->getBerkas($ovdocno);
@@ -299,29 +309,33 @@ class BerkasBaru extends CI_Controller {
             $idinum = $id->AMOAN;
             $glcls = $id->AMGLCLS;
 
-            $no = 0;
-            $ovmsty = $this->input->post('OVMSTY');
-            $cek_ovmsty_1 = $this->BerkasBaru_model->Cek_ovmsty_1($x, $ovidbuid);
-            $hasil_cek_1 = $cek_ovmsty_1->OVMSTY;
-            $icu_1 = $cek_ovmsty_1->OVICU;
+            // $no = 0;
+            // $ovmsty = $this->input->post('OVMSTY');
+            // $cek_ovmsty_1 = $this->BerkasBaru_model->Cek_ovmsty_1($x, $ovidbuid);
+            // $hasil_cek_1 = $cek_ovmsty_1->OVMSTY;
+            // $icu_1 = $cek_ovmsty_1->OVICU;
 
-            if($ovmsty == $hasil_cek_1) {
-                $no = $cek_ovmsty_1->OVICU;
-            }
-            else{
-                $cek_ovmsty_2 = $this->BerkasBaru_model->Cek_ovmsty_2($x, $ovidbuid, $ovmsty);
-                if($cek_ovmsty_2->num_rows() == 0) {
-                    $this->BerkasBaru_model->Update_ICU($tahun);
-                    $getICU = $this->BerkasBaru_model->getICU($tahun);
-                    $nnseqICU= $getICU->NNSEQ;
-                    $no = sprintf("%09d", $nnseqICU);
-                }
-                else{
-                    $getICU = $this->BerkasBaru_model->getICU($tahun);
-                    $nnseqICU= $getICU->NNSEQ;
-                    $no = sprintf("%09d", $nnseqICU);
-                }
-            }
+            // if($ovmsty == $hasil_cek_1) {
+            //     $no = $cek_ovmsty_1->OVICU;
+            // }
+            // else{
+            //     $cek_ovmsty_2 = $this->BerkasBaru_model->Cek_ovmsty_2($x, $ovidbuid, $ovmsty);
+            //     if($cek_ovmsty_2->num_rows() == 0) {
+            //         $this->BerkasBaru_model->Update_ICU($tahun);
+            //         $getICU = $this->BerkasBaru_model->getICU($tahun);
+            //         $nnseqICU= $getICU->NNSEQ;
+            //         $no = sprintf("%09d", $nnseqICU);
+            //     }
+            //     else{
+            //         $getICU = $this->BerkasBaru_model->getICU($tahun);
+            //         $nnseqICU= $getICU->NNSEQ;
+            //         $no = sprintf("%09d", $nnseqICU);
+            //     }
+            // }
+            $this->BerkasBaru_model->Update_ICU($tahun);
+            $getICU = $this->BerkasBaru_model->getICU($tahun);
+            $nnseqICU= $getICU->NNSEQ;
+            $no = sprintf("%09d", $nnseqICU);
 
             if($ovbuid1->BNBUID1 == 0) {
                 $buid1 = 0;
@@ -498,7 +512,7 @@ class BerkasBaru extends CI_Controller {
                         'ITDOCNO' => $docno["a"].$docno["b"].$docno["c"],
                         'ITDOCTY' => $docty,
                         'ITDOCSQ' => $sq,
-                        'ITDOCDT' => $gda['ITDOCDT'],
+                        'ITDOCDT' => date('Y-m-d H:i:s', time()),
                         'ITBUID1' => $gda['ITBUID1'],
                         'ITLNTY' => $gda['ITLNTY'],
                         'ITICU' => $gda['ITICU'],
@@ -562,8 +576,8 @@ class BerkasBaru extends CI_Controller {
                         'ITIDBUID' => $itidbuid,
                         'ITDOCNO' => $gda2['ITDOCNO'],
                         'ITDOCTY' => $docty,
-                        'ITDOCSQ' => $gda2['ITDOCSQ'],
-                        'ITDOCDT' => $gda2['ITDOCDT'],
+                        'ITDOCSQ' => $sq,
+                        'ITDOCDT' => date('Y-m-d H:i:s', time()),
                         'ITBUID1' => $gda2['ITBUID1'],
                         'ITLNTY' => $gda2['ITLNTY'],
                         'ITICU' => $gda2['ITICU'],
@@ -609,9 +623,10 @@ class BerkasBaru extends CI_Controller {
                         'ITQTY' => $itqtyt,
                         'ITDOCONO' => $gda2["ITDOCONO"],
                         'ITDOCOTY' => $gda2["ITDOCOTY"],
-                        'ITDOCOSQ' => $gda2["ITDOCOSQ"],
+                        'ITDOCOSQ' => $gda2["ITDOCSQ"]
                     );
                     array_push($result2, $data_array2);
+                    $sq += 10 ;
                 endforeach;
                 $this->db->insert_batch('t4111', $result2);
             }
@@ -640,7 +655,7 @@ class BerkasBaru extends CI_Controller {
                 ];
                 $getICU = $this->BerkasBaru_model->getICU($tahun);
                 $nnseqICU= $getICU->NNSEQ;
-                $n = $this->BerkasBaru_model->getItdocsqIt($nnseqICU);
+                $n = $this->BerkasBaru_model->getItdocsqIt($ovdocno);
                 $x = $n->ITDOCSQ + 10;
                 $sq = $x;
 
@@ -668,7 +683,7 @@ class BerkasBaru extends CI_Controller {
                         'ITDOCNO' => $docno["a"].$docno["b"].$docno["c"],
                         'ITDOCTY' => $docty,
                         'ITDOCSQ' => $sq,
-                        'ITDOCDT' => $itf['ITDOCDT'],
+                        'ITDOCDT' => date('Y-m-d H:i:s', time()),
                         'ITBUID1' => $itf['ITBUID1'],
                         'ITLNTY' => $itf['ITLNTY'],
                         'ITICU' => $itf['ITICU'],
@@ -714,7 +729,7 @@ class BerkasBaru extends CI_Controller {
                         'ITQTY' => $itqtyf,
                         'ITDOCONO' => $itf["ITDOCNO"],
                         'ITDOCOTY' => $itf["ITDOCTY"],
-                        'ITDOCOSQ' => $itf["ITDOCSQ"],
+                        'ITDOCOSQ' => $itf["ITDOCSQ"]
                     );
                     array_push($result3, $data_array3);
                     $sq += 10 ;
@@ -729,8 +744,8 @@ class BerkasBaru extends CI_Controller {
                         'ITIDBUID' => $itidbuid,
                         'ITDOCNO' => $docno["a"].$docno["b"].$docno["c"],
                         'ITDOCTY' => $docty,
-                        'ITDOCSQ' => $itf['ITDOCSQ'],
-                        'ITDOCDT' => $itf['ITDOCDT'],
+                        'ITDOCSQ' => $sq,
+                        'ITDOCDT' => date('Y-m-d H:i:s', time()),
                         'ITBUID1' => $itf['ITBUID1'],
                         'ITLNTY' => $itf['ITLNTY'],
                         'ITICU' => $itf['ITICU'],
@@ -790,6 +805,15 @@ class BerkasBaru extends CI_Controller {
         redirect('BerkasBaru/index','refresh');
     }
 
+    public function Verifikasi_pengajuan($ovdocno) {
+        $getStatus = $this->BerkasBaru_model->getStatusVerifikasiPengajuan();
+        $status = $getStatus->DTDC;
+
+        // edit status di t4312 dan t4111 tipe dokumen OV dan IT = Done
+        $this->BerkasBaru_model->Verifikasi_pengajuan($ovdocno, $status);
+        redirect('BerkasBaru/Berkas_baru_bpkad_pengajuan','refresh');
+    }
+
     public function Acc($ovidbuid, $ovdocno, $ovdocty) {
         $data['title'] = 'Berkas Baru';
         $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();
@@ -799,11 +823,17 @@ class BerkasBaru extends CI_Controller {
         $tahun = $getTahunBulan->CNCFY;
         $bulan = $getTahunBulan->CNCAP;
 
-        $getStatus = $this->BerkasBaru_model->getStatusDone();
-        $status = $getStatus->DTDC;
+        //GET STATUS DONE
+        // $getStatus = $this->BerkasBaru_model->getStatusDone();
+        // $status = $getStatus->DTDC;
 
         // edit status di t4312 dan t4111 tipe dokumen OV dan IT = Done
-        $this->BerkasBaru_model->Done($ovdocno, $status);
+        // $this->BerkasBaru_model->Done($ovdocno, $status);
+
+        //GET STATUS FINISH
+        $getStatus = $this->BerkasBaru_model->getStatusFinish();
+        $status = $getStatus->DTDC;
+        $this->BerkasBaru_model->Finish($ovdocno, $status);
 
         //insert t41021
         $getDataIT = $this->BerkasBaru_model->getDataIT($ovdocno);
@@ -821,6 +851,7 @@ class BerkasBaru extends CI_Controller {
                     'ILIDINUM' => $gdit["ITIDINUM"],
                     'ILINUM' => $gdit["ITINUM"],
                     'ILLOCID' => $gdit["ITLOCID"],
+                    'ILICU' => $gdit["ITICU"],
                     'ILBUID1' => $gdit["ITBUID1"],
                     'ILGLCLS' => $gdit["ITGLCLS"],
                     'ILPQOH' => 1,
@@ -855,6 +886,7 @@ class BerkasBaru extends CI_Controller {
                     'ILIDINUM' => $gdit["ITIDINUM"],
                     'ILINUM' => $gdit["ITINUM"],
                     'ILLOCID' => $gdit["ITLOCID"],
+                    'ILICU' => $gdit["ITICU"],
                     'ILBUID1' => $gdit["ITBUID1"],
                     'ILGLCLS' => $gdit["ITGLCLS"],
                     'ILPQOH' => 0,
@@ -886,7 +918,69 @@ class BerkasBaru extends CI_Controller {
         endforeach;
         $this->db->insert_batch('t41021', $hasil);
 
-        redirect('BerkasBaru/index','refresh');
+        //INSERT t1201
+        //ambil perulangan data berkas baru dari t4312 where ovdocno =  $ovdocno
+        $getData_t4312 = $this->BerkasBaru_model->getData_t4312($ovdocno);
+        $hasil2 = array();
+
+        $idbuid = $this->BerkasBaru_model->getBnidbuid();
+        $itidbuid = $idbuid->BNIDBUID;
+        $locid = $this->BerkasBaru_model->getLocid(); 
+        $itlocid = $locid->LMLOCID;
+        //masukkan ke dalam array lalu insert batch ke t1201
+        foreach($getData_t4312 as $ov) :
+            $data_array2 = array(
+                'FACOID' => $ov["OVCOID"],
+                'FAIDBUID' => $itidbuid,
+                'FAALOC' => $itlocid,
+                'FARECID' => 0,
+                'FAICU' =>$ov["OVICU"],
+                'FADESB1' => $ov["OVDESB1"],
+                'FAQTYCU' => $ov["OVQTY"],
+                'FADTAQU' => $ov["OVDOCDT"],
+                'FAESVA' => 0,
+                'FAAOBJ' => $ov["OVINUM"],
+                'FARLDOCNO' => $ov["OVDOCNO"],
+                'FARLDOCTY' => $ov["OVDOCTY"],
+                'FARLDOCSQ' => $ov["OVDOCSQ"],
+                'FABRAND' => $ov["OVBRAND"],
+                'FACOLOR' => $ov["OVCOLOR"],
+                'FAMTRL' => $ov["OVMTRL"],
+                'FATYPE' => $ov["OVTYPE"],
+                'FASIZE' => $ov["OVISIZE"],
+                'FACOMV' => $ov["OVCOMV"],
+                'FALNDOWNST' => $ov["OVLNDOWNST"],
+                'FALENGTH' => $ov["OVLENGTH"],
+                'FAWIDTH' => $ov["OVWIDTH"],
+                'FAWIDE' => $ov["OVWIDE"],
+                'FACILCAP' => $ov["OVCILCAP"],
+                'FAMFN' => $ov["OVMFN"],
+                'FAMACHNID' => $ov["OVMACHNID"],
+                'FAVHRN' => $ov["OVVHRN"],
+                'FAVHTAXDT' => $ov["OVVHTAXDT"],
+                'FAVHRNTAXDT' => $ov["OVVHRNTAXDT"],
+                'FACRTFID' => $ov["OVCRTFID"],
+                'FACRTFDT' => $ov["OVCRTFDT"],
+                'FAUTLZ' => $ov["OVUTLZ"],
+                'FAASADDR' => $ov["OVASADDR"],
+                'FACITY' => $ov["OVCITY"],
+                'FADIST' => $ov["OVDIST"],
+                'FASUBDIST' => $ov["OVSUBDIST"],
+                'FAMANAGE' => $ov["OVMANAGE"],
+                'FAPOST' => $ov["OVPOST"],
+                'FAUID' =>$ov["OVUID"],
+                'FAUIDM' =>$ov["OVUIDM"],
+                'FADTIN' =>$ov["OVDTIN"],
+                'FADTLU' =>$ov["OVDTLU"],
+                'FAIPUID' =>$ov["OVIPUID"],
+                'FAIPUIDM' =>$ov["OVIPUIDM"],
+                'FAHISCOL' =>$ov["OVHISCOL"]
+            );
+            array_push($hasil2, $data_array2);
+        endforeach;
+        $this->db->insert_batch('t1201', $hasil2);
+
+        redirect('BerkasBaru/Berkas_baru_bpkad_pengajuan','refresh');
     }
 
     public function Hapus_berkas($ovdocno, $ovdocsq, $ovidbuid) {
@@ -1081,17 +1175,20 @@ class BerkasBaru extends CI_Controller {
         $data['pimpinan'] = $this->BerkasBaru_model->getPimpinan();
         $data['jabatan'] = $this->BerkasBaru_model->getJabatan();
 
+        $nip = $this->input->post('nip');
+
         $this->BerkasBaru_model->Update_t0002($ovidbuid);
-        redirect('BerkasBaru/Print/'.$ovidbuid.'/'.$ovdocno,'refresh');
+        redirect('BerkasBaru/Print/'.$ovidbuid.'/'.$ovdocno.'/'.$nip,'refresh');
     }
 
-    public function Print($ovidbuid, $ovdocno) {
+    public function Print($ovidbuid, $ovdocno, $nip) {
         $data['title'] = 'Cetak Berita Acara';
 
         $data['getData'] = $this->BerkasBaru_model->dataKonfirmasi($ovidbuid, $ovdocno);
         $data['get_berkas2'] = $this->BerkasBaru_model->getBerkas2($ovdocno);
         $data['pimpinan'] = $this->BerkasBaru_model->getPimpinan();
         $data['jabatan'] = $this->BerkasBaru_model->getJabatan();
+        $data['nip'] = $nip;
 
         $this->load->library('pdf');
 		$this->pdf->setPaper('A4', 'potrait');
@@ -1110,6 +1207,217 @@ class BerkasBaru extends CI_Controller {
         }
         else{
             //function upload dokumen
+        }
+    }
+
+    public function Mutasi($ilidbuid, $ilidinum, $ilinum, $illocid) {
+        $data['title'] = 'Mutasi';
+        $data['data_mutasi'] = $this->BerkasBaru_model->Data_mutasi($ilidbuid, $ilidinum, $ilinum, $illocid);
+        $data['opd'] = $this->BerkasBaru_model->getOpd();
+
+        //get bulan dan tahun dari t0020
+        $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
+        $tahun = $getTahunBulan->CNCFY;
+        $bulan = $getTahunBulan->CNCAP;
+        
+        $this->form_validation->set_rules('ILMANAGE', 'Manage', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $cek_ir = $this->BerkasBaru_model->Cek_ir($tahun, $bulan);
+            if($cek_ir->num_rows() == 0) {
+                $insert_ir_t0002 = $this->BerkasBaru_model->Insert_ir_t0002($tahun, $bulan);
+                $data['tampil'] = $this->BerkasBaru_model->get_ir($tahun, $bulan);
+
+                $this->load->view('template/Header',$data);
+                $this->load->view('BerkasBaru/Mutasi', $data);
+                $this->load->view('template/Footer',$data);
+            }
+            else{
+                $data['tampil'] = $this->BerkasBaru_model->get_ir($tahun, $bulan);
+
+                $this->load->view('template/Header',$data);
+                $this->load->view('BerkasBaru/Mutasi',$data);
+                $this->load->view('template/Footer',$data);
+            }
+        } 
+        else {
+            $ilmanage = $this->input->post('ILMANAGE');
+
+            // UPDATE NNSEQ + 1 TIPE DOKUMEN IR
+            $update_nnseq = $this->BerkasBaru_model->Update_ir($tahun, $bulan);
+
+            //UPDATE T41021
+            $this->BerkasBaru_model->Update_t41021_mutasi($ilidbuid, $ilidinum, $ilinum, $illocid, $ilmanage);
+            
+            // PROSEDUR PENOMORAN TIPE DOKUMEN IR
+            $getIR = $this->BerkasBaru_model->getIR($tahun, $bulan);
+            $nnseq= $getIR->NNSEQ;
+            $fzeropadded = sprintf("%05d", $nnseq);
+
+            $nnyr = $getIR->NNYR;
+            $x = substr($nnyr, 2);
+
+            $nnmo = $getIR->NNMO;
+            $fzeropadded2 = sprintf("%02d", $nnmo);
+            
+            $docno_ir = [
+                'a' => $x,
+                'b' => $fzeropadded2,
+                'c' => $fzeropadded
+            ];
+
+            //GET PLAT NOMOR DAN SERTIFIKAT
+            $get_data_plat_nosertif = $this->BerkasBaru_model->get_data_plat_nosertif($ilidbuid, $ilidinum, $ilinum, $illocid);
+            // dd($get_data_plat_nosertif);
+            $plat_nomor = $get_data_plat_nosertif->ITVHRN;
+            $no_sertif = $get_data_plat_nosertif->ITCRTFID;
+
+            //GET ITMSTY = 1 *BPKB; 2 = *SERTIFIKAT;
+            $itmsty = $this->BerkasBaru_model->get_itmsty($ilidinum);
+            $msty = $itmsty->ITMSTY;
+
+            //VARIABEL PELENGKAP
+            date_default_timezone_set('Asia/Jakarta');
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $ituid = "admin1";
+            $iticut = "I";
+            $itft_from = "F";
+            $itft_to = "T";
+            $itqty_from = "-1";
+            $itqty_to = "1";
+            $docty = "IR";
+            $sq = 10;
+
+            // IF ELSE JENIS BERKAS
+            if($msty == "1") {
+                // FROM
+                $get_data_1 = $this->BerkasBaru_model->get_last_data_1($plat_nomor);
+                $result = array();
+                foreach($get_data_1 as $gd1) :
+                    $data_array = array(             
+                        'ITCOID' => $gd1['ITCOID'],
+                        'ITIDBUID' => $ilidbuid,
+                        'ITDOCNO' => $docno_ir["a"].$docno_ir["b"].$docno_ir["c"],
+                        'ITDOCTY' => $docty,
+                        'ITDOCSQ' => $sq,
+                        'ITDOCDT' => date('Y-m-d H:i:s', time()),
+                        'ITBUID1' => $gd1['ITBUID1'],
+                        'ITLNTY' => $gd1['ITLNTY'],
+                        'ITICU' => $gd1['ITICU'],
+                        'ITICUT' => $gd1['ITICUT'],
+                        'ITDOCMO' => $bulan,
+                        'ITDOCYR' => $tahun,
+                        'ITDOCTM' => $gd1['ITDOCTM'],
+                        'ITMSTY' => $gd1['ITMSTY'],
+                        'ITFT' => $itft_from,
+                        'ITIDINUM' => $ilidinum,
+                        'ITGLCLS' => $gd1['ITGLCLS'],
+                        'ITUOM1' => $gd1['ITUOM1'],
+                        'ITINUM' => $ilinum,
+                        'ITLOCID' => $illocid,
+                        'ITDESB1' => $gd1['ITDESB1'],
+                        'ITPOST' => $gd1['ITPOST'],
+                        'ITBRAND' => $gd1['ITBRAND'],
+                        'ITCOLOR' => $gd1['ITCOLOR'],
+                        'ITLENGTH' => $gd1['ITLENGTH'],
+                        'ITWIDTH' => $gd1['ITWIDTH'],
+                        'ITWIDE' => $gd1['ITWIDE'],
+                        'ITCILCAP' => $gd1['ITCILCAP'],
+                        'ITMFN' => $gd1['ITMFN'],
+                        'ITMACHNID' => $gd1['ITMACHNID'],
+                        'ITVHRN' => $gd1['ITVHRN'],
+                        'ITVHTAXDT' => $gd1['ITVHTAXDT'],
+                        'ITVHRNTAXDT' => $gd1['ITVHRNTAXDT'],
+                        'ITLNDOWNST' => $gd1['ITLNDOWNST'],
+                        'ITCRTFID' => $gd1['ITCRTFID'],
+                        'ITCRTFDT' => $gd1['ITCRTFDT'],
+                        'ITASADDR' => $gd1['ITASADDR'],
+                        'ITCITY' => $gd1['ITCITY'],
+                        'ITDIST' => $gd1['ITDIST'],
+                        'ITSUBDIST' => $gd1['ITSUBDIST'],
+                        'ITMANAGE' => $gd1['ITMANAGE'],
+                        'ITUID' => $ituid,
+                        'ITUIDM' => $ituid,
+                        'ITDTIN' => date('Y-m-d H:i:s', time()),
+                        'ITDTLU' => date('Y-m-d H:i:s', time()),
+                        'ITIPUID' => $ip,
+                        'ITIPUIDM' => $ip,
+                        'ITCOMV' => $gd1['ITCOMV'],
+                        'ITQTY' => $itqty_from,
+                        'ITDOCONO' => $gd1["ITDOCONO"],
+                        'ITDOCOTY' => $gd1["ITDOCOTY"],
+                        'ITDOCOSQ' => $gd1["ITDOCOSQ"]
+                    );
+                    array_push($result, $data_array);
+                    $sq += 10 ;
+                endforeach;
+                $this->db->insert_batch('t4111', $result);
+
+                //TO
+                $result2 = array();
+                foreach($get_data_1 as $gd1_to) :
+                    $data_array2 = array(             
+                        'ITCOID' => $gd1_to['ITCOID'],
+                        'ITIDBUID' => $ilidbuid,
+                        'ITDOCNO' => $docno_ir["a"].$docno_ir["b"].$docno_ir["c"],
+                        'ITDOCTY' => $docty,
+                        'ITDOCSQ' => $sq,
+                        'ITDOCDT' => date('Y-m-d H:i:s', time()),
+                        'ITBUID1' => $gd1_to['ITBUID1'],
+                        'ITLNTY' => $gd1_to['ITLNTY'],
+                        'ITICU' => $gd1_to['ITICU'],
+                        'ITICUT' => $gd1_to['ITICUT'],
+                        'ITDOCMO' => $bulan,
+                        'ITDOCYR' => $tahun,
+                        'ITDOCTM' => $gd1['ITDOCTM'],
+                        'ITMSTY' => $gd1_to['ITMSTY'],
+                        'ITFT' => $itft_to,
+                        'ITIDINUM' => $ilidinum,
+                        'ITGLCLS' => $gd1_to['ITGLCLS'],
+                        'ITUOM1' => $gd1_to['ITUOM1'],
+                        'ITINUM' => $ilinum,
+                        'ITLOCID' => $illocid,
+                        'ITDESB1' => $gd1_to['ITDESB1'],
+                        'ITPOST' => $gd1_to['ITPOST'],
+                        'ITBRAND' => $gd1_to['ITBRAND'],
+                        'ITCOLOR' => $gd1_to['ITCOLOR'],
+                        'ITLENGTH' => $gd1_to['ITLENGTH'],
+                        'ITWIDTH' => $gd1_to['ITWIDTH'],
+                        'ITWIDE' => $gd1_to['ITWIDE'],
+                        'ITCILCAP' => $gd1_to['ITCILCAP'],
+                        'ITMFN' => $gd1_to['ITMFN'],
+                        'ITMACHNID' => $gd1_to['ITMACHNID'],
+                        'ITVHRN' => $gd1_to['ITVHRN'],
+                        'ITVHTAXDT' => $gd1_to['ITVHTAXDT'],
+                        'ITVHRNTAXDT' => $gd1_to['ITVHRNTAXDT'],
+                        'ITLNDOWNST' => $gd1_to['ITLNDOWNST'],
+                        'ITCRTFID' => $gd1_to['ITCRTFID'],
+                        'ITCRTFDT' => $gd1_to['ITCRTFDT'],
+                        'ITASADDR' => $gd1_to['ITASADDR'],
+                        'ITCITY' => $gd1_to['ITCITY'],
+                        'ITDIST' => $gd1_to['ITDIST'],
+                        'ITSUBDIST' => $gd1_to['ITSUBDIST'],
+                        'ITMANAGE' => $ilmanage,
+                        'ITUID' => $ituid,
+                        'ITUIDM' => $ituid,
+                        'ITDTIN' => date('Y-m-d H:i:s', time()),
+                        'ITDTLU' => date('Y-m-d H:i:s', time()),
+                        'ITIPUID' => $ip,
+                        'ITIPUIDM' => $ip,
+                        'ITCOMV' => $gd1_to['ITCOMV'],
+                        'ITQTY' => $itqty_to,
+                        'ITDOCONO' => $gd1_to["ITDOCONO"],
+                        'ITDOCOTY' => $gd1_to["ITDOCOTY"],
+                        'ITDOCOSQ' => $gd1_to["ITDOCOSQ"],
+                    );
+                    array_push($result2, $data_array2);
+                endforeach;
+                $this->db->insert_batch('t4111', $result2);
+            }
+            else{
+                $get_data_2 = $this->BerkasBaru_model->get_last_data_2($no_sertif);
+            }
+            redirect('BerkasBaru/Berkas_baru_bpkad_pengajuan', 'refresh');
         }
     }
 }

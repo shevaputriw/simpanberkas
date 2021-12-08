@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-block">
-                        <center><h4 class="card-title">PINJAM BERKAS</h4></center>
+                        <center><h4 class="card-title">PENGAJUAN PINJAM BERKAS</h4></center>
                     </div>
                     <div class="card-body">
                         <!-- TABEL BERKAS BARU START -->
@@ -13,23 +13,41 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>OPD</th>
-                                        <th>Jenis Berkas</th>
-                                        <th>Nama Barang</th>
+                                        <th>Nomor Dokumen</th>
+                                        <th>Tanggal</th>
+                                        <th>Jumlah Berkas</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no=1; foreach($berkas as $b):?>
+                                    <?php $no=1; foreach($getAllBerkas as $gab):?>
                                         <tr>
                                             <td><?=$no++;?></td>
-                                            <td><?=$b["BNDESB1"];?></td>
-                                            <td><?=$b["DTDESC1"];?></td>
-                                            <td><?=$b["ITDESB1"];?></td>
-                                            <td><span class="badge badge-warning"><?=$b["d"];?></span></td>
+                                            <td><?=$gab["ITDOCNO"];?></td>
+                                            <!-- <td><?=$gab["ITIDBUID"];?></td> -->
+                                            <td><?= date('d-m-Y', strtotime($gab["ITDOCDT"])); ?></td>
+                                            <td><?=$gab["total_berkas"];?></td>
                                             <td>
-                                                <a href="<?=base_url()?>PinjamBerkas/Pinjam/<?=$b["ITIDBUID"];?>/<?=$b["ITDOCNO"];?>/<?=$b["ITDOCTY"];?>/<?=$b["ITDOCSQ"];?>" style="color:#000000;"><span class="badge badge-primary"><i class="fa fa-check" aria-hidden="true"></i></span></a>
+                                                <?php if($gab["ITPOST"] == '0') {?>
+                                                    <a href=""><span class="badge badge-warning"><?=$gab["draft"];?></span></a>
+                                                <?php } else if($gab["ITPOST"] == '2') {?>
+                                                    <a href=""><span class="badge badge-warning"><?=$gab["pengajuan"];?></span></a>
+                                                    <a href="<?=base_url()?>PinjamBerkas/verifikasi_peminjaman/<?=$gab["ITDOCNO"];?>"><span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i></span></a>
+                                                <?php } else if($gab["ITPOST"] == '3') {?>
+                                                    <a href=""><span class="badge badge-warning"><?=$gab["verifikasi"];?></span></a>
+                                                    <a href=""><span class="badge badge-warning"><?=$gab["pengajuan"];?></span></a>
+                                                    <a href="<?=base_url()?>PinjamBerkas/Acc/<?=$gab["ITDOCNO"];?>"><span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i></span></a>
+                                                <?php } else if($gab["ITPOST"] == '7') {?>
+                                                    <a href="#"><span class="badge badge-warning"><?=$gab["berkas_keluar"];?></span></a>
+                                                <?php }?>
+                                            </td>
+                                            <td>
+                                                <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                <a href="<?=base_url()?>PinjamBerkas/tambah_baru/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                <a data-toggle="modal" href="#basicModal2<?=$gab["ITDOCNO"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
+                                                <a href="<?=base_url()?>PinjamBerkas/Konfirmasi/<?=$gab["ITDOCNO"];?>/<?=$gab["ITIDBUID"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
+                                                <!-- <a href="<?=base_url()?>PinjamBerkas/Approval/<?=$gab["ITDOCNO"];?>"><span class="badge badge-primary">Serahkan</span></a> -->
                                             </td>
                                         </tr>
                                     <?php endforeach;?>
@@ -43,47 +61,3 @@
         </div>
     </div>
 </div>
-
-<!-- source: https://guwii.com/bytes/count-date-time-javascript/ -->
-<!-- <div class="countup" id="countup1">
-  <span class="timeel days">00</span>
-  <span class="timeel timeRefDays">days</span>
-  <span class="timeel hours">00</span>
-  <span class="timeel timeRefHours">hours</span>
-  <span class="timeel minutes">00</span>
-  <span class="timeel timeRefMinutes">minutes</span>
-  <span class="timeel seconds">00</span>
-  <span class="timeel timeRefSeconds">seconds</span>
-</div> -->
-
-<!-- <script>
-    window.onload = function() {
-        // Month Day, Year Hour:Minute:Second, id-of-element-container
-        var currentdate = new Date(); 
-        countUpFromTime(currentdate, 'countup1'); // ****** Change this line!
-    };
-
-    function countUpFromTime(countFrom, id) {
-    countFrom = new Date(countFrom).getTime();
-    var now = new Date(),
-        countFrom = new Date(countFrom),
-        timeDifference = (now - countFrom);
-        
-    var secondsInADay = 60 * 60 * 1000 * 24,
-        secondsInAHour = 60 * 60 * 1000;
-        
-    days = Math.floor(timeDifference / (secondsInADay) * 1);
-    hours = Math.floor((timeDifference % (secondsInADay)) / (secondsInAHour) * 1);
-    mins = Math.floor(((timeDifference % (secondsInADay)) % (secondsInAHour)) / (60 * 1000) * 1);
-    secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
-
-    var idEl = document.getElementById(id);
-    idEl.getElementsByClassName('days')[0].innerHTML = days;
-    idEl.getElementsByClassName('hours')[0].innerHTML = hours;
-    idEl.getElementsByClassName('minutes')[0].innerHTML = mins;
-    idEl.getElementsByClassName('seconds')[0].innerHTML = secs;
-
-    clearTimeout(countUpFromTime.interval);
-    countUpFromTime.interval = setTimeout(function(){ countUpFromTime(countFrom, id); }, 1000);
-    }
-</script> -->

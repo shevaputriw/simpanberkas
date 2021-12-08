@@ -28,12 +28,26 @@
 
             if($login->num_rows() > 0) {
                 if($level == 'bpkad') {
+                    $data_session = $login->row_array();
+
+                    $this->session->set_userdata('id',$data_session['id']);
+                    $this->session->set_userdata('name',$data_session['name']);
+                    $this->session->set_userdata('username',$data_session['username']);
+                    $this->session->set_userdata('level',$data_session['level']);
+
                     $this->Login_model->Update_last_login($level, $username, $password);
                     redirect('Admin/index');
                 }
                 else{
+                    $data_session = $login->row_array();
+
+                    $this->session->set_userdata('id',$data_session['id']);
+                    $this->session->set_userdata('name',$data_session['name']);
+                    $this->session->set_userdata('username',$data_session['username']);
+                    $this->session->set_userdata('level',$data_session['level']);
+
                     $this->Login_model->Update_last_login($level, $username, $password);
-                    redirect('BerkasBaru/index');
+                    redirect('Admin/index');
                 }
             }
             else {
@@ -46,10 +60,8 @@
 
         public function logout()
         {
-            $this->Login_model->logout();
-
-            redirect(site_url());
+            $this->session->sess_destroy();
+            redirect('Login/index','refresh');
         }
-
     }
 ?>

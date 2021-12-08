@@ -9,22 +9,22 @@
                     <br>
                     <div class="card-body">
                         <?php foreach($getData as $gt):?>
-                            <form action="<?=base_url()?>BerkasBaru/Update_t0002/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" method="post">
-                                <input type="hidden" value="<?=$gt["OVIDBUID"];?>">
-                                <input type="hidden" value="<?=$gt["OVDOCNO"];?>">
+                            <form action="<?=base_url()?>PinjamBerkas/Print/<?=$gt["ITIDBUID"];?>/<?=$gt["ITDOCNO"];?>" method="post">
+                                <!-- <input type="hidden" value="<?=$gt["ITIDBUID"];?>">
+                                <input type="hidden" value="<?=$gt["ITDOCNO"];?>">
                                 <input type="hidden" value="<?=$gt["BNCC01"];?>">
-                                <input type="hidden" value="<?=$gt["BNCC02"];?>">
+                                <input type="hidden" value="<?=$gt["BNCC02"];?>"> -->
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label style="color:#2b2a28;"><b>Nomor Dokuman :</b></label>
-                                        <p style="color:#313236"><?=$gt["OVDOCNO"];?></p>
+                                        <p style="color:#313236"><?=$gt["ITDOCNO"];?></p>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label style="color:#2b2a28;"><b>Tanggal Dokumen :</b></label>
-                                        <p style="color:#313236"><?= date('d-m-Y', strtotime($gt["OVDOCDT"])); ?></p>
+                                        <p style="color:#313236"><?= date('d-m-Y', strtotime($gt["ITDOCDT"])); ?></p>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label style="color:#2b2a28;"><b>OPD :</b></label>
+                                        <label style="color:#2b2a28;"><b>Ditujukan Kepada :</b></label>
                                         <p style="color:#313236"><?=$gt["BNDESB1"];?></p>
                                     </div>
                                 </div>
@@ -75,12 +75,17 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label style="color:#2b2a28;"><b>NIP :</b></label>
-                                        <input class="form-control" type="text" name="nip" autocomplete="off" required>
+                                        <input class="form-control" type="text" name="nip" required autocomplete="off">
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <label style="color:#2b2a28;"><b>Berkas yang Diserahkan :</b></label>
+                                        <label style="color:#2b2a28;"><b>Detail Berkas :</b></label>
                                         <?php $no=1; foreach($get_berkas2 as $gb2):?>
-                                            <p style="color:#313236"><?=$no++?>. <?=$gb2["OVDESB1"];?></p>
+                                            <p style="color:#313236">
+                                                <?=$no++?>. <?=$gb2["ITDESB1"];?>
+                                            </p>
+                                            <p style="color:#313236">
+                                                Keterangan : <?=$gb2["ITDESB2"];?>
+                                            </p>
                                         <?php endforeach;?>
                                     </div>
                                 </div>

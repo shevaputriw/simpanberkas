@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-block">
-                        <center><h4 class="card-title">PENGEMBALIAN BERKAS</h4></center>
+                        <center><h4 class="card-title">BERKAS YANG DIPINJAM</h4></center>
                     </div>
                     <div class="card-body">
                         <!-- TABEL BERKAS BARU START -->
@@ -14,23 +14,24 @@
                                     <tr>
                                         <th>No</th>
                                         <th>OPD</th>
-                                        <th>Jenis Berkas</th>
+                                        <th>Jenis Barang</th>
                                         <th>Nama Barang</th>
+                                        <th>Waktu</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $no=1; foreach($berkas_keluar as $bk):?>
+                                    <?php $no=1; foreach($berkas_dipinjam as $bd):?>
                                         <tr>
                                             <td><?=$no++;?></td>
-                                            <td><?=$bk["BNDESB1"];?></td>
-                                            <td><?=$bk["DTDESC1"];?></td>
-                                            <td><?=$bk["ITDESB1"];?></td>
-                                            <td><span class="badge badge-warning"><?=$bk["e"];?></span></td>
+                                            <td> </td>
+                                            <td> </td>
+                                            <td><?=$bd["FADESB1"];?></td>
+                                            <td></td>
+                                            <td><span class="badge badge-danger">Belum Kembali</span></td>
                                             <td>
-                                                <!-- IDBUID = OPD; DOCONO = Nomor Dokumen OV;  DOCNO = Nomor Dokumen IT -->
-                                                <a href="<?=base_url()?>PinjamBerkas/Kembali/<?=$bk["ITIDBUID"];?>/<?=$bk["ITDOCONO"];?>/<?=$bk["ITDOCOTY"];?>/<?=$bk["ITDOCOSQ"];?>/<?=$bk["ITDOCNO"];?>/<?=$bk["ITDOCSQ"];?>" style="color:#000000;"><span class="badge badge-primary">Kembali</span></a>
+                                                <a href="<?=base_url()?>PinjamBerkas/form_perubahan_data/<?=$bd["FAICU"];?>/<?=$bd["ITDOCNO"];?>"><span class="badge badge-primary">Kembali</span></a>
                                             </td>
                                         </tr>
                                     <?php endforeach;?>

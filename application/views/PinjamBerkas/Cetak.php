@@ -3,7 +3,7 @@
 	<head>
 	<?php $no=1; foreach($getData as $gt):?>
 		<?php
-		$tanggal = $gt["OVDOCDT"];
+		$tanggal = $gt["ITDOCDT"];
 		$split = explode("-", $tanggal);
 		$y = $split[0];
 		$m = $split[1];
@@ -90,7 +90,7 @@
 	<center>
 		<table style="float:right;">
 			<tr>
-				<td class="text2" id="OVDOCDT" style=" ;">Mojokerto, <?=$date; ?> <?=$bln; ?> <?=$y; ?></td>
+				<td class="text2" id="ITDOCDT" style=" ;">Mojokerto, <?=$date; ?> <?=$bln; ?> <?=$y; ?></td>
 			</tr>
 		</table>
 		<br><br><br><br>
@@ -99,7 +99,7 @@
 				<td class="text2" style=" ;float:right;">Kepada</td>
 			</tr>
 			<tr>
-				<td class="text2" style=" ;"><b>Yth. Bapak <?=$gt["jabatan"];?> <br> <?=$gt["BNDESB1"];?><b></td>
+				<td class="text2" style=" ;"><b>Yth. Bapak <?=$jabatan->DTDESC1;?> <br> <?=$gt["BNDESB1"];?><b></td>
 			</tr>
 			<tr>
 				<td class="text2" style=" ;">Kabupaten Mojokerto</td>
@@ -113,7 +113,7 @@
 		<table>
 			<tr class="text2">
 				<td>Nomor </td>
-				<td style=" ;">: <?=$gt["OVDOCNO"];?></td>
+				<td style=" ;">: <?=$gt["ITDOCNO"];?></td>
 			</tr>
 			<tr>
 				<td>Sifat</td>
@@ -125,7 +125,7 @@
 			</tr>
 			<tr>
 				<td>Hal</td>
-				<td width="90">: Berita Acara Pengajuan Berkas Baru</td>
+				<td width="90">: Berita Acara Pengajuan <br>&nbsp;&nbsp;Peminjaman</td>
 			</tr>
 		</table>
 		<br><br><br><br>
@@ -162,16 +162,16 @@
 				<th class="th1">Nama Barang</th>
 				
 			</tr>
-			<?php $no=1; foreach($get_berkas2 as $gb):?>
+			<?php $no=1; foreach($get_data_peminjaman as $gb):?>
 				<tr>
 					<td class="td1"><?=$no++;?></td>
 					<td class="td1"><?=$gb["DTDESC1"];?></td>
-					<?php if($gb["OVMSTY"] == "1"){?>
-						<td class="td1"><?=$gb["OVCOMV"];?></td>
+					<?php if($gb["ITMSTY"] == "1"){?>
+						<td class="td1"><?=$gb["ITCOMV"];?></td>
 					<?php } else {?>
-						<td class="td1"><?=$gb["OVCRTFID"];?></td>
+						<td class="td1"><?=$gb["ITCRTFID"];?></td>
 					<?php }?>
-					<td class="td1"><?=$gb["OVDESB1"];?></td>                      
+					<td class="td1"><?=$gb["ITDESB1"];?></td>                      
 				</tr>
 			<?php endforeach;?>
 		</table>
@@ -188,9 +188,9 @@
 			<tr>
 				<td width="300"><br><br><br><br></td>
 				<td class="text" align="center">
-					<p><b><?=$gt["jabatan"];?> <br> <?=$gt["BNDESB1"];?></b></p>
+					<p><b><?=$jabatan->DTDESC1;?> <br> <?=$gt["BNDESB1"];?></b></p>
 					<br><br><br>
-					<p><b><u><?=$gt["pimpinan"];?></u></b><br>NIP. <?=$nip?></p>
+					<p><b><u><?=$pimpinan->ADNM?></u></b><br>NIP. <?=$nip?></p>
 				</td>
 				<br><br><br><br>
 			</tr>

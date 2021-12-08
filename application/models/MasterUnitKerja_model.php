@@ -63,7 +63,7 @@ class MasterUnitKerja_model extends CI_Model {
         LEFT OUTER JOIN t0009 AS t9 ON t9.`DTIDDC` = t21.`BNCC02`
         LEFT OUTER JOIN t0009 AS t09 ON t09.`DTDC` = t21.`BNBUTY` AND t09.`DTPC` = '00' AND t09.`DTSC` = 'BT'
         LEFT OUTER JOIN t0021 AS ta ON t21.BNBUID1 = ta.`BNIDBUID`");
-        // return $query->result_array();
+        // return $query->result_$postarray();
 
         // $query = $this->db->query("SELECT t21.BNIDBUID, t21.BNBUID, t21.BNBUID1, ta.BNDESB1 AS relasi_opd, t09.DTDESC1 AS tipe, t21.`BNDESB1`, t21.`BNCC01`, t0.`ADNM` AS pimpinan, t21.`BNCC02`, t9.`DTDESC1` 
         // AS jabatan, t21.`BNCC03`, t01.`ADNM` AS pengurus_barang, t21.`BNBUTY`, t09.`DTDESC1`, t09.`DTDC`
