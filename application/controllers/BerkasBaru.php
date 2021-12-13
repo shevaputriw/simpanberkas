@@ -25,7 +25,7 @@ class BerkasBaru extends CI_Controller {
 
     public function Berkas_baru_bpkad_pengajuan() {
         $data['title'] = 'Berkas Baru';
-        $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();
+        $data['getAll'] = $this->BerkasBaru_model->getAllBerkas_bpkad();
         $data['getAllBerkas'] = $this->BerkasBaru_model->Berkas_bpkad();
 
         $this->load->view('template/Header',$data);

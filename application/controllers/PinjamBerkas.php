@@ -810,7 +810,6 @@ class PinjamBerkas extends CI_Controller {
         $this->PinjamBerkas_model->UbahKeDraft_t4111($itdocno, $status);
 
         $get_icu = $this->PinjamBerkas_model->getIcu($itdocno);
-        dd($get_icu);
         foreach($get_icu as $gi) :
             $this->PinjamBerkas_model->UbahKeDraft_t1201($gi["ITICU"], $status);
         endforeach;
@@ -836,6 +835,8 @@ class PinjamBerkas extends CI_Controller {
             $this->PinjamBerkas_model->Berkas_keluar_t1201($gi["ITICU"], $status, $lokasi_opd, $idbuid_opd);
         endforeach;
 
+        date_default_timezone_set('Asia/Jakarta');
+
         $from_t41021 = array();
         $pqoh_from = "0";
         //UPDATE QTY DI t41021
@@ -844,7 +845,8 @@ class PinjamBerkas extends CI_Controller {
             $from = $this->PinjamBerkas_model->get_t41021_from($gif["ITICU"]);
             foreach ($from as $f) :
                 $from_t41021 = [
-                    'ILPQOH' => $pqoh_from
+                    'ILPQOH' => $pqoh_from,
+                    'ILDTLU' => date('Y-m-d H:i:s', time())
                 ];
                 $this->db->update('t41021', $from_t41021, array('ILICU' => $gif["ITICU"], 'ILIDBUID' => '16445'));
             endforeach;
@@ -856,7 +858,8 @@ class PinjamBerkas extends CI_Controller {
             $to = $this->PinjamBerkas_model->get_t41021_to($gif2["ITICU"]);
             foreach ($to as $t) :
                 $to_t41021 = [
-                    'ILPQOH' => 1
+                    'ILPQOH' => 1,
+                    'ILDTLU' => date('Y-m-d H:i:s', time())
                 ];
                 $this->db->update('t41021', $to_t41021, array('ILICU' => $gif2["ITICU"], 'ILIDBUID !=' => '16445'));
             endforeach;
@@ -871,6 +874,15 @@ class PinjamBerkas extends CI_Controller {
         
         $this->load->view('template/Header',$data);
         $this->load->view('PinjamBerkas/Pengembalian',$data);
+        $this->load->view('template/Footer',$data);
+    }
+
+    public function History() {
+        $data['title'] = "Berkas Keluar";
+        $data['berkas_dipinjam'] = $this->PinjamBerkas_model->get_berkas_dipinjam_history();
+        
+        $this->load->view('template/Header',$data);
+        $this->load->view('PinjamBerkas/History',$data);
         $this->load->view('template/Footer',$data);
     }
 

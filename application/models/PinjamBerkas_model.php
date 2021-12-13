@@ -239,6 +239,7 @@ class PinjamBerkas_model extends CI_Model {
 
     public function UbahKeDraft($icu, $status) {
         $this->db->query("UPDATE t1201 SET FAPOST = '$status' WHERE FAICU = '$icu'");
+        $this->db->query("UPDATE t1201 SET FADTLU = CURRENT_TIMESTAMP WHERE FAICU = '$icu'");
     }
 
     public function getStatusApprov() {
@@ -249,6 +250,7 @@ class PinjamBerkas_model extends CI_Model {
 
     public function UbahKeApprov_t4111($itdocno, $status) {
         $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$itdocno'");
+        $this->db->query("UPDATE t4111 SET ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$itdocno'");
     }
 
     public function getIcu($itdocno) {
@@ -259,6 +261,7 @@ class PinjamBerkas_model extends CI_Model {
 
     public function UbahKeApprov_t1201($icu, $status) {
         $this->db->query("UPDATE t1201 SET FAPOST = '$status' WHERE FAICU = '$icu'");
+        $this->db->query("UPDATE t1201 SET FADTLU = CURRENT_TIMESTAMP WHERE FAICU = '$icu'");
     }
 
     public function getStatusVerifikasi() {
@@ -269,18 +272,22 @@ class PinjamBerkas_model extends CI_Model {
 
     public function UbahKeVerifikasi_t4111($itdocno, $status) {
         $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$itdocno'");
+        $this->db->query("UPDATE t4111 SET ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$itdocno'");
     }
 
     public function UbahKeDraft_t4111($itdocno, $status) {
         $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$itdocno'");
+        $this->db->query("UPDATE t4111 SET ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$itdocno'");
     }
 
     public function UbahKeVerifikasi_t1201($icu, $status) {
         $this->db->query("UPDATE t1201 SET FAPOST = '$status' WHERE FAICU = '$icu'");
+        $this->db->query("UPDATE t1201 SET FADTLU = CURRENT_TIMESTAMP WHERE FAICU = '$icu'");
     }
 
     public function UbahKeDraft_t1201($icu, $status) {
         $this->db->query("UPDATE t1201 SET FAPOST = '$status' WHERE FAICU = '$icu'");
+        $this->db->query("UPDATE t1201 SET FADTLU = CURRENT_TIMESTAMP WHERE FAICU = '$icu'");
     }
 
     public function get_idbuid_locid_opd_to($icu) {
@@ -290,9 +297,12 @@ class PinjamBerkas_model extends CI_Model {
     }
 
     public function Berkas_keluar_t1201($icu, $status, $lokasi_bpkad, $idbuid_opd) {
+        date_default_timezone_set('Asia/Jakarta');
+
         $this->db->query("UPDATE t1201 SET FAPOST = '$status' WHERE FAICU = '$icu'");
         $this->db->query("UPDATE t1201 SET FAALOC = '$lokasi_bpkad' WHERE FAICU = '$icu'");
         $this->db->query("UPDATE t1201 SET FAIDBUID = '$idbuid_opd' WHERE FAICU = '$icu'");
+        $this->db->query("UPDATE t1201 SET FADTLU = CURRENT_TIMESTAMP WHERE FAICU = '$icu'");
     }
 
     public function getStatusBerkasKeluar() {
@@ -303,6 +313,8 @@ class PinjamBerkas_model extends CI_Model {
 
     public function UbahKeBerkasKeluar_t4111($itdocno, $status) {
         $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$itdocno'");
+        $this->db->query("UPDATE t4111 SET ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$itdocno'");
+        $this->db->query("UPDATE t4111 SET ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCNO = '$itdocno' AND ITFT = 'T'");
     }
 
     public function UbahKeFinish_t1201($icu, $status) {
@@ -363,7 +375,7 @@ class PinjamBerkas_model extends CI_Model {
         // LEFT OUTER JOIN t0009 as f ON a.`ITPOST` = f.`DTDC` AND f.`DTPC` = '00' AND f.`DTIDDC` = '130510'
         // WHERE a.`ITFT` = 'T' AND a.`ITIDBUID` != '16445' AND a.`ITPOST`= '7' ORDER BY a.`ITDTIN` DESC");
 
-        $query = $this->db->query("SELECT t4.`ITPOST`, t4.`ITDOCNO`, t4.`ITIDBUID`, t4.`ITDOCDT`, t4.`ITICU`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`,
+        $query = $this->db->query("SELECT t4.`ITPOST`, t4.`ITDOCNO`, t4.`ITIDBUID`, t4.`ITDOCDT`, t4.`ITICU`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`, f.`FADTIN`, f.`FADTLU`,
         t4.`ITDESB1`, t4.`ITDESB2`, h.`LMDESA2`, f.`FACOMV`, t4.`ITBRAND`, t4.`ITCOLOR`, t4.`ITCILCAP`, t4.`ITMFN`, t4.`ITMACHNID`, f.`FAVHRN`,
         f.`FAVHTAXDT`, f.`FAVHRNTAXDT`, f.`FACRTFID`, f.`FACRTFDT`, f.`FALNDOWNST`, t4.`ITLENGTH`, t4.`ITWIDTH`, t4.`ITWIDE`, t4.`ITASADDR`,
         kab.`DTDESC1`AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1, f.`FADESB1`, f.`FAICU`, g.`BNDESB1`, t4.`ITMSTY`,
@@ -384,6 +396,32 @@ class PinjamBerkas_model extends CI_Model {
         LEFT OUTER JOIN t0009 AS kec ON t4.`ITDIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
         LEFT OUTER JOIN t0009 AS desa ON t4.`ITSUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
         WHERE t4.`ITFT` = 'T' AND t4.`ITIDBUID` != '16445' AND t4.`ITPOST` = '7' ORDER BY t4.`ITDTIN` DESC");
+
+        return $query->result_array();
+    }
+
+    public function get_berkas_dipinjam_history() {
+        $query = $this->db->query("SELECT t4.`ITPOST`, t4.`ITDOCNO`, t4.`ITIDBUID`, t4.`ITDOCDT`, t4.`ITICU`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`, f.`FADTIN`, f.`FADTLU`, t4.`ITDTLU`,
+        t4.`ITDESB1`, t4.`ITDESB2`, h.`LMDESA2`, f.`FACOMV`, t4.`ITBRAND`, t4.`ITCOLOR`, t4.`ITCILCAP`, t4.`ITMFN`, t4.`ITMACHNID`, f.`FAVHRN`,
+        f.`FAVHTAXDT`, f.`FAVHRNTAXDT`, f.`FACRTFID`, f.`FACRTFDT`, f.`FALNDOWNST`, t4.`ITLENGTH`, t4.`ITWIDTH`, t4.`ITWIDE`, t4.`ITASADDR`,
+        kab.`DTDESC1`AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1, f.`FADESB1`, f.`FAICU`, g.`BNDESB1`, t4.`ITMSTY`,
+        t4.`ITICU`, t9.`DTDESC1` AS draft, a.`DTDESC1` AS pengajuan, b.`DTDESC1` AS verifikasi, 
+        c.`DTDESC1` AS finish, d.`DTDESC1` AS berkas_keluar, e.`DTDESC1` AS finish
+        FROM t4111 AS t4
+        LEFT OUTER JOIN t0009 AS t9 ON t4.`ITPOST` = t9.`DTDC` AND t9.`DTPC` = '00' AND t9.`DTIDDC` = '130400'
+        LEFT OUTER JOIN t0009 AS a ON t4.`ITPOST` = a.`DTDC` AND a.`DTPC` = '00' AND a.`DTIDDC` = '130420'
+        LEFT OUTER JOIN t0009 AS b ON t4.`ITPOST` = b.`DTDC` AND b.`DTPC` = '00' AND b.`DTIDDC` = '130430'
+        LEFT OUTER JOIN t0009 AS c ON t4.`ITPOST` = c.`DTDC` AND c.`DTPC` = '00' AND c.`DTIDDC` = '130510'
+        LEFT OUTER JOIN t0009 AS d ON t4.`ITPOST` = d.`DTDC` AND d.`DTPC` = '00' AND d.`DTIDDC` = '130470'
+        LEFT OUTER JOIN t0009 AS e ON t4.`ITPOST` = e.`DTDC` AND e.`DTPC` = '00' AND e.`DTIDDC` = '130510'
+        JOIN t1201 AS f ON t4.`ITICU` = f.`FAICU`
+        JOIN t0021 AS g ON t4.`ITIDBUID` = g.`BNIDBUID`
+        LEFT OUTER JOIN t4100 AS h ON t4.`ITLOCID` = h.`LMLOCID`
+        JOIN t0009 AS i ON t4.`ITMSTY` = i.`DTDC` AND i.`DTPC` = '20' AND i.`DTSC` = 'JB'
+        LEFT OUTER JOIN t0009 AS kab ON t4.`ITCITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
+        LEFT OUTER JOIN t0009 AS kec ON t4.`ITDIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
+        LEFT OUTER JOIN t0009 AS desa ON t4.`ITSUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
+        WHERE t4.`ITFT` = 'T' AND t4.`ITIDBUID` != '16445' AND t4.`ITPOST` IN(7,11) ORDER BY t4.`ITPOST` DESC");
 
         return $query->result_array();
     }
@@ -423,17 +461,18 @@ class PinjamBerkas_model extends CI_Model {
 
     public function update_doc_peminjaman_finish($itdocno, $icu, $status) {
         $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITICU = '$icu' AND ITDOCNO = '$itdocno'");
+        $this->db->query("UPDATE t4111 SET ITDTLU = CURRENT_TIMESTAMP WHERE ITICU = '$icu' AND ITDOCNO = '$itdocno'");
     }
 
     public function update_pengembalian_t1201($icu, $status, $idbuid_bpkad, $locid_bpkad) {
-        $this->db->query("UPDATE t1201 SET FAIDBUID = '$idbuid_bpkad', FAALOC = '$locid_bpkad', FAPOST = '$status' WHERE FAICU = '$icu'");
+        $this->db->query("UPDATE t1201 SET FAIDBUID = '$idbuid_bpkad', FAALOC = '$locid_bpkad', FAPOST = '$status', FADTLU = CURRENT_TIMESTAMP WHERE FAICU = '$icu'");
     }
 
     public function update_pengembalian_t41021($icu) {
         $ilpqoh_opd = "0.00000";
         $ilpqoh_bpkad = "1.00000";
-        $this->db->query("UPDATE t41021 SET ILPQOH = '$ilpqoh_opd' WHERE ILICU = '$icu' AND ILIDBUID != '16445'");
-        $this->db->query("UPDATE t41021 SET ILPQOH = '$ilpqoh_bpkad' WHERE ILICU = '$icu' AND ILIDBUID = '16445'");
+        $this->db->query("UPDATE t41021 SET ILPQOH = '$ilpqoh_opd', ILDTLU = CURRENT_TIMESTAMP WHERE ILICU = '$icu' AND ILIDBUID != '16445'");
+        $this->db->query("UPDATE t41021 SET ILPQOH = '$ilpqoh_bpkad', ILDTLU = CURRENT_TIMESTAMP WHERE ILICU = '$icu' AND ILIDBUID = '16445'");
     }
 
     public function cek_perubahan_data($icu) {

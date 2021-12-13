@@ -60,15 +60,15 @@
                                                     <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                     <a data-toggle="modal" href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
                                                 </td>
-                                            <?php } else if($gt["OVPOST"] == "7") {?>
+                                            <?php } else if($gt["OVPOST"] == "11") {?>
                                                 <td>
-                                                    <a href="#"><span class="badge badge-success"><?=$gt["berkas_keluar"];?></span></a>
+                                                    <a href="#"><span class="badge badge-success"><?=$gt["finish"];?></span></a>
                                                 </td>
                                                 <td>
                                                     <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                                     <a data-toggle="modal" href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
                                                 </td>
-                                            <?php } ?>
+                                            <?php }?>
                                         </tr>
                                     <?php endforeach;?>
                                 </tbody>

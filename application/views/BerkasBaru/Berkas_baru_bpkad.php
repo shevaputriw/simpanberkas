@@ -7,7 +7,7 @@
                         <center><h4 class="card-title">BERKAS BARU</h4></center>
                     </div>
                     <div class="card-body">
-                        TABEL BERKAS BARU START
+                        <!-- TABEL BERKAS BARU START -->
                         <div class="table-responsive" style="margin-top:20px;">
                             <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                 <thead>
@@ -36,9 +36,9 @@
                                                     <a href="<?=base_url()?>BerkasBaru/Approval/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-warning"><?=$gt["draft"];?></span></a>
                                                 </td>
                                                 <td>
-                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                    <a href="<?=base_url()?>BerkasBaru/Tambah_Baru/<?=$gt['OVDOCNO'];?>/<?=$gt['OVIDBUID'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                    <a data-toggle="modal" href="#basicModal2<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
+                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> Lihat</span></a>
+                                                    <a href="<?=base_url()?>BerkasBaru/Tambah_Baru/<?=$gt['OVDOCNO'];?>/<?=$gt['OVIDBUID'];?>" class="pd-setting-ed" style="color:#000000;"><span class="badge badge-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</span></a>
+                                                    <!-- <a data-toggle="modal" href="#basicModal2<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Hapus Data" style="color:#2b2a28;"><span class="badge badge-danger"><i class="fa fa-trash" aria-hidden="true"></i> Hapus</span></a> -->
                                                 </td>
                                                 <td>
                                                     
@@ -49,8 +49,8 @@
                                                     <a href="#"><span class="badge badge-primary">Lihat Dokumen</span></a>
                                                 </td>
                                                 <td>
-                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                    <a data-toggle="modal" href="#basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a>
+                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> Lihat</span></a>
+                                                    <!-- <a data-toggle="modal" href="#basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a> -->
                                                 </td>
                                                 <td>
                                                     <a href="<?=base_url()?>BerkasBaru/Verifikasi_pengajuan/<?=$gt["OVDOCNO"];?>" style="color:#000000;"><span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i></span></a>
@@ -62,9 +62,9 @@
                                                     <a href="#"><span class="badge badge-primary">Lihat Dokumen</span></a>
                                                 </td>
                                                 <td>
-                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                    <a data-toggle="modal" href="#basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a>
-                                                    <a data-toggle="modal" href="#" title="Cetak Tanda Terima Berkas Baru" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
+                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> Lihat</span></a>
+                                                    <!-- <a data-toggle="modal" href="#basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a> -->
+                                                    <a href="#" class="pd-setting-ed" style="color:#000000;"><span class="badge badge-primary"><i class="fa fa-print" aria-hidden="true"></i> Cetak</span></a>
                                                 </td>
                                                 <td>
                                                     <a  href="<?=base_url()?>BerkasBaru/Acc/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>" style="color:#000000;"><span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i></span></a>
@@ -74,10 +74,10 @@
                                                     <a href="#"><span class="badge badge-success"><?=$gt["finish"];?></span></a>
                                                 </td>
                                                 <td>
-                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> Lihat</span></a>
                                                 </td>
                                                 <td>
-                                                    <a href="<?=base_url()?>BerkasBaru/Mutasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVIDINUM"];?>/<?=$gt["OVINUM"];?>/<?=$gt["OVLOCID"];?>"><span class="badge badge-danger">Mutasi</span></a>
+                                                    <a href="<?=base_url()?>BerkasBaru/Mutasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVIDINUM"];?>/<?=$gt["OVINUM"];?>/<?=$gt["OVLOCID"];?>"><span class="badge badge-dark">Mutasi</span></a>
                                                 </td>
                                             <?php } ?>
                                             </tr>
@@ -85,7 +85,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        TABEL BERKAS BARU END
+                        <!-- TABEL BERKAS BARU END -->
                     </div>
                 </div>
             </div>

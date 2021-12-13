@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-block">
-                        <center><h4 class="card-title">BERKAS YANG DIPINJAM</h4></center>
+                        <center><h4 class="card-title">HISTORY PENGEMBALIAN BERKAS</h4></center>
                     </div>
                     <div class="card-body">
                         <!-- TABEL BERKAS BARU START -->
@@ -14,9 +14,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>OPD</th>
-                                        <th>Jenis Barang</th>
+                                        <!-- <th>Jenis Barang</th> -->
                                         <th>Nama Barang</th>
-                                        <th>Waktu</th>
+                                        <th>Tanggal Pinjam</th>
+                                        <th>Tanggal Kembali</th>
+                                        <th>Waktu Peminjaman</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -26,19 +28,26 @@
                                         <tr>
                                             <td><?=$no++;?></td>
                                             <td><?=$bd["BNDESB1"];?></td>
-                                            <td><?=$bd["jenis_berkas"];?></td>
+                                            <!-- <td><?=$bd["jenis_berkas"];?></td> -->
                                             <td><?=$bd["FADESB1"];?></td>
-                                            <td>
-                                                <span class="badge badge-primary">
-                                                    <?php $now = time();
-                                                    $your_date = strtotime($bd["FADTLU"]);
-                                                    $datediff = $now - $your_date;
-
-                                                    echo round($datediff / (60 * 60 * 24)); ?>
-                                                    hari
-                                                </span>
-                                            </td>
                                             <?php if($bd["ITPOST"] == "7") {?>
+                                                <td><?= date('d-m-Y', strtotime($bd["ITDOCDT"])); ?></td>
+                                                <td>-</td>
+                                                <td>
+                                                    <span class="badge badge-secondary">
+                                                        <?php $now = time();
+                                                        $your_date = strtotime($bd["ITDOCDT"]);
+                                                        $datediff = $now - $your_date;
+                                                        $hitung = round($datediff / (60 * 60 * 24));
+
+                                                        if($hitung == "-0") {
+                                                            echo "0 hari"; 
+                                                        }
+                                                        else {
+                                                            echo "$hitung hari";
+                                                        }?>
+                                                    </span>
+                                                </td>
                                                 <td>
                                                     <span class="badge badge-danger"><?=$bd["berkas_keluar"];?></span>
                                                 </td>
@@ -47,6 +56,23 @@
                                                     <a href="<?=base_url()?>PinjamBerkas/form_perubahan_data/<?=$bd["FAICU"];?>/<?=$bd["ITDOCNO"];?>"><span class="badge badge-primary">Kembali</span></a>
                                                 </td>
                                             <?php } else if($bd["ITPOST"] == "11") {?>
+                                                <td><?= date('d-m-Y', strtotime($bd["ITDOCDT"])); ?></td>
+                                                <td><?= date('d-m-Y', strtotime($bd["ITDTLU"])); ?></td>
+                                                <td>
+                                                    <span class="badge badge-secondary">
+                                                        <?php $now = strtotime($bd["ITDTLU"]);
+                                                        $your_date = strtotime($bd["ITDOCDT"]);
+                                                        $datediff = $now - $your_date;
+                                                        $hitung = round($datediff / (60 * 60 * 24));
+
+                                                        if($hitung == "-0") {
+                                                            echo "0 hari"; 
+                                                        }
+                                                        else {
+                                                            echo "$hitung hari";
+                                                        }?>
+                                                    </span>
+                                                </td>
                                                 <td>
                                                     <span class="badge badge-danger"><?=$bd["finish"];?></span>
                                                 </td>
@@ -239,34 +265,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    window.onload = function() {
-    // Month Day, Year Hour:Minute:Second, id-of-element-container
-    countUpFromTime("Jan 1, 2014 12:00:00", 'countup<?=$no;?>'); // ****** Change this line!
-    };
-
-    function countUpFromTime(countFrom, id) {
-    countFrom = new Date(countFrom).getTime();
-    var now = new Date(),
-        countFrom = new Date(countFrom),
-        timeDifference = (now - countFrom);
-        
-    var secondsInADay = 60 * 60 * 1000 * 24,
-        secondsInAHour = 60 * 60 * 1000;
-        
-    days = Math.floor(timeDifference / (secondsInADay) * 1);
-    hours = Math.floor((timeDifference % (secondsInADay)) / (secondsInAHour) * 1);
-    mins = Math.floor(((timeDifference % (secondsInADay)) % (secondsInAHour)) / (60 * 1000) * 1);
-    secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
-
-    var idEl = document.getElementById(id);
-    idEl.getElementsByClassName('days')[0].innerHTML = days;
-    idEl.getElementsByClassName('hours')[0].innerHTML = hours;
-    idEl.getElementsByClassName('minutes')[0].innerHTML = mins;
-    idEl.getElementsByClassName('seconds')[0].innerHTML = secs;
-
-    clearTimeout(countUpFromTime.interval);
-    countUpFromTime.interval = setTimeout(function(){ countUpFromTime(countFrom, id); }, 1000);
-    }
-</script>

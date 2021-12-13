@@ -21,7 +21,7 @@
                                         <select class="form-control" name="ITICU" required>
                                             <option value="" selected="true" disabled="disabled">-- Pilih Berkas --</option>
                                             <?php foreach($get_berkas_t1201 as $x) : ?>
-                                                <option value="<?=$x["FAICU"]?>"><?=$x["FAICU"]?> - <?=$x["FADESB1"]?></option>
+                                                <option value="<?=$x["FAICU"]?>"><?=$x["FADESB1"]?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
