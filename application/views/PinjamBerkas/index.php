@@ -31,39 +31,51 @@
                                             <td><?=$gab["total_berkas"];?></td>
                                             <?php if($gab["ITPOST"] == '0') {?>
                                                 <td>
-                                                    <a href="#"><span class="badge badge-warning"><?=$gab["draft"];?></span></a>
+                                                    <span class="badge badge-warning"><?=$gab["draft"];?></span>
                                                 </td>
                                                 <td>
-                                                    <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                    <a href="<?=base_url()?>PinjamBerkas/tambah_baru/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                    <a data-toggle="modal" href="#basicModal2<?=$gab["ITDOCNO"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
-                                                    <a href="<?=base_url()?>PinjamBerkas/Konfirmasi/<?=$gab["ITDOCNO"];?>/<?=$gab["ITIDBUID"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
+                                                    <!-- <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
+                                                    <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed"><span class="badge badge-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat Detail</span></a>
+                                                    <a href="<?=base_url()?>PinjamBerkas/tambah_baru/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed"><span class="badge badge-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;Edit</span></a>
+                                                    <a data-toggle="modal" href="#basicModal2<?=$gab["ITDOCNO"];?>" ><span class="badge badge-primary"><i class="fa fa-trash" aria-hidden="true"></i> &nbsp;Hapus</span></i></a>
+                                                    <a href="<?=base_url()?>PinjamBerkas/Konfirmasi/<?=$gab["ITDOCNO"];?>/<?=$gab["ITIDBUID"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><span class="badge badge-primary"><i class="fa fa-print" aria-hidden="true"></i> &nbsp;Cetak Berita Acara</span></a>
                                                     <a href="<?=base_url()?>PinjamBerkas/Approval/<?=$gab["ITDOCNO"];?>"><span class="badge badge-primary">Serahkan</span></a>
                                                 </td>
                                             <?php } else if($gab["ITPOST"] == '2') {?>
                                                 <td>
-                                                    <a href="#"><span class="badge badge-warning"><?=$gab["pengajuan"];?></span></a>
+                                                    <span class="badge badge-warning"><?=$gab["pengajuan"];?></span>
                                                 </td>
                                                 <td>
-                                                    <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                    <a href="<?=base_url()?>PinjamBerkas/tambah_baru/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                    <a data-toggle="modal" href="#basicModal2<?=$gab["ITDOCNO"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
-                                                    <a href="<?=base_url()?>PinjamBerkas/Konfirmasi/<?=$gab["ITDOCNO"];?>/<?=$gab["ITIDBUID"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
+                                                    <!-- <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
+                                                    <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed"><span class="badge badge-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat Detail</span></a>
+                                                    <!-- <a href="<?=base_url()?>PinjamBerkas/tambah_baru/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> -->
+                                                    <!-- <a data-toggle="modal" href="#basicModal2<?=$gab["ITDOCNO"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a> -->
+                                                    <a href="<?=base_url()?>PinjamBerkas/Konfirmasi/<?=$gab["ITDOCNO"];?>/<?=$gab["ITIDBUID"];?>" style="color:#2b2a28;"><span class="badge badge-primary"><i class="fa fa-print"></i> &nbsp;Cetak Berita Acara</span></a>
                                                 </td>
                                             <?php } else if($gab["ITPOST"] == '3') {?>
                                                 <td>
-                                                    <a href="#"><span class="badge badge-warning"><?=$gab["verifikasi"];?></span></a>
+                                                    <span class="badge badge-warning"><?=$gab["verifikasi"];?></span>
                                                 </td>
                                                 <td>
-                                                    <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <!-- <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
+                                                    <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed"><span class="badge badge-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat Detail</span></a>
                                                     <a href="<?=base_url()?>PinjamBerkas/Konfirmasi/<?=$gab["ITDOCNO"];?>/<?=$gab["ITIDBUID"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
                                                 </td>
                                             <?php } else if($gab["ITPOST"] == '7') {?>
                                                 <td>
-                                                    <a href="#"><span class="badge badge-warning"><?=$gab["berkas_keluar"];?></span></a>
+                                                    <span class="badge badge-warning"><?=$gab["berkas_keluar"];?></span>
                                                 </td>
                                                 <td>
-                                                    <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                                    <!-- <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
+                                                    <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed"><span class="badge badge-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat Detail</span></a>
+                                                </td>
+                                            <?php } else if($gab["ITPOST"] == '11') {?>
+                                                <td>
+                                                    <span class="badge badge-warning"><?=$gab["finish"];?></span>
+                                                </td>
+                                                <td>
+                                                    <!-- <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed"><span class="badge badge-warning"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat Detail</span></a> -->
+                                                    <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed"><span class="badge badge-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat Detail</span></a>
                                                 </td>
                                             <?php }?>
                                         </tr>

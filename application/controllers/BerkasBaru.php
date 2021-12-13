@@ -814,6 +814,14 @@ class BerkasBaru extends CI_Controller {
         redirect('BerkasBaru/Berkas_baru_bpkad_pengajuan','refresh');
     }
 
+    public function revisi_pengajuan($ovdocno) {
+        $ovpost = $this->BerkasBaru_model->getStatusDraft();
+        $status = $ovpost->DTDC;
+
+        $this->BerkasBaru_model->revisi_pengajuan($ovdocno, $status);
+        redirect('BerkasBaru/Berkas_baru_bpkad_pengajuan','refresh');
+    }
+
     public function Acc($ovidbuid, $ovdocno, $ovdocty) {
         $data['title'] = 'Berkas Baru';
         $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();

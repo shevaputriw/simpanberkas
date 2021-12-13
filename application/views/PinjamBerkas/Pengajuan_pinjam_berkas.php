@@ -18,7 +18,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label style="color:#2b2a28;"><b>Pilih Berkas yang akan Dipinjam :</b></label>
-                                        <select class="form-control" name="ITICU">
+                                        <select class="form-control" name="ITICU" required>
                                             <option value="" selected="true" disabled="disabled">-- Pilih Berkas --</option>
                                             <?php foreach($get_berkas_t1201 as $x) : ?>
                                                 <option value="<?=$x["FAICU"]?>"><?=$x["FAICU"]?> - <?=$x["FADESB1"]?></option>

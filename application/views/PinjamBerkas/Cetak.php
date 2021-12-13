@@ -99,7 +99,8 @@
 				<td class="text2" style=" ;float:right;">Kepada</td>
 			</tr>
 			<tr>
-				<td class="text2" style=" ;"><b>Yth. Bapak <?=$jabatan->DTDESC1;?> <br> <?=$gt["BNDESB1"];?><b></td>
+				<!-- <td class="text2" style=" ;"><b>Yth. Bapak <?=$jabatan->DTDESC1;?> <br> <?=$gt["BNDESB1"];?><b></td> -->
+				<td class="text2" style=" ;"><b>Yth. Bapak/Ibu (jabatan) <br> Badan Pengelola Aset dan Keuangan Daerah<b></td>
 			</tr>
 			<tr>
 				<td class="text2" style=" ;">Kabupaten Mojokerto</td>

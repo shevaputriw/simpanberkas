@@ -512,6 +512,12 @@ class BerkasBaru_model extends CI_Model {
         $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCONO = '$ovdocno'");
     }
 
+    public function revisi_pengajuan($ovdocno, $status) {
+        $this->db->query("UPDATE t4312 SET OVPOST = '$status' WHERE OVDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCONO = '$ovdocno'");
+    }
+
     public function Finish($ovdocno, $status) {
         $this->db->query("UPDATE t4312 SET OVPOST = '$status' WHERE OVDOCNO = '$ovdocno'");
         $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$ovdocno'");

@@ -54,6 +54,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="<?=base_url()?>BerkasBaru/Verifikasi_pengajuan/<?=$gt["OVDOCNO"];?>" style="color:#000000;"><span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i></span></a>
+                                                    <a href="<?=base_url()?>BerkasBaru/revisi_pengajuan/<?=$gt["OVDOCNO"];?>" style="color:#000000;"><span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i></span></a>
                                                 </td>
                                             <?php } else if($gt["OVPOST"] == "3") {?>
                                                 <td>

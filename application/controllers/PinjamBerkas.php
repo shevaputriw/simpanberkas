@@ -710,6 +710,16 @@ class PinjamBerkas extends CI_Controller {
         $this->load->view('template/Footer',$data);
     }
 
+    public function Detail_pinjam_berkas_bpkad($itdocno) {
+        $data['title'] = 'Detail Pinjam Berkas';
+        $data['get_berkas'] = $this->PinjamBerkas_model->getBerkas($itdocno);
+        $data['get_berkas2'] = $this->PinjamBerkas_model->getBerkas2($itdocno);
+
+        $this->load->view('template/Header',$data);
+        $this->load->view('PinjamBerkas/Detail_pinjam_berkas_bpkad',$data);
+        $this->load->view('template/Footer',$data);
+    }
+
     public function hapus_pengajuan_pinjam($itdocno) {
         $get_icu = $this->PinjamBerkas_model->getIcu($itdocno);
         foreach($get_icu as $gi) :
@@ -789,7 +799,23 @@ class PinjamBerkas extends CI_Controller {
             $this->PinjamBerkas_model->UbahKeVerifikasi_t1201($gi["ITICU"], $status);
         endforeach;
 
-        redirect('PinjamBerkas/index','refresh');
+        redirect('PinjamBerkas/PinjamBerkas_BPKAD_index','refresh');
+    }
+
+    public function revisi_peminjaman($itdocno) {
+        $getStatus = $this->PinjamBerkas_model->getStatusDraft();
+        $status = $getStatus->DTDC;
+
+        //SET STATUS DI T4111 DAN T1201 JADI VERIFIKASI PEMINJAMAN
+        $this->PinjamBerkas_model->UbahKeDraft_t4111($itdocno, $status);
+
+        $get_icu = $this->PinjamBerkas_model->getIcu($itdocno);
+        dd($get_icu);
+        foreach($get_icu as $gi) :
+            $this->PinjamBerkas_model->UbahKeDraft_t1201($gi["ITICU"], $status);
+        endforeach;
+
+        redirect('PinjamBerkas/PinjamBerkas_BPKAD_index','refresh');
     }
 
     public function Acc($itdocno) {
@@ -842,7 +868,7 @@ class PinjamBerkas extends CI_Controller {
     public function Pengembalian() {
         $data['title'] = "Berkas Keluar";
         $data['berkas_dipinjam'] = $this->PinjamBerkas_model->get_berkas_dipinjam();
-
+        
         $this->load->view('template/Header',$data);
         $this->load->view('PinjamBerkas/Pengembalian',$data);
         $this->load->view('template/Footer',$data);

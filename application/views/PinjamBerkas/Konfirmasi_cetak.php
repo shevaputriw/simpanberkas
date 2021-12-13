@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label style="color:#2b2a28;"><b>Ditujukan Kepada :</b></label>
-                                        <p style="color:#313236"><?=$gt["BNDESB1"];?></p>
+                                        <p style="color:#313236">Badan Pengelola Keuangan dan Aset Daerah</p>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -83,8 +83,9 @@
                                             <p style="color:#313236">
                                                 <?=$no++?>. <?=$gb2["ITDESB1"];?>
                                             </p>
+                                            <label style="color:#2b2a28;"><b>Keterangan :</b></label>
                                             <p style="color:#313236">
-                                                Keterangan : <?=$gb2["ITDESB2"];?>
+                                                <?=$gb2["ITDESB2"];?>
                                             </p>
                                         <?php endforeach;?>
                                     </div>

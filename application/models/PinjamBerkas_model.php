@@ -47,24 +47,61 @@ class PinjamBerkas_model extends CI_Model {
         // FROM t4111 AS t4
         // LEFT OUTER JOIN t0009 AS t9 ON t4.`ITPOST` = t9.`DTDC` AND t9.`DTPC`='00' AND t9.`DTIDDC`= '130400'
         // WHERE ITDOCTY = 'IT' AND ITPOST = '0' AND ITFT = 'T' GROUP BY ITDOCNO");
-        $query = $this->db->query("SELECT *, COUNT(t4.`ITDOCSQ`) AS total_berkas, t9.`DTDESC1` AS draft, a.`DTDESC1` AS pengajuan, b.`DTDESC1` AS verifikasi, c.`DTDESC1` AS finish, d.`DTDESC1` AS berkas_keluar
+        // $query = $this->db->query("SELECT *, COUNT(t4.`ITDOCSQ`) AS total_berkas, t9.`DTDESC1` AS draft, a.`DTDESC1` AS pengajuan, b.`DTDESC1` AS verifikasi, c.`DTDESC1` AS finish, d.`DTDESC1` AS berkas_keluar
+        // FROM t4111 AS t4
+        // LEFT OUTER JOIN t0009 AS t9 ON t4.`ITPOST` = t9.`DTDC` AND t9.`DTPC` = '00' AND t9.`DTIDDC` = '130400'
+        // LEFT OUTER JOIN t0009 AS a ON t4.`ITPOST` = a.`DTDC` AND a.`DTPC` = '00' AND a.`DTIDDC` = '130420'
+        // LEFT OUTER JOIN t0009 AS b ON t4.`ITPOST` = b.`DTDC` AND b.`DTPC` = '00' AND b.`DTIDDC` = '130430'
+        // LEFT OUTER JOIN t0009 AS c ON t4.`ITPOST` = c.`DTDC` AND c.`DTPC` = '00' AND c.`DTIDDC` = '130510'
+        // LEFT OUTER JOIN t0009 AS d ON t4.`ITPOST` = d.`DTDC` AND d.`DTPC` = '00' AND d.`DTIDDC` = '130470'
+        // WHERE ITDOCTY = 'IT' AND ITFT = 'F' AND ITIDBUID = '16445' AND ITPOST IN(0,2,3,7,11) GROUP BY ITDOCNO");
+
+        // $query = $this->db->query("SELECT *, COUNT(t4.`ITDOCSQ`) AS total_berkas, t4.`ITICU`, t9.`DTDESC1` AS draft, a.`DTDESC1` AS pengajuan, b.`DTDESC1` AS verifikasi, c.`DTDESC1` AS finish, d.`DTDESC1` AS berkas_keluar, e.`DTDESC1` AS finish
+        // FROM t4111 AS t4
+        // LEFT OUTER JOIN t0009 AS t9 ON t4.`ITPOST` = t9.`DTDC` AND t9.`DTPC` = '00' AND t9.`DTIDDC` = '130400'
+        // LEFT OUTER JOIN t0009 AS a ON t4.`ITPOST` = a.`DTDC` AND a.`DTPC` = '00' AND a.`DTIDDC` = '130420'
+        // LEFT OUTER JOIN t0009 AS b ON t4.`ITPOST` = b.`DTDC` AND b.`DTPC` = '00' AND b.`DTIDDC` = '130430'
+        // LEFT OUTER JOIN t0009 AS c ON t4.`ITPOST` = c.`DTDC` AND c.`DTPC` = '00' AND c.`DTIDDC` = '130510'
+        // LEFT OUTER JOIN t0009 AS d ON t4.`ITPOST` = d.`DTDC` AND d.`DTPC` = '00' AND d.`DTIDDC` = '130470'
+        // LEFT OUTER JOIN t0009 AS e ON t4.`ITPOST` = e.`DTDC` AND e.`DTPC` = '00' AND e.`DTIDDC` = '130510'
+        // WHERE ITDOCTY = 'IT' AND ITFT = 'T' AND ITIDBUID != '16445' AND ITPOST IN(0,2,3,7,11) GROUP BY ITDOCNO ORDER BY t4.`ITDOCNO` DESC");
+
+        $query = $this->db->query("SELECT t4.`ITPOST`, t4.`ITDOCNO`, t4.`ITIDBUID`, t4.`ITDOCDT`, t4.`ITICU`, t4.`ITMSTY`, g.`BNDESB1`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`,
+        t4.`ITDESB1`, t4.`ITDESB2`, h.`LMDESA2`, t4.`ITCOMV`, f.`FACOMV`, t4.`ITBRAND`, t4.`ITCOLOR`, t4.`ITCILCAP`, t4.`ITMFN`, t4.`ITMACHNID`, t4.`ITVHRN`, f.`FAVHRN`, f.`FAVHTAXDT`, f.`FAVHRNTAXDT`, f.`FACRTFID`, f.`FACRTFDT`, f.`FALNDOWNST`,
+        t4.`ITVHTAXDT`, t4.`ITVHRNTAXDT`, t4.`ITCRTFID`, t4.`ITCRTFDT`, t4.`ITLNDOWNST`, t4.`ITLENGTH`, t4.`ITWIDTH`, t4.`ITWIDE`, t4.`ITASADDR`,
+        kab.`DTDESC1`AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1,
+        COUNT(t4.`ITDOCSQ`) AS total_berkas, t4.`ITICU`, t9.`DTDESC1` AS draft, a.`DTDESC1` AS pengajuan, b.`DTDESC1` AS verifikasi, 
+        c.`DTDESC1` AS finish, d.`DTDESC1` AS berkas_keluar, e.`DTDESC1` AS finish
         FROM t4111 AS t4
         LEFT OUTER JOIN t0009 AS t9 ON t4.`ITPOST` = t9.`DTDC` AND t9.`DTPC` = '00' AND t9.`DTIDDC` = '130400'
         LEFT OUTER JOIN t0009 AS a ON t4.`ITPOST` = a.`DTDC` AND a.`DTPC` = '00' AND a.`DTIDDC` = '130420'
         LEFT OUTER JOIN t0009 AS b ON t4.`ITPOST` = b.`DTDC` AND b.`DTPC` = '00' AND b.`DTIDDC` = '130430'
         LEFT OUTER JOIN t0009 AS c ON t4.`ITPOST` = c.`DTDC` AND c.`DTPC` = '00' AND c.`DTIDDC` = '130510'
         LEFT OUTER JOIN t0009 AS d ON t4.`ITPOST` = d.`DTDC` AND d.`DTPC` = '00' AND d.`DTIDDC` = '130470'
-        WHERE ITDOCTY = 'IT' AND ITFT = 'F' AND ITIDBUID = '16445' AND ITPOST IN(0,2,3,7,11) GROUP BY ITDOCNO");
+        LEFT OUTER JOIN t0009 AS e ON t4.`ITPOST` = e.`DTDC` AND e.`DTPC` = '00' AND e.`DTIDDC` = '130510'
+        JOIN t1201 AS f ON t4.`ITICU` = f.`FAICU`
+        JOIN t0021 AS g ON t4.`ITIDBUID` = g.`BNIDBUID`
+        LEFT OUTER JOIN t4100 AS h ON t4.`ITLOCID` = h.`LMLOCID`
+        JOIN t0009 AS i ON t4.`ITMSTY` = i.`DTDC` AND i.`DTPC` = '20' AND i.`DTSC` = 'JB'
+        LEFT OUTER JOIN t0009 AS kab ON t4.`ITCITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
+        LEFT OUTER JOIN t0009 AS kec ON t4.`ITDIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
+        LEFT OUTER JOIN t0009 AS desa ON t4.`ITSUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
+        WHERE ITDOCTY = 'IT' AND ITFT = 'T' AND ITIDBUID != '16445' AND ITPOST IN(0,2,3,7,11) GROUP BY ITDOCNO ORDER BY t4.`ITDOCNO` DESC");
 
         return $query->result_array();
     }
 
     public function get_berkas2_t1201($it_docno_peminjaman) {
         // $query = $this->db->query("SELECT * FROM t1201 WHERE FAPOST = '11'");
+        // $query = $this->db->query("SELECT *
+        // FROM t1201 AS a
+        // JOIN t41021 AS b ON a.`FAICU` = b.`ILICU` AND b.`ILPQOH` = '1.00000' AND b.`ILIDBUID` = '16445'
+        // WHERE a.FAICU NOT IN (SELECT ITICU FROM t4111 WHERE ITDOCNO = '$it_docno_peminjaman')");
         $query = $this->db->query("SELECT *
         FROM t1201 AS a
         JOIN t41021 AS b ON a.`FAICU` = b.`ILICU` AND b.`ILPQOH` = '1.00000' AND b.`ILIDBUID` = '16445'
-        WHERE a.FAICU NOT IN (SELECT ITICU FROM t4111 WHERE ITDOCNO = '$it_docno_peminjaman')");
+        WHERE a.FAICU NOT IN (SELECT ITICU FROM t4111 WHERE ITDOCNO = '$it_docno_peminjaman')
+        AND a.`FAICU` NOT IN(SELECT ITICU FROM t4111 AS c WHERE c.`ITDOCTY` = 'IT' AND c.`ITFT`='T' AND c.`ITIDBUID` != '16445' AND c.`ITDOCNO` = '$it_docno_peminjaman' AND c.`ITPOST` IN(0,2,3,7,11))");
 
         return $query->result_array();
     }
@@ -143,7 +180,17 @@ class PinjamBerkas_model extends CI_Model {
     }
 
     public function getBerkas2($itdocno) {
-        $query = $this->db->query("SELECT ITDESB1, ITDESB2 FROM t4111 WHERE ITDOCNO = '$itdocno' AND ITFT = 'T'");
+        // $query = $this->db->query("SELECT ITDESB1, ITDESB2, ITICU, ITDOCNO FROM t4111 WHERE ITDOCNO = '$itdocno' AND ITFT = 'T'");
+        $query = $this->db->query("SELECT f.`FADESB1`, t4.`ITDESB2`, t4.`ITICU`, t4.`ITDOCNO`,  g.`BNDESB1`, t4.`ITMSTY`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`, f.`FADESB1`, h.`LMDESA2`, t4.`ITDOCDT`, f.`FACOMV`, f.`FABRAND`, f.`FACOLOR`, f.`FACILCAP`, f.`FAMFN`, f.`FAVHRN`, f.`FAVHTAXDT`, f.`FAVHRNTAXDT`, f.`FACRTFID`, f.`FACRTFDT`, f.`FALNDOWNST`, f.`FALENGTH`, f.`FAWIDTH`, f.`FAWIDE`, f.`FAASADDR`, kab.`DTDESC1` AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1, f.`FAMACHNID`
+        FROM t4111 AS t4
+        JOIN t1201 AS f ON t4.`ITICU` = f.`FAICU`
+        JOIN t0021 AS g ON t4.`ITIDBUID` = g.`BNIDBUID`
+        LEFT OUTER JOIN t4100 AS h ON t4.`ITLOCID` = h.`LMLOCID`
+        JOIN t0009 AS i ON t4.`ITMSTY` = i.`DTDC` AND i.`DTPC` = '20' AND i.`DTSC` = 'JB'
+        LEFT OUTER JOIN t0009 AS kab ON t4.`ITCITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
+        LEFT OUTER JOIN t0009 AS kec ON t4.`ITDIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
+        LEFT OUTER JOIN t0009 AS desa ON t4.`ITSUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
+        WHERE ITDOCNO = '$itdocno' AND ITFT = 'T'");
 
         return $query->result_array();
     }
@@ -224,7 +271,15 @@ class PinjamBerkas_model extends CI_Model {
         $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$itdocno'");
     }
 
+    public function UbahKeDraft_t4111($itdocno, $status) {
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$itdocno'");
+    }
+
     public function UbahKeVerifikasi_t1201($icu, $status) {
+        $this->db->query("UPDATE t1201 SET FAPOST = '$status' WHERE FAICU = '$icu'");
+    }
+
+    public function UbahKeDraft_t1201($icu, $status) {
         $this->db->query("UPDATE t1201 SET FAPOST = '$status' WHERE FAICU = '$icu'");
     }
 
@@ -294,28 +349,62 @@ class PinjamBerkas_model extends CI_Model {
     }
 
     public function get_berkas_dipinjam() {
-        // $query = $this->db->query("SELECT *
-        // FROM t41021 AS a
-        // JOIN t1201 AS b ON a.`ILICU` = b.`FAICU`
-        // WHERE a.`ILIDBUID`= '16445' AND a.`ILPQOH` = '0.00000'");
-        $query = $this->db->query("SELECT * 
-        FROM t4111 AS a
-        JOIN t1201 AS b ON a.`ITICU` = b.`FAICU`
-        WHERE a.`ITFT` = 'F' AND a.`ITIDBUID`= '16445' AND a.`ITPOST`= '7'");
+        // $query = $this->db->query("SELECT * 
+        // FROM t4111 AS a
+        // JOIN t1201 AS b ON a.`ITICU` = b.`FAICU`
+        // WHERE a.`ITFT` = 'F' AND a.`ITIDBUID`= '16445' AND a.`ITPOST`= '7'");
+
+        // $query = $this->db->query("SELECT *, c.`BNDESB1`, d.`DTDESC1` AS jenis_berkas, e.`DTDESC1` AS berkas_keluar, f.`DTDESC1` AS finish
+        // FROM t4111 AS a
+        // JOIN t1201 AS b ON a.`ITICU` = b.`FAICU`
+        // JOIN t0021 AS c ON a.`ITIDBUID` = c.`BNIDBUID`
+        // JOIN t0009 AS d ON a.`ITMSTY` = d.`DTDC` AND d.`DTPC` = '20' AND d.`DTSC` = 'JB'
+        // LEFT OUTER JOIN t0009 AS e ON a.`ITPOST` = e.`DTDC` AND e.`DTPC` = '00' AND e.`DTIDDC` = '130470'
+        // LEFT OUTER JOIN t0009 as f ON a.`ITPOST` = f.`DTDC` AND f.`DTPC` = '00' AND f.`DTIDDC` = '130510'
+        // WHERE a.`ITFT` = 'T' AND a.`ITIDBUID` != '16445' AND a.`ITPOST`= '7' ORDER BY a.`ITDTIN` DESC");
+
+        $query = $this->db->query("SELECT t4.`ITPOST`, t4.`ITDOCNO`, t4.`ITIDBUID`, t4.`ITDOCDT`, t4.`ITICU`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`,
+        t4.`ITDESB1`, t4.`ITDESB2`, h.`LMDESA2`, f.`FACOMV`, t4.`ITBRAND`, t4.`ITCOLOR`, t4.`ITCILCAP`, t4.`ITMFN`, t4.`ITMACHNID`, f.`FAVHRN`,
+        f.`FAVHTAXDT`, f.`FAVHRNTAXDT`, f.`FACRTFID`, f.`FACRTFDT`, f.`FALNDOWNST`, t4.`ITLENGTH`, t4.`ITWIDTH`, t4.`ITWIDE`, t4.`ITASADDR`,
+        kab.`DTDESC1`AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1, f.`FADESB1`, f.`FAICU`, g.`BNDESB1`, t4.`ITMSTY`,
+        t4.`ITICU`, t9.`DTDESC1` AS draft, a.`DTDESC1` AS pengajuan, b.`DTDESC1` AS verifikasi, 
+        c.`DTDESC1` AS finish, d.`DTDESC1` AS berkas_keluar, e.`DTDESC1` AS finish
+        FROM t4111 AS t4
+        LEFT OUTER JOIN t0009 AS t9 ON t4.`ITPOST` = t9.`DTDC` AND t9.`DTPC` = '00' AND t9.`DTIDDC` = '130400'
+        LEFT OUTER JOIN t0009 AS a ON t4.`ITPOST` = a.`DTDC` AND a.`DTPC` = '00' AND a.`DTIDDC` = '130420'
+        LEFT OUTER JOIN t0009 AS b ON t4.`ITPOST` = b.`DTDC` AND b.`DTPC` = '00' AND b.`DTIDDC` = '130430'
+        LEFT OUTER JOIN t0009 AS c ON t4.`ITPOST` = c.`DTDC` AND c.`DTPC` = '00' AND c.`DTIDDC` = '130510'
+        LEFT OUTER JOIN t0009 AS d ON t4.`ITPOST` = d.`DTDC` AND d.`DTPC` = '00' AND d.`DTIDDC` = '130470'
+        LEFT OUTER JOIN t0009 AS e ON t4.`ITPOST` = e.`DTDC` AND e.`DTPC` = '00' AND e.`DTIDDC` = '130510'
+        JOIN t1201 AS f ON t4.`ITICU` = f.`FAICU`
+        JOIN t0021 AS g ON t4.`ITIDBUID` = g.`BNIDBUID`
+        LEFT OUTER JOIN t4100 AS h ON t4.`ITLOCID` = h.`LMLOCID`
+        JOIN t0009 AS i ON t4.`ITMSTY` = i.`DTDC` AND i.`DTPC` = '20' AND i.`DTSC` = 'JB'
+        LEFT OUTER JOIN t0009 AS kab ON t4.`ITCITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
+        LEFT OUTER JOIN t0009 AS kec ON t4.`ITDIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
+        LEFT OUTER JOIN t0009 AS desa ON t4.`ITSUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
+        WHERE t4.`ITFT` = 'T' AND t4.`ITIDBUID` != '16445' AND t4.`ITPOST` = '7' ORDER BY t4.`ITDTIN` DESC");
 
         return $query->result_array();
     }
 
     public function data_perubahan_pengembalian($icu) {
-        // $query = $this->db->query("SELECT * 
-        // FROM t1201 AS a
-        // JOIN t4312 AS b ON a.`FAICU` = b.`OVICU`
-        // WHERE a.`FAICU` = '$icu'");
-        $query = $this->db->query("SELECT *
+        // $query = $this->db->query("SELECT *
+        // FROM t4111 AS a
+        // JOIN t1201 AS b ON a.`ITICU` = b.`FAICU`
+        // JOIN t4312 AS c ON a.`ITICU` = c.`OVICU`
+        // WHERE a.`ITFT` = 'F' AND a.`ITIDBUID`= '16445' AND a.`ITPOST`= '7' AND b.`FAICU`='$icu'");
+        $query = $this->db->query("SELECT c.`OVMSTY`, b.`FAICU`, d.`BNDESB1`, a.`ITDOCNO`, b.`FACOID`, b.`FAIDBUID`, b.`FAAOBJ`, b.`FAALOC`, e.`LMDESA2`, c.`OVMSTY`, f.`DTDESC1` AS jenis_berkas, b.`FADESB1`, b.`FACOMV`, b.`FABRAND`, b.`FACOLOR`, b.`FACILCAP`, b.`FAMFN`, b.`FAMACHNID`, b.`FAVHRN`, b.`FAVHTAXDT`, b.`FAVHRNTAXDT`, b.`FACRTFID`, b.`FACRTFDT`, b.`FALNDOWNST`, b.`FALENGTH`, b.`FAWIDTH`, b.`FAWIDE`, b.`FAASADDR`, b.`FACITY`, kab.`DTDESC1` AS kabupaten, b.`FADIST`, kec.`DTDESC1` AS kecamatan, b.`FASUBDIST`, desa.`DTDESC1` AS desa1
         FROM t4111 AS a
         JOIN t1201 AS b ON a.`ITICU` = b.`FAICU`
         JOIN t4312 AS c ON a.`ITICU` = c.`OVICU`
-        WHERE a.`ITFT` = 'F' AND a.`ITIDBUID`= '16445' AND a.`ITPOST`= '7' AND b.`FAICU`='$icu'");
+        JOIN t0021 AS d ON a.`ITIDBUID` = d.`BNIDBUID`
+        LEFT OUTER JOIN t4100 AS e ON a.`ITLOCID` = e.`LMLOCID`
+        JOIN t0009 AS f ON a.`ITMSTY` = f.`DTDC` AND f.`DTPC` = '20' AND f.`DTSC` = 'JB'
+        LEFT OUTER JOIN t0009 AS kab ON a.`ITCITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
+        LEFT OUTER JOIN t0009 AS kec ON a.`ITDIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
+        LEFT OUTER JOIN t0009 AS desa ON a.`ITSUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
+        WHERE a.`ITFT` = 'T' AND a.`ITIDBUID` != '16445' AND a.`ITPOST` = '7' AND b.`FAICU` = '$icu'");
 
         return $query->row_array();
     }
