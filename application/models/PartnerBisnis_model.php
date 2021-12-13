@@ -124,7 +124,8 @@ class PartnerBisnis_model extends CI_Model {
         LEFT OUTER JOIN t0101 t1a ON t1.ADCC01 = t1a.ADIDANUM 
         LEFT OUTER JOIN t0101 t3a ON t1.ADCC03 = t3a.ADIDANUM 
         LEFT OUTER JOIN t0009 t09 ON t1.`ADCC02` = t09.`DTIDDC` AND t09.DTPC='15' AND t09.DTSC='JP'
-        WHERE t9.`DTPC` = '01' AND t9.`DTSC` = 'ST'");
+        WHERE t9.`DTPC` = '01' AND t9.`DTSC` = 'ST'
+        ORDER BY t1.`ADDTIN` DESC");
         // $query = $this->db->query("SELECT t1.ADIDANUM, t1.ADANUM, t1.ADNM, t9.DTDC, t9.DTDESC1 AS tipe, t1.ADPAN, t1.`ADADDR`, t1.`ADEMAIL`, t1.`ADPHNO1`, t1.`ADTAXID`, t1.ADCC01, t1.ADCC02, t1.ADCC03, 
         // t1.`ADAP`, t1.`ADAR`, t1.`ADEMPL`, t1a.ADNM AS pimpinan, t09.`DTDESC1` AS jabatan, t3a.ADNM AS pengurus_barang
         // FROM t0101 AS t1 JOIN t0009 AS t9 ON t9.`DTDC` = t1.`ADST` 

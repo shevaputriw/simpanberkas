@@ -30,7 +30,8 @@ class MasterLokasi_model extends CI_Model {
     public function getAllData() {
         $query = $this->db->query("SELECT t2.`BNDESB1`, t4.`LMIDBUID`, t4.`LMWHC`, t4.`LMAISLE`, t4.`LMROW`, t4.`LMCOL`, t4.`LMLOCID`, t4.`LMDESA2`, t4.`LMCOID`
         FROM t4100 AS t4
-        JOIN t0021 AS t2 ON t4.`LMIDBUID` = t2.`BNIDBUID`");
+        JOIN t0021 AS t2 ON t4.`LMIDBUID` = t2.`BNIDBUID`
+        ORDER BY t4.`LMDTIN` DESC");
         
         return $query->result_array();
     }
