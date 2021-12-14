@@ -5,13 +5,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Login_model extends CI_Model {
 
     public function getLevel() {
-        $query = $this->db->query("SELECT level FROM USER");
+        $query = $this->db->query("SELECT level FROM user");
 
         return $query->result_array();
     }
 
     public function cek_login($level, $username, $password) {
-        $query = $this->db->query("SELECT * FROM USER WHERE username = '$username' AND password = '$password' AND level = '$level'");
+        $query = $this->db->query("SELECT * FROM user WHERE username = '$username' AND password = '$password' AND level = '$level'");
 
         return $query;
     }
