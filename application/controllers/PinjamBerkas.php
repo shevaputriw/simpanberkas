@@ -25,6 +25,17 @@ class PinjamBerkas extends CI_Controller {
         $this->load->view('template/Footer',$data);
     }
 
+    public function History_Pinjam_Berkas() {
+        $data['title'] = ' History Pinjam Berkas';
+        $data['getAllBerkas'] = $this->PinjamBerkas_model->getAllBerkas_history_pinjam();
+        $data['jenis_berkas'] = $this->PinjamBerkas_model->getJenisBerkas();
+        $data['berkas_bpkad'] = $this->PinjamBerkas_model->getBerkasBPKAD();
+
+        $this->load->view('template/Header',$data);
+        $this->load->view('PinjamBerkas/History_pinjam_berkas',$data);
+        $this->load->view('template/Footer',$data);
+    }
+
     public function get_Kendaraan()
     {
         $data = $this->BerkasBaru_model->getKendaraan();

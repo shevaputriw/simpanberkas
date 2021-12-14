@@ -86,7 +86,32 @@ class PinjamBerkas_model extends CI_Model {
         LEFT OUTER JOIN t0009 AS kab ON t4.`ITCITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
         LEFT OUTER JOIN t0009 AS kec ON t4.`ITDIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
         LEFT OUTER JOIN t0009 AS desa ON t4.`ITSUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
-        WHERE ITDOCTY = 'IT' AND ITFT = 'T' AND ITIDBUID != '16445' AND ITPOST IN(0,2,3,7,11) GROUP BY ITDOCNO ORDER BY t4.`ITDOCNO` DESC");
+        WHERE ITDOCTY = 'IT' AND ITFT = 'T' AND ITIDBUID != '16445' AND ITPOST IN(0,2,3,7) GROUP BY ITDOCNO ORDER BY t4.`ITDOCNO` DESC");
+
+        return $query->result_array();
+    }
+
+    public function getAllBerkas_history_pinjam() {
+        $query = $this->db->query("SELECT t4.`ITPOST`, t4.`ITDOCNO`, t4.`ITIDBUID`, t4.`ITDOCDT`, t4.`ITICU`, t4.`ITMSTY`, g.`BNDESB1`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`, f.`FADESB1`,
+        t4.`ITDESB1`, t4.`ITDESB2`, h.`LMDESA2`, t4.`ITCOMV`, f.`FACOMV`, t4.`ITBRAND`, t4.`ITCOLOR`, t4.`ITCILCAP`, t4.`ITMFN`, t4.`ITMACHNID`, t4.`ITVHRN`, f.`FAVHRN`, f.`FAVHTAXDT`, f.`FAVHRNTAXDT`, f.`FACRTFID`, f.`FACRTFDT`, f.`FALNDOWNST`,
+        t4.`ITVHTAXDT`, t4.`ITVHRNTAXDT`, t4.`ITCRTFID`, t4.`ITCRTFDT`, t4.`ITLNDOWNST`, t4.`ITLENGTH`, t4.`ITWIDTH`, t4.`ITWIDE`, t4.`ITASADDR`,
+        kab.`DTDESC1`AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1, t4.`ITICU`, t9.`DTDESC1` AS draft, a.`DTDESC1` AS pengajuan, b.`DTDESC1` AS verifikasi, 
+        c.`DTDESC1` AS finish, d.`DTDESC1` AS berkas_keluar, e.`DTDESC1` AS finish
+        FROM t4111 AS t4
+        LEFT OUTER JOIN t0009 AS t9 ON t4.`ITPOST` = t9.`DTDC` AND t9.`DTPC` = '00' AND t9.`DTIDDC` = '130400'
+        LEFT OUTER JOIN t0009 AS a ON t4.`ITPOST` = a.`DTDC` AND a.`DTPC` = '00' AND a.`DTIDDC` = '130420'
+        LEFT OUTER JOIN t0009 AS b ON t4.`ITPOST` = b.`DTDC` AND b.`DTPC` = '00' AND b.`DTIDDC` = '130430'
+        LEFT OUTER JOIN t0009 AS c ON t4.`ITPOST` = c.`DTDC` AND c.`DTPC` = '00' AND c.`DTIDDC` = '130510'
+        LEFT OUTER JOIN t0009 AS d ON t4.`ITPOST` = d.`DTDC` AND d.`DTPC` = '00' AND d.`DTIDDC` = '130470'
+        LEFT OUTER JOIN t0009 AS e ON t4.`ITPOST` = e.`DTDC` AND e.`DTPC` = '00' AND e.`DTIDDC` = '130510'
+        JOIN t1201 AS f ON t4.`ITICU` = f.`FAICU`
+        JOIN t0021 AS g ON t4.`ITIDBUID` = g.`BNIDBUID`
+        LEFT OUTER JOIN t4100 AS h ON t4.`ITLOCID` = h.`LMLOCID`
+        JOIN t0009 AS i ON t4.`ITMSTY` = i.`DTDC` AND i.`DTPC` = '20' AND i.`DTSC` = 'JB'
+        LEFT OUTER JOIN t0009 AS kab ON t4.`ITCITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
+        LEFT OUTER JOIN t0009 AS kec ON t4.`ITDIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
+        LEFT OUTER JOIN t0009 AS desa ON t4.`ITSUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
+        WHERE ITDOCTY = 'IT' AND ITFT = 'T' AND ITIDBUID != '16445' AND ITPOST IN(0,2,3,7,11) ORDER BY t4.`ITDOCNO` DESC");
 
         return $query->result_array();
     }

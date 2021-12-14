@@ -230,8 +230,10 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-paste"></i><span class="nav-text">Pinjam Berkas</span></a>
                         <ul aria-expanded="false">
                             <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas (OPD)</a></li>
-                            <li><a href="<?=base_url()?>PinjamBerkas/PinjamBerkas_BPKAD_index">Pengajuan Peminjaman</a></li>
-                            <li><a href="<?=base_url()?>PinjamBerkas/Pengembalian">Pengembalian (BPKAD)</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/History_Pinjam_Berkas">History Pinjam Berkas (OPD)</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/PinjamBerkas_BPKAD_index">Pengajuan Peminjaman (BPKAD)</a></li>
+                            <!-- <li><a href="<?=base_url()?>PinjamBerkas/Pengembalian">Pengembalian (BPKAD)</a></li> -->
+                            <li><a href="<?=base_url()?>PinjamBerkas/History">Pengembalian (BPKAD)</a></li>
                         </ul>
                     </li>
                     <!-- <li class="nav-label">Forms</li> -->
