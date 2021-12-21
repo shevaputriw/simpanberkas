@@ -13,6 +13,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Tanggal Pinjam</th>
                                         <th>OPD</th>
                                         <th>Jenis Barang</th>
                                         <th>Nama Barang</th>
@@ -25,6 +26,7 @@
                                     <?php $no=1; foreach($berkas_dipinjam as $bd):?>
                                         <tr>
                                             <td><?=$no++;?></td>
+                                            <td><?= date('d-m-Y', strtotime($bd["ITDOCDT"])); ?></td>
                                             <td><?=$bd["BNDESB1"];?></td>
                                             <td><?=$bd["jenis_berkas"];?></td>
                                             <td><?=$bd["FADESB1"];?></td>

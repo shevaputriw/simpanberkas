@@ -400,7 +400,7 @@ class PinjamBerkas_model extends CI_Model {
         // LEFT OUTER JOIN t0009 as f ON a.`ITPOST` = f.`DTDC` AND f.`DTPC` = '00' AND f.`DTIDDC` = '130510'
         // WHERE a.`ITFT` = 'T' AND a.`ITIDBUID` != '16445' AND a.`ITPOST`= '7' ORDER BY a.`ITDTIN` DESC");
 
-        $query = $this->db->query("SELECT t4.`ITPOST`, t4.`ITDOCNO`, t4.`ITIDBUID`, t4.`ITDOCDT`, t4.`ITICU`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`, f.`FADTIN`, f.`FADTLU`,
+        $query = $this->db->query("SELECT t4.`ITPOST`, t4.`ITDOCNO`, t4.`ITIDBUID`, t4.`ITDOCDT`, t4.`ITICU`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`, f.`FADTIN`, f.`FADTLU`, t4.`ITDOCDT`,
         t4.`ITDESB1`, t4.`ITDESB2`, h.`LMDESA2`, f.`FACOMV`, t4.`ITBRAND`, t4.`ITCOLOR`, t4.`ITCILCAP`, t4.`ITMFN`, t4.`ITMACHNID`, f.`FAVHRN`,
         f.`FAVHTAXDT`, f.`FAVHRNTAXDT`, f.`FACRTFID`, f.`FACRTFDT`, f.`FALNDOWNST`, t4.`ITLENGTH`, t4.`ITWIDTH`, t4.`ITWIDE`, t4.`ITASADDR`,
         kab.`DTDESC1`AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1, f.`FADESB1`, f.`FAICU`, g.`BNDESB1`, t4.`ITMSTY`,
