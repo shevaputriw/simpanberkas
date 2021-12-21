@@ -33,7 +33,7 @@
 							<div class="icon d-flex align-items-center justify-content-center" style="margin-top:-10px;background-color:#ffffff;width:130px;height:130px;">
 								<span><img src="<?=base_url()?>assets/awal/logo_kab.png" style="width:80px;height:110px;"></span>
 							</div>
-							<h4 class="text-center mb-4" style="color:#ffffff;"><b>NAMA APLIKASI</b></h4>
+							<h4 class="text-center mb-4" style="color:#ffffff;"><b>SIMPAN BERKAS</b></h4>
 							<form action="<?=base_url()?>Login/proses_login" class="login-form" style="margin-bottom:-20px;" method="post">
 								<div class="form-group">
 									<!-- <select class="form-control select" aria-label="Default select example" style="height:40px;">

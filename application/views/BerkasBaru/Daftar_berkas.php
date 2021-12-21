@@ -14,10 +14,10 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nomor Dokumen</th>
+                                        <th>Tanggal Masuk</th>
                                         <th>OPD</th>
                                         <th>Nama Barang</th>
-                                        <th>Tanggal Peminjaman</th>
-                                        <th>Status</th>
+                                        <th>Lokasi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -25,46 +25,15 @@
                                     <?php $no=1; foreach($getAllBerkas as $gab):?>
                                         <tr>
                                             <td><?=$no++;?></td>
-                                            <td><?=$gab["ITDOCNO"];?></td>
+                                            <td><?=$gab["OVDOCNO"];?></td>
+                                            <td><?= date('d-m-Y', strtotime($gab["FADTAQU"])); ?></td>
                                             <td><?=$gab["BNDESB1"];?></td>
                                             <td><?=$gab["FADESB1"];?></td>
-                                            <td><?= date('d-m-Y', strtotime($gab["ITDOCDT"])); ?></td>
-                                            <?php if($gab["ITPOST"] == '0') {?>
-                                                <td>
-                                                    <span class="badge badge-warning"><?=$gab["draft"];?></span>
-                                                </td>
-                                                <td>
-                                                    <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat</span></a>
-                                                </td>
-                                            <?php } else if($gab["ITPOST"] == '2') {?>
-                                                <td>
-                                                    <span class="badge badge-warning"><?=$gab["pengajuan"];?></span>
-                                                </td>
-                                                <td>
-                                                    <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat</span></a>
-                                                </td>
-                                            <?php } else if($gab["ITPOST"] == '3') {?>
-                                                <td>
-                                                    <span class="badge badge-warning"><?=$gab["verifikasi"];?></span>
-                                                </td>
-                                                <td>
-                                                    <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat</span></a>
-                                                </td>
-                                            <?php } else if($gab["ITPOST"] == '7') {?>
-                                                <td>
-                                                    <span class="badge badge-warning"><?=$gab["berkas_keluar"];?></span>
-                                                </td>
-                                                <td>
-                                                    <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat</span></a>
-                                                </td>
-                                            <?php } else if($gab["ITPOST"] == '11') {?>
-                                                <td>
-                                                    <span class="badge badge-warning"><?=$gab["finish"];?></span>
-                                                </td>
-                                                <td>
-                                                    <a data-toggle="modal" href="#basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat</span></a>
-                                                </td>
-                                            <?php } ?>
+                                            <td><?=$gab["LMDESA2"];?></td>
+                                            <td>
+                                                <a data-toggle="modal" href="#basicModal<?=$gab["OVDOCNO"];?><?=$gab["FAICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat</span></a>
+                                                <a href="<?=base_url()?>BerkasBaru/Mutasi/<?=$gab["FAICU"];?>" class="pd-setting-ed"><span class="badge badge-dark"><i class="fa fa-sign-out-alt"></i> &nbsp;Mutasi</span></a>
+                                            </td>
                                         </tr>
                                     <?php endforeach;?>
                                 </tbody>
@@ -74,7 +43,7 @@
 
                         <!-- MODAL DETAIL START -->
                         <?php foreach($getAllBerkas as $gab):?>
-                            <div class="modal fade" id="basicModal<?=$gab["ITDOCNO"];?><?=$gab["ITICU"];?>">
+                            <div class="modal fade" id="basicModal<?=$gab["OVDOCNO"];?><?=$gab["FAICU"];?>">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -82,7 +51,7 @@
                                             <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                                         </div>
                                         <div class="modal-body">
-                                            <?php if($gab["ITMSTY"] == 1) {?>
+                                            <?php if($gab["OVMSTY"] == 1) {?>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-4">
                                                         <label style="color:#2b2a28;"><b>OPD :</b></label>
@@ -94,7 +63,7 @@
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label style="color:#2b2a28;"><b>Kode Barang :</b></label>
-                                                        <p style="color:#313236"><?=$gab["ITINUM"];?></p>
+                                                        <p style="color:#313236"><?=$gab["OVINUM"];?></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -110,7 +79,7 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label style="color:#2b2a28;"><b>Tanggal Dokumen :</b></label>
-                                                        <p style="color:#313236"><?= date('d-m-Y', strtotime($gab["ITDOCDT"])); ?></p>
+                                                        <p style="color:#313236"><?= date('d-m-Y', strtotime($gab["FADTAQU"])); ?></p>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label style="color:#2b2a28;"><b>Nomor BPKB :</b></label>
@@ -167,7 +136,7 @@
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label style="color:#2b2a28;"><b>Kode Barang :</b></label>
-                                                        <p style="color:#313236"><?=$gab["ITINUM"];?></p>
+                                                        <p style="color:#313236"><?=$gab["OVINUM"];?></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -183,7 +152,7 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label style="color:#2b2a28;"><b>Tanggal Dokumen :</b></label>
-                                                        <p style="color:#313236"><?= date('d-m-Y', strtotime($gab["ITDOCDT"])); ?></p>
+                                                        <p style="color:#313236"><?= date('d-m-Y', strtotime($gab["FADTAQU"])); ?></p>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label style="color:#2b2a28;"><b>Nomor Sertifikat :</b></label>

@@ -92,7 +92,7 @@ class PinjamBerkas_model extends CI_Model {
     }
 
     public function getAllBerkas_history_pinjam() {
-        $query = $this->db->query("SELECT t4.`ITPOST`, t4.`ITDOCNO`, t4.`ITIDBUID`, t4.`ITDOCDT`, t4.`ITICU`, t4.`ITMSTY`, g.`BNDESB1`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`, f.`FADESB1`,
+        $query = $this->db->query("SELECT t4.`ITPOST`, t4.`ITDOCNO`, t4.`ITIDBUID`, t4.`ITDOCDT`, t4.`ITICU`, t4.`ITMSTY`, g.`BNDESB1`, i.`DTDESC1` AS jenis_berkas, t4.`ITINUM`, f.`FADESB1`, f.`FABRAND`, f.`FACOLOR`, f.`FACILCAP`, f.`FAMFN`, f.`FAMACHNID`, f.`FALENGTH`, f.`FAWIDTH`, f.`FAWIDE`, f.`FAASADDR`,
         t4.`ITDESB1`, t4.`ITDESB2`, h.`LMDESA2`, t4.`ITCOMV`, f.`FACOMV`, t4.`ITBRAND`, t4.`ITCOLOR`, t4.`ITCILCAP`, t4.`ITMFN`, t4.`ITMACHNID`, t4.`ITVHRN`, f.`FAVHRN`, f.`FAVHTAXDT`, f.`FAVHRNTAXDT`, f.`FACRTFID`, f.`FACRTFDT`, f.`FALNDOWNST`,
         t4.`ITVHTAXDT`, t4.`ITVHRNTAXDT`, t4.`ITCRTFID`, t4.`ITCRTFDT`, t4.`ITLNDOWNST`, t4.`ITLENGTH`, t4.`ITWIDTH`, t4.`ITWIDE`, t4.`ITASADDR`,
         kab.`DTDESC1`AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1, t4.`ITICU`, t9.`DTDESC1` AS draft, a.`DTDESC1` AS pengajuan, b.`DTDESC1` AS verifikasi, 

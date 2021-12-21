@@ -60,11 +60,46 @@ class BerkasBaru_model extends CI_Model {
         LEFT OUTER JOIN t0009 AS pengajuan ON t4.`OVPOST` = pengajuan.`DTDC` AND pengajuan.`DTPC`='00' AND pengajuan.`DTIDDC` = '130430'
         LEFT OUTER JOIN t0009 AS finish ON t4.`OVPOST` = finish.`DTDC` AND finish.`DTPC`='00' AND finish.`DTIDDC` = '130510'
         LEFT OUTER JOIN t0009 AS t ON t4.`OVPOST` = t.`DTDC` AND t.`DTPC`='00' AND t.`DTIDDC` = '130420'
-        WHERE t4.`OVLST` = '400' AND t4.`OVNST` = '440'
+        WHERE t4.`OVLST` = '400' AND t4.`OVNST` = '440' AND t4.`OVPOST` IN (0,1,3)
         GROUP BY t4.`OVDOCNO`
         ORDER BY t4.`OVDTIN` DESC");
 
         return $query->result_array();
+    }
+
+    public function daftar_berkas() {
+        $query =  $this->db->query("SELECT b.`BNDESB1`, c.`LMDESA2`, d.`OVICU`, e.`DTDESC1` AS jenis_berkas, kab.`DTDESC1` AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1,
+        a.`FAICU`, d.`OVMSTY`, d.`OVDOCNO`, a.`FADTAQU`, a.`FAPOST`, a.`FAMANAGE`, d.`OVINUM`, a.`FADESB1`, a.`FACOMV`, a.`FABRAND`, a.`FACOLOR`, a.`FACILCAP`,
+        a.`FAMFN`, a.`FAMACHNID`, a.`FAVHRN`, a.`FAVHTAXDT`, a.`FAVHRNTAXDT`, a.`FACRTFID`, a.`FACRTFDT`, a.`FALNDOWNST`, a.`FALENGTH`, a.`FAWIDE`, a.`FAWIDTH`,
+        a.`FAASADDR`
+        FROM t1201 AS a
+        JOIN t0021 AS b ON a.`FAMANAGE` = b.`BNIDBUID`
+        LEFT OUTER JOIN t4100 AS c ON a.`FAALOC` = c.`LMLOCID`
+        JOIN t4312 AS d ON a.`FAICU` = d.`OVICU`
+        JOIN t0009 AS e ON d.`OVMSTY` = e.`DTDC` AND e.`DTPC` = '20' AND e.`DTSC` = 'JB'
+        LEFT OUTER JOIN t0009 AS kab ON a.`FACITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
+        LEFT OUTER JOIN t0009 AS kec ON a.`FADIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
+        LEFT OUTER JOIN t0009 AS desa ON a.`FASUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
+        WHERE a.`FAIDBUID` = '16445'");
+
+        return $query->result_array();
+    }
+
+    public function daftar_berkas_by_icu($faicu) {
+        $query =  $this->db->query("SELECT b.`BNDESB1`, c.`LMDESA2`, d.`OVICU`, e.`DTDESC1` AS jenis_berkas, kab.`DTDESC1` AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1,
+        a.`FAICU`, d.`OVMSTY`, d.`OVDOCNO`, a.`FADTAQU`, a.`FAPOST`, a.`FAMANAGE`, d.`OVINUM`, a.`FADESB1`, a.`FACOMV`, a.`FABRAND`, a.`FACOLOR`, a.`FACILCAP`,
+        a.`FAMFN`, a.`FAMACHNID`, a.`FAVHRN`, a.`FAVHTAXDT`, a.`FAVHRNTAXDT`, a.`FACRTFID`, a.`FACRTFDT`, a.`FALNDOWNST`, a.`FALENGTH`, a.`FAWIDE`, a.`FAWIDTH`,
+        a.`FAASADDR`, b.`BNIDBUID`
+        FROM t1201 AS a
+        JOIN t0021 AS b ON a.`FAMANAGE` = b.`BNIDBUID`
+        LEFT OUTER JOIN t4100 AS c ON a.`FAALOC` = c.`LMLOCID`
+        JOIN t4312 AS d ON a.`FAICU` = d.`OVICU`
+        JOIN t0009 AS e ON d.`OVMSTY` = e.`DTDC` AND e.`DTPC` = '20' AND e.`DTSC` = 'JB'
+        LEFT OUTER JOIN t0009 AS kab ON a.`FACITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
+        LEFT OUTER JOIN t0009 AS kec ON a.`FADIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
+        LEFT OUTER JOIN t0009 AS desa ON a.`FASUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC` WHERE a.`FAICU` = '$faicu'");
+
+        return $query->row_array();
     }
 
     public function getOvidbuid() {
@@ -520,25 +555,27 @@ class BerkasBaru_model extends CI_Model {
 
     public function Edit_Status($ovdocno, $status) {
         $this->db->query("UPDATE t4312 SET OVPOST = '$status' WHERE OVDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4312 SET OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
         $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
     }
 
     public function Verifikasi_pengajuan($ovdocno, $status) {
-        $this->db->query("UPDATE t4312 SET OVPOST = '$status' WHERE OVDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCONO = '$ovdocno'");
+        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
     }
 
     public function revisi_pengajuan($ovdocno, $status) {
-        $this->db->query("UPDATE t4312 SET OVPOST = '$status' WHERE OVDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCONO = '$ovdocno'");
+        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVDTLU = CURRENT_TIMESTAMP, OVDOCDT = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
     }
 
     public function Finish($ovdocno, $status) {
-        $this->db->query("UPDATE t4312 SET OVPOST = '$status' WHERE OVDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCONO = '$ovdocno'");
+        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVDTLU = CURRENT_TIMESTAMP, OVDOCDT = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
     }
 
     public function getDataApprov($ovidbuid, $ovdocno, $ovdocty) {
@@ -976,9 +1013,9 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function UbahKeDraft($ovdocno, $ovidbuid, $status) {
-        $this->db->query("UPDATE t4312 SET OVPOST = '$status' WHERE OVDOCNO = '$ovdocno' AND OVIDBUID = '$ovidbuid'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$ovdocno' AND ITIDBUID = '$ovidbuid' AND ITDOCTY = 'OV'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCONO = '$ovdocno'");
+        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno' AND OVIDBUID = '$ovidbuid'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno' AND ITIDBUID = '$ovidbuid' AND ITDOCTY = 'OV'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
     }
 
     public function CekIT($ovdocono) {
@@ -1136,6 +1173,30 @@ class BerkasBaru_model extends CI_Model {
         WHERE jenis_brg.`DTPC` = '20' AND jenis_brg.`DTSC` = 'JB' AND persediaan.`ILIDBUID` = '16445'");
 
         return $query->result_array();
+    }
+
+    public function mutasi_t1201($faicu, $manage, $loc) {
+        $this->db->query("UPDATE t1201 SET FAMANAGE = '$manage', FADTLU = CURRENT_TIMESTAMP WHERE FAICU = '$faicu'");
+    }
+
+    public function mutasi_t41021($ilicu, $manage, $loc) {
+        $this->db->query("UPDATE t41021 SET ILMANAGE = '$manage', ILDTLU = CURRENT_TIMESTAMP WHERE ILIDBUID  = '16445' AND ILICU = '$ilicu'");
+        $this->db->query("UPDATE t41021 SET ILMANAGE = '$manage', ILIDBUID = '$manage', ILLOCID = '$loc', ILDTLU = CURRENT_TIMESTAMP WHERE ILIDBUID  != '16445' AND ILICU = '$ilicu'");
+    }
+
+    public function mutasi($faicu) {
+        $query = $this->db->query("SELECT  a.*, b.`OVMSTY`, b.`OVGLCLS`, b.`OVIDINUM`, b.`OVUOM1`
+        FROM t1201 AS a
+        JOIN t4312 AS b ON a.`FAICU` = b.`OVICU` 
+        WHERE FAICU = '$faicu'");
+
+        return $query->result_array();
+    }
+
+    public function getBuid1($manage) {
+        $query = $this->db->query("SELECT BNBUID1 FROM t0021 WHERE BNIDBUID = '$manage'");
+
+        return $query->row();
     }
 }
 

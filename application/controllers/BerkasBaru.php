@@ -26,10 +26,19 @@ class BerkasBaru extends CI_Controller {
     public function Berkas_baru_bpkad_pengajuan() {
         $data['title'] = 'Berkas Baru';
         $data['getAll'] = $this->BerkasBaru_model->getAllBerkas_bpkad();
-        $data['getAllBerkas'] = $this->BerkasBaru_model->Berkas_bpkad();
-
+        // $data['getAllBerkas'] = $this->BerkasBaru_model->Berkas_bpkad();
+ 
         $this->load->view('template/Header',$data);
         $this->load->view('BerkasBaru/Berkas_baru_bpkad',$data);
+        $this->load->view('template/Footer',$data);
+    }
+
+    public function daftar_berkas() {
+        $data['title'] = 'Berkas Baru';
+        $data['getAllBerkas'] = $this->BerkasBaru_model->daftar_berkas();
+ 
+        $this->load->view('template/Header',$data);
+        $this->load->view('BerkasBaru/Daftar_berkas',$data);
         $this->load->view('template/Footer',$data);
     }
 
@@ -1218,7 +1227,211 @@ class BerkasBaru extends CI_Controller {
         }
     }
 
-    public function Mutasi($ilidbuid, $ilidinum, $ilinum, $illocid) {
+    public function Mutasi($faicu) {
+        $data['title'] = 'Mutasi Berkas';
+        $data['data_opd'] = $this->BerkasBaru_model->getOpd();
+        $data['berkas_mutasi'] = $this->BerkasBaru_model->daftar_berkas_by_icu($faicu);
+
+        //get bulan dan tahun dari t0020
+        $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
+        $tahun = $getTahunBulan->CNCFY;
+        $bulan = $getTahunBulan->CNCAP;
+        
+        $this->form_validation->set_rules('FAMANAGE', 'Pengelola Barang', 'required');
+        $this->form_validation->set_rules('FAALOC', 'Lokasi Barang', 'required');
+
+        if($this->form_validation->run() == FALSE) {
+            $cek_ir = $this->BerkasBaru_model->Cek_ir($tahun, $bulan);
+
+            if($cek_ir->num_rows() == 0) {
+                $insert_ir_t0002 = $this->BerkasBaru_model->Insert_ir_t0002($tahun, $bulan);
+                $this->load->view('template/Header',$data);
+                $this->load->view('BerkasBaru/Mutasi', $data);
+                $this->load->view('template/Footer',$data);
+            }
+            else{
+                $this->load->view('template/Header',$data);
+                $this->load->view('BerkasBaru/Mutasi', $data);
+                $this->load->view('template/Footer',$data);
+            }
+        }
+        else{
+            $manage = $this->input->post('FAMANAGE');
+            $loc = $this->input->post('FAALOC');
+
+            // UPDATE NNSEQ + 1 TIPE DOKUMEN IR
+            $update_nnseq = $this->BerkasBaru_model->Update_ir($tahun, $bulan);
+            // PROSEDUR PENOMORAN TIPE DOKUMEN IR
+            $getIR = $this->BerkasBaru_model->getIR($tahun, $bulan);
+            $nnseq= $getIR->NNSEQ;
+            $fzeropadded = sprintf("%05d", $nnseq);
+
+            $nnyr = $getIR->NNYR;
+            $x = substr($nnyr, 2);
+
+            $nnmo = $getIR->NNMO;
+            $fzeropadded2 = sprintf("%02d", $nnmo);
+            
+            $docno_ir = [
+                'a' => $x,
+                'b' => $fzeropadded2,
+                'c' => $fzeropadded
+            ];
+
+            //INSERT DOKUMEN IR MUTASI DI t4111
+            //get data from t1201 untuk di insert ke t4111
+            $result = array();
+            $result2 = array();
+            date_default_timezone_set('Asia/Jakarta');
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $ituid = "admin1";
+            $docty = "IR";
+            $iticut = "I";
+            $itft_from = "F";
+            $itft_to = "T";
+            $itqty_from = "-1";
+            $itqty_to = "1";
+            $sq = 10;
+            $ovlnty = $this->BerkasBaru_model->getLineType();
+            $linetype = $ovlnty->DTDC;
+            $buid1_to = $this->BerkasBaru_model->getBuid1($manage);
+            $itbuid1_to = $buid1_to->BNBUID1; 
+
+            // FROM
+            $mutasi = $this->BerkasBaru_model->mutasi($faicu);
+            foreach($mutasi as $m) :
+                $buid1_from = $this->BerkasBaru_model->getBuid1($m['FAMANAGE']);
+                $itbuid1_from = $buid1_from->BNBUID1;
+
+                $data_array_from = array(
+                    'ITCOID' => $m['FACOID'],
+                    'ITIDBUID' => $m['FAIDBUID'],
+                    'ITDOCNO' => $docno_ir["a"].$docno_ir["b"].$docno_ir["c"],
+                    'ITDOCTY' => $docty,
+                    'ITDOCSQ' => $sq,
+                    'ITDOCDT' => date('Y-m-d H:i:s', time()),
+                    'ITBUID1' => $itbuid1_from,
+                    'ITLNTY' => $linetype,
+                    'ITICU' => $faicu,
+                    'ITMSTY' => $m["OVMSTY"],
+                    'ITICUT' => $iticut,
+                    'ITDOCMO' => $bulan,
+                    'ITDOCYR' => $tahun,
+                    'ITDOCYR' => date('Y-m-d H:i:s', time()),
+                    'ITFT' => $itft_from,
+                    'ITIDINUM' => $m["OVIDINUM"],
+                    'ITINUM' => $m["FAAOBJ"],
+                    'ITLOCID' => $m["FAALOC"],
+                    'ITDESB1' => $m["FADESB1"],
+                    'ITQTY' => $itqty_from,
+                    'ITUOM1' => $m["OVUOM1"],
+                    'ITGLCLS' => $m["OVGLCLS"],
+                    // 'ITDOCONO' => ,
+                    // 'ITDOCOTY' => ,
+                    // 'ITDOCOSQ' => ,
+                    'ITCOMV' => $m["FACOMV"],
+                    'ITBRAND' => $m["FABRAND"],
+                    'ITCOLOR' => $m["FACOLOR"],
+                    'ITLENGTH' => $m["FALENGTH"],
+                    'ITWIDTH' => $m["FAWIDTH"],
+                    'ITWIDE' => $m["FAWIDE"],
+                    'ITCILCAP' => $m["FACILCAP"],
+                    'ITMFN' => $m["FAMFN"],
+                    'ITMACHNID' => $m["FAMACHNID"],
+                    'ITVHRN' => $m["FAVHRN"],
+                    'ITVHTAXDT' => $m["FAVHTAXDT"],
+                    'ITVHRNTAXDT' => $m["FAVHRNTAXDT"],
+                    'ITLNDOWNST' => $m["FALNDOWNST"],
+                    'ITCRTFID' => $m["FACRTFID"],
+                    'ITCRTFDT' => $m["FACRTFDT"],
+                    'ITASADDR' => $m["FAASADDR"],
+                    'ITCITY' => $m["FACITY"],
+                    'ITDIST' => $m["FADIST"],
+                    'ITSUBDIST' => $m["FASUBDIST"],
+                    'ITMANAGE' => $m["FAMANAGE"],
+                    'ITUID' => $ituid,
+                    'ITUIDM' => $ituid,
+                    'ITDTIN' => date('Y-m-d H:i:s', time()),
+                    'ITDTLU' => date('Y-m-d H:i:s', time()),
+                    'ITIPUID' => $ip,
+                    'ITIPUIDM' => $ip
+                );
+                array_push($result, $data_array_from);
+                $sq += 10 ;
+            endforeach;
+            $this->db->insert_batch('t4111', $result);
+
+            //UPDATE FAMANAGE DI t1201
+            $this->BerkasBaru_model->mutasi_t1201($faicu, $manage, $loc);
+            //UPDATE ILIDBUID DAN ILMANAGE DI t41021
+            $this->BerkasBaru_model->mutasi_t41021($faicu, $manage, $loc);
+
+            // TO
+            $mutasi2 = $this->BerkasBaru_model->mutasi($faicu);
+            foreach($mutasi2 as $m2) :
+                $data_array_to = array(
+                    'ITCOID' => $m2['FACOID'],
+                    'ITIDBUID' => $m2['FAIDBUID'],
+                    'ITDOCNO' => $docno_ir["a"].$docno_ir["b"].$docno_ir["c"],
+                    'ITDOCTY' => $docty,
+                    'ITDOCSQ' => $sq,
+                    'ITDOCDT' => date('Y-m-d H:i:s', time()),
+                    'ITBUID1' => $itbuid1_to,
+                    'ITLNTY' => $linetype,
+                    'ITICU' => $faicu,
+                    'ITMSTY' => $m2["OVMSTY"],
+                    'ITICUT' => $iticut,
+                    'ITDOCMO' => $bulan,
+                    'ITDOCYR' => $tahun,
+                    'ITDOCYR' => date('Y-m-d H:i:s', time()),
+                    'ITFT' => $itft_to,
+                    'ITIDINUM' => $m2["OVIDINUM"],
+                    'ITINUM' => $m2["FAAOBJ"],
+                    'ITLOCID' => $m2["FAALOC"],
+                    'ITDESB1' => $m2["FADESB1"],
+                    'ITQTY' => $itqty_to,
+                    'ITUOM1' => $m2["OVUOM1"],
+                    'ITGLCLS' => $m2["OVGLCLS"],
+                    // 'ITDOCONO' => ,
+                    // 'ITDOCOTY' => ,
+                    // 'ITDOCOSQ' => ,
+                    'ITCOMV' => $m2["FACOMV"],
+                    'ITBRAND' => $m2["FABRAND"],
+                    'ITCOLOR' => $m2["FACOLOR"],
+                    'ITLENGTH' => $m2["FALENGTH"],
+                    'ITWIDTH' => $m2["FAWIDTH"],
+                    'ITWIDE' => $m2["FAWIDE"],
+                    'ITCILCAP' => $m2["FACILCAP"],
+                    'ITMFN' => $m2["FAMFN"],
+                    'ITMACHNID' => $m2["FAMACHNID"],
+                    'ITVHRN' => $m2["FAVHRN"],
+                    'ITVHTAXDT' => $m2["FAVHTAXDT"],
+                    'ITVHRNTAXDT' => $m2["FAVHRNTAXDT"],
+                    'ITLNDOWNST' => $m2["FALNDOWNST"],
+                    'ITCRTFID' => $m2["FACRTFID"],
+                    'ITCRTFDT' => $m2["FACRTFDT"],
+                    'ITASADDR' => $m2["FAASADDR"],
+                    'ITCITY' => $m2["FACITY"],
+                    'ITDIST' => $m2["FADIST"],
+                    'ITSUBDIST' => $m2["FASUBDIST"],
+                    'ITMANAGE' => $manage,
+                    'ITUID' => $ituid,
+                    'ITUIDM' => $ituid,
+                    'ITDTIN' => date('Y-m-d H:i:s', time()),
+                    'ITDTLU' => date('Y-m-d H:i:s', time()),
+                    'ITIPUID' => $ip,
+                    'ITIPUIDM' => $ip
+                );
+                array_push($result2, $data_array_to);
+                $sq += 10 ;
+            endforeach;
+            $this->db->insert_batch('t4111', $result2);
+
+            redirect('BerkasBaru/daftar_berkas', 'refresh');
+        }
+    }
+
+    public function Mutasi2($ilidbuid, $ilidinum, $ilinum, $illocid) {
         $data['title'] = 'Mutasi';
         $data['data_mutasi'] = $this->BerkasBaru_model->Data_mutasi($ilidbuid, $ilidinum, $ilinum, $illocid);
         $data['opd'] = $this->BerkasBaru_model->getOpd();

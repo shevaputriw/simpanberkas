@@ -222,6 +222,7 @@
                             <!-- <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_opd_disetujui">Berkas Baru (OPD)</a></li> -->
                             <li><a href="<?=base_url()?>BerkasBaru/Upload_BA">Upload Berita Acara</a></li>
                             <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_bpkad_pengajuan">Pengajuan Berkas Baru (BPKAD)</a></li>
+                            <li><a href="<?=base_url()?>BerkasBaru/daftar_berkas">Daftar Berkas (BPKAD)</a></li>
                             <!-- <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_bpkad_disetujui">Berkas Baru (BPKAD)</a></li> -->
 
                         </ul>
