@@ -42,7 +42,7 @@
 										<option value="2" style="text-align:center;">Two</option>
 										<option value="3" style="text-align:center;">Three</option>
 									</select> -->
-                                    <select class="form-control select" aria-label="Default select example" style="height:40px;" name="level">
+                                    <select class="form-control select" aria-label="Default select example" style="height:40px;" name="level" required>
                                         <option value="" selected="true" disabled="disabled">- Pilih Login Sebagai -</option>
                                         <?php foreach($level as $l) : ?>
                                             <option value="<?=$l['level'];?>"><?=$l['level'];?></option>
@@ -50,19 +50,28 @@
                                     </select>
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control rounded-left" placeholder="Username" style="text-align:center;height:40px;" name="username" autocomplete="off">
+									<input type="text" class="form-control rounded-left" placeholder="Username" style="text-align:center;height:40px;" name="username" autocomplete="off" required>
 								</div>
 								<div class="form-group d-flex">
-									<input type="password" class="form-control rounded-left" placeholder="Password" style="text-align:center;height:40px;" name="password" autocomplete="off">
+									<input type="password" class="form-control rounded-left" placeholder="Password" style="text-align:center;height:40px;" name="password" autocomplete="off" required>
 								</div>
 								<br>
 								<center>
 									<div class="form-group">
-									<button type="submit" class="btn rounded submit px-3" style="width:40%;background-color:#ffffff;color:#000000;margin-right:5%;"><span class="fa fa-sign-in"></span>&nbsp;&nbsp;&nbsp;Login</button>
+										<button type="submit" class="btn rounded submit px-3" style="width:40%;background-color:#ffffff;color:#000000;margin-right:5%;"><span class="fa fa-sign-in"></span>&nbsp;&nbsp;&nbsp;Login</button>
 
-									<button type="button" class="btn rounded submit px-3" style="width:40%;background-color:#ffffff;color:#000000;margin-left:5%"><a href="https://jalasemar.mojokertokab.go.id/CAwal/Pilih_menu" style="color:#000000"><span class="fa fa-times-circle"></span>&nbsp;&nbsp;&nbsp;Batal</a></button>
+										<button type="button" class="btn rounded submit px-3" style="width:40%;background-color:#ffffff;color:#000000;margin-left:5%"><a href="https://jalasemar.mojokertokab.go.id/CAwal/Pilih_menu" style="color:#000000"><span class="fa fa-times-circle"></span>&nbsp;&nbsp;&nbsp;Batal</a></button>
+									</div>
 								</center>
-								</div>
+								<!-- <center>
+									<div class="alert alert-danger" role="alert" style="width:345px;">
+										<?php
+											if(isset($pesan)) {
+												echo $pesan;
+											}
+										?>
+									</div>
+								</center> -->
 							</form>
 						</div>
 					</div>

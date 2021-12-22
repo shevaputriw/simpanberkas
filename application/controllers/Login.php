@@ -52,9 +52,10 @@
             }
             else {
                 $data['title'] = 'Login';
-                $data['pesan'] = 'Username atau Password Salah';
+                // $data['pesan'] = 'Username atau Password Salah';
 
-                $this->load->view('Login/index', $data);
+                echo"<script>alert('Username atau Password Salah');</script>";
+                redirect('Login/index', 'refresh');
             }
         }
 
