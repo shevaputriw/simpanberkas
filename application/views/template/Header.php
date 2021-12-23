@@ -305,6 +305,7 @@
                         <ul aria-expanded="false">
                             <!-- <li><a href="<?=base_url()?>PinjamBerkas/pengajuan_pinjam_berkas">Pengajuan Pinjam Berkas</a></li> -->
                             <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas (OPD)</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/History_Pinjam_Berkas">History Pinjam Berkas (OPD)</a></li>
                             <!-- <li><a href="<?=base_url()?>PinjamBerkas/PinjamBerkas_BPKAD_index">Pinjam Berkas (BPKAD)</a></li>
                             <li><a href="<?=base_url()?>PinjamBerkas/Pengembalian">Pengembalian (BPKAD)</a></li> -->
                         </ul>

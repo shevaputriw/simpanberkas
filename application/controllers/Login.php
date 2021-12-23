@@ -14,54 +14,73 @@
 
         public function index() {
             $data['title'] = 'Login';
+            //menampilkan level user yang akan login
             $data['level'] = $this->Login_model->getLevel();
 
+            //menampilkan view halaman login
             $this->load->view('Login/index', $data);
         }
 
         public function proses_login() {
+            //menambil username, password, dan level yang di-input oleh user
             $username = htmlspecialchars($this->input->post('username'));
             $password = htmlspecialchars($this->input->post('password'));
             $level = $this->input->post('level');
 
+            //function cek_login digunakan untuk memeriksa apakah level, username, dan password yang di-input ada di dalam tabel
             $login = $this->Login_model->cek_login($level, $username, $password);
 
+            //jika hasil cek_login menemukan terdapatnya data dalam tabel
             if($login->num_rows() > 0) {
+                //jika levelnya adalah bpkad
                 if($level == 'bpkad') {
+                    //menyimpan data pada variabel $login untuk dijadikan session dalam array
                     $data_session = $login->row_array();
 
+                    //penjabaran kolom mana saja yang dijadikan session
                     $this->session->set_userdata('id',$data_session['id']);
                     $this->session->set_userdata('name',$data_session['name']);
                     $this->session->set_userdata('username',$data_session['username']);
                     $this->session->set_userdata('level',$data_session['level']);
 
+                    //function untuk mengupdate waktu login terakhir di Login_model
                     $this->Login_model->Update_last_login($level, $username, $password);
+                    //halaman akan me-refresh ke halaman Admin
                     redirect('Admin/index');
                 }
+                //jika levelnya adalah opd
                 else{
+                    //menyimpan data pada variabel $login untuk dijadikan session dalam array
                     $data_session = $login->row_array();
 
+                    //penjabaran kolom mana saja yang dijadikan session
                     $this->session->set_userdata('id',$data_session['id']);
                     $this->session->set_userdata('name',$data_session['name']);
                     $this->session->set_userdata('username',$data_session['username']);
                     $this->session->set_userdata('level',$data_session['level']);
 
+                    //function untuk mengupdate waktu login terakhir di Login_model
                     $this->Login_model->Update_last_login($level, $username, $password);
+                    //halaman akan me-refresh ke halaman Admin
                     redirect('Admin/index');
                 }
             }
+            //jika hasil cek_login tidak menemukan data dalam tabel
             else {
                 $data['title'] = 'Login';
-                // $data['pesan'] = 'Username atau Password Salah';
 
+                // menampilkan window alert ketika login incorrect
                 echo"<script>alert('Username atau Password Salah');</script>";
+                //halaman akan me-refresh ke halaman login
                 redirect('Login/index', 'refresh');
             }
         }
 
         public function logout()
         {
+            //menghapus session
             $this->session->sess_destroy();
+            //halaman akan me-refresh ke halaman login
             redirect('Login/index','refresh');
         }
     }

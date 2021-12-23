@@ -54,7 +54,7 @@ class MasterUnitKerja_model extends CI_Model {
     }
 
     public function getOpd() {
-        $query = $this->db->query("SELECT t21.BNIDBUID, t21.BNBUID, t21.BNBUID1, ta.BNDESB1 AS relasi_opd, t09.DTDESC1 AS tipe, t21.`BNDESB1`, t21.`BNCC01`, 
+        $query = $this->db->query("SELECT t21.BNIDBUID, t21.BNBUID, t21.BNBUID1, ta.BNDESB1 AS relasi_opd, t09.DTDESC1 AS tipe, t21.`BNDESB1`, t21.`BNCC01`, t21.`BNCOID`,
         t0.`ADNM` AS pimpinan, t21.`BNCC02`, t9.`DTDESC1` 
         AS jabatan, t21.`BNCC03`, t01.`ADNM` AS pengurus_barang, t21.`BNBUTY`, t09.`DTDESC1`, t09.`DTDC`
         FROM t0021 AS t21 

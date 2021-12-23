@@ -69,6 +69,15 @@
                                                     <!-- <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
                                                     <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed"><span class="badge badge-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat Detail</span></a>
                                                 </td>
+                                            <?php } else if($gab["ITPOST"] == '11') {?>
+                                                <td>
+                                                    <span class="badge badge-warning"><?=$gab["finish"];?></span>
+                                                </td>
+                                                <td>
+                                                    <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed">
+                                                        <span class="badge badge-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat Detail</span>
+                                                    </a>
+                                                </td>
                                             <?php }?>
                                         </tr>
                                     <?php endforeach;?>
