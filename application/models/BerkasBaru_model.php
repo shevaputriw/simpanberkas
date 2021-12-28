@@ -180,7 +180,7 @@ class BerkasBaru_model extends CI_Model {
     public function getKabKota() {
         $query = $this->db->query("SELECT DTIDDC, DTDC, DTDESC1 FROM t0009 WHERE DTPC='01' AND DTSC='CY' AND DTDC IN ('35.76','35.16')");
         return $query->result_array();
-    }
+    } 
 
     public function getKecamatan($dtdc) {
         $query = $this->db->query("SELECT DTIDDC, DTDC, DTDESC1 FROM t0009 WHERE DTPC='01' AND DTSC='DT' AND SUBSTRING(DTDC, 1, 5) = $dtdc");

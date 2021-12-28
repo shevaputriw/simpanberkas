@@ -16,8 +16,10 @@ class BerkasBaru extends CI_Controller {
     public function index()
     {
         $data['title'] = 'Berkas Baru';
+        // menampilkan seluruh berkas baru yang ditambahkan di status draft, pengajuan berkas baru, dan verifikasi berkas baru (opd)
         $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();
 
+        //load header, halaman index berkas baru, dan footer
         $this->load->view('template/Header',$data);
         $this->load->view('BerkasBaru/index',$data);
         $this->load->view('template/Footer',$data);
@@ -25,9 +27,11 @@ class BerkasBaru extends CI_Controller {
 
     public function Berkas_baru_bpkad_pengajuan() {
         $data['title'] = 'Berkas Baru';
+        // menampilkan seluruh berkas baru yang ditambahkan di status draft, pengajuan berkas baru, dan verifikasi berkas baru (bpkad)
         $data['getAll'] = $this->BerkasBaru_model->getAllBerkas_bpkad();
         // $data['getAllBerkas'] = $this->BerkasBaru_model->Berkas_bpkad();
  
+        //load header, halaman berkas baru bpkad, dan footer
         $this->load->view('template/Header',$data);
         $this->load->view('BerkasBaru/Berkas_baru_bpkad',$data);
         $this->load->view('template/Footer',$data);
@@ -35,8 +39,10 @@ class BerkasBaru extends CI_Controller {
 
     public function daftar_berkas() {
         $data['title'] = 'Berkas Baru';
+        // meampilkan daftar semua berkas yang diserahkan oleh opd ke bpkad
         $data['getAllBerkas'] = $this->BerkasBaru_model->daftar_berkas();
  
+        //load header, halaman daftar berkas baru bpkad, dan footer
         $this->load->view('template/Header',$data);
         $this->load->view('BerkasBaru/Daftar_berkas',$data);
         $this->load->view('template/Footer',$data);
@@ -44,9 +50,12 @@ class BerkasBaru extends CI_Controller {
 
     public function Detail($ovdocno) {
         $data['title'] = 'Detail Berkas';
+        // menampilkan detail berkas pada nomor dokumen tertentu untuk menampilkan berkas apa saja yang diserahkan
         $data['get_berkas'] = $this->BerkasBaru_model->getBerkas($ovdocno);
+        // menampilkan informasi detail dari berkas yang dipinjam 
         $data['get_berkas2'] = $this->BerkasBaru_model->getBerkas2($ovdocno);
 
+        //load header, halaman detail berkas baru bpkad, dan footer
         $this->load->view('template/Header',$data);
         $this->load->view('BerkasBaru/Detail_Berkas',$data);
         $this->load->view('template/Footer',$data);
@@ -54,96 +63,120 @@ class BerkasBaru extends CI_Controller {
 
     public function get_Kecamatan($dtdc)
     {
+        // menampilkan daftar nama kecamatan sesuai dengan kode kabubapten/kota yang dipilih user ($dtdc)
         $data = $this->BerkasBaru_model->getKecamatan($dtdc);
         echo json_encode($data);
     }
 
     public function get_Desa($dtdc1)
     {
+        // menampilkan daftar nama desa sesuai dengan kode kecamatan yang dipilih user ($dtdc1)
         $data = $this->BerkasBaru_model->getDesa($dtdc1);
         echo json_encode($data);
     }
 
     public function get_Lokasi($idbuid)
     {
+        // menampilkan daftar lokasi sesuai dengan opd yang dipilih oleh user
         $data = $this->BerkasBaru_model->getLokasi($idbuid);
         echo json_encode($data);
     }
 
-    public function get_Sertifikat()
-    {
-        $data = $this->BerkasBaru_model->getSertifikat();
-        echo json_encode($data);
-    }
+    // public function get_Sertifikat()
+    // {
+    //     $data = $this->BerkasBaru_model->getSertifikat();
+    //     echo json_encode($data);
+    // }
 
-    public function get_Kendaraan()
-    {
-        $data = $this->BerkasBaru_model->getKendaraan();
-        echo json_encode($data);
-    }
+    // public function get_Kendaraan()
+    // {
+    //     $data = $this->BerkasBaru_model->getKendaraan();
+    //     echo json_encode($data);
+    // }
 
     public function Halaman_Tambah() 
     {
         $data['title'] = 'Tambah Berkas Baru';
 
+        // menampilkan daftar nama opd
         $data['opd'] = $this->BerkasBaru_model->getOpd();
+        // menampilkan jenis berkas yang akan di-input (bpkb/sertifikat tanah)
         $data['jenis_berkas'] = $this->BerkasBaru_model->getJenisBerkas();
+        // menampilkan nama kabupaten/kota (mojokerto)
         $data['getKabKota'] = $this->BerkasBaru_model->getKabKota();
+        // menampilkan kode barang
         $data['kode_barang'] = $this->BerkasBaru_model->getKodeBarang();
+        // get data CNCOID = 16 (kode kab. mojokerto)
         $data['kodekab'] = $this->BerkasBaru_model->getKode();
 
+        // validation form start
         $this->form_validation->set_rules('OVDESB1', 'Nama Barang', 'required');
 
-        // $tanggal = date('d-m-Y');
-        // $pecah_tgl = explode("-", $tanggal);
-
-        // $tanggal = $pecah_tgl[0];
-        // $bulan = $pecah_tgl[1];
-        // $tahun = $pecah_tgl[2];
+        // get data tahun dan bulan fiksal
         $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
+        // menyimpan data tahun
         $tahun = $getTahunBulan->CNCFY;
+        // menyimpan data bulan
         $bulan = $getTahunBulan->CNCAP;
 
+        // jika validation form berjalan false, maka yang ditampilkan adalah form tambah berkas baru
         if($this->form_validation->run() == FALSE) {
+            // lihat prosedur penomoran OV pada tabel t0002. NNRSMT nya adalah CM, maka reset NNSEQnya adalah per bulan.
+            // variabel cek adalah untuk memeriksa apakah data tahun dan bulan yang diambil sudah ada atau belum di tabel t0002
             $cek = $this->BerkasBaru_model->Cek($tahun, $bulan);
 
+            // jika data tidak ditemukan
             if($cek->num_rows() == 0) {
+                // melakukan insert ke tabel t0002 dengan NNSEQ = 0
                 $tambah_tahun = $this->BerkasBaru_model->Tambah_t0002($tahun, $bulan);
+                // get nomor dokumen sesuai dengan NNSEQ yang akan ditampilkan pada form dengan type hidden
                 $data['tampil'] = $this->BerkasBaru_model->Get($tahun, $bulan);
 
+                //load header, halaman tambah berkas baru, dan footer
                 $this->load->view('template/Header',$data);
                 $this->load->view('BerkasBaru/Tambah_Berkas',$data);
                 $this->load->view('template/Footer',$data);
             }
             else{
+                // get nomor dokumen sesuai dengan NNSEQ yang akan ditampilkan pada form dengan type hidden
                 $data['tampil'] = $this->BerkasBaru_model->Get($tahun, $bulan);
 
+                //load header, halaman tambah berkas baru, dan footer
                 $this->load->view('template/Header',$data);
                 $this->load->view('BerkasBaru/Tambah_Berkas',$data);
                 $this->load->view('template/Footer',$data);
             }
         }
         else {
+            // update NNSEQ ketika semua data berhasil di-input
             $update_nnseq = $this->BerkasBaru_model->Update($tahun, $bulan);
+
+            // ambil inputan user nomor dokumen, tgl dokumen, id opd, dan kode barang
             $ovdocno = $this->input->post('OVDOCNO');
             $ovdocdt = $this->input->post('OVDOCDT');
+            $ovidbuid = $this->input->post('OVIDBUID');
+            $ovidinum = $this->input->post('OVINUM');
+
+            //split tanggal dokumen dan dimasukkan ke dalam array
             $split = explode("-", $ovdocdt);
             $d = $split[0];
             $m = $split[1];
             $y = $split[2];
-            $ovidbuid = $this->input->post('OVIDBUID');
+
+            // get data ovbuid1 di t0021 sesuai id dari opd yang dipilih untuk diisikan ke tabel t4312 (berkas baru)
             $ovbuid1 = $this->BerkasBaru_model->getOvbuid1($ovidbuid);
+            // get data line type = B
             $ovlnty = $this->BerkasBaru_model->getLineType();
             $linetype = $ovlnty->DTDC;
+            // get status = 0/draft
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
-
-            //get OVIDINUM
-            $ovidinum = $this->input->post('OVINUM');
+            //get id kode barang dan amglcls = aset untuk diasukkan ke dalam tabel t4312
             $id = $this->BerkasBaru_model->getIdinum($ovidinum);
             $idinum = $id->AMOAN;
             $glcls = $id->AMGLCLS;
 
+            //DIGUNAKAN JIKA DATA ICU PADA T0002 DALAM KEADAAN KOSONG. KARENA SUDAH ADA DAN NNRSMT NYA ADA NO RESET MAKA AKAN TERUS TER-UPDATE
             // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
             // if($cekICU->num_rows() == 0) {
             //     $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
@@ -151,27 +184,40 @@ class BerkasBaru extends CI_Controller {
             // else{
                 //NNSEQ + 1 (ICU)
                 // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-            $this->BerkasBaru_model->Update_ICU($tahun);
+            // $this->BerkasBaru_model->Update_ICU($tahun);
             // }
 
-            // Prosedur penomoran tipe dokumen ICU
-            // $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            // update NNSEQ icu di t0002 (setiap transaksi barang memiliki ICU yang berbeda)
+            $this->BerkasBaru_model->Update_ICU($tahun);
+
+            // get NNSEQ ICU di tabel t0002
             $getICU = $this->BerkasBaru_model->getICU($tahun);
             $nnseqICU= $getICU->NNSEQ;
+            // prosedur penomoran dokumen ICU adalah 9 digit diikuti dengan NNSEQnya *misal = 000000140
             $no = sprintf("%09d", $nnseqICU);
 
+            // jika opd tidak memiliki ovbuid1 (ovbuid1 = 0)
             if($ovbuid1->BNBUID1 == 0) {
+                // set 0 untuk buid1
                 $buid1 = 0;
+                // update nomor dokumen dengan + 1
                 $x = $ovdocno + 1;
+                // insert semua data ke tabel t4312 dengan tipe dokumen OV
                 $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                // insert semua data ke tabel t4111 dengan tipe dokumen OV
                 $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no, $idinum, $glcls);
             }
             else{
+                // update nomor dokumen dengan + 1
                 $x = $ovdocno + 1;
+                // set buid1 dengan id opd yang telah disimpan dalan variabel $ovidbuid1
                 $buid1 = $ovbuid1->BNBUID1;
+                // insert semua data ke tabel t4312 dengan tipe dokumen OV
                 $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                // insert semua data ke tabel t4111 dengan tipe dokumen OV
                 $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no, $idinum, $glcls);
             }
+            // me-refresh ke halaman index berkas baru 
             redirect('BerkasBaru/index','refresh');
         }  
     }
@@ -179,64 +225,84 @@ class BerkasBaru extends CI_Controller {
     public function Simpan_Tambah() {
         $data['title'] = 'Tambah Berkas';
 
-        // $data['opd'] = $this->BerkasBaru_model->getOpd();
+        // menampilkan jenis berkas yang akan di-input (bpkb/sertifikat tanah)
         $data['jenis_berkas'] = $this->BerkasBaru_model->getJenisBerkas();
+        // menampilkan nama kabupaten/kota (mojokerto)
         $data['getKabKota'] = $this->BerkasBaru_model->getKabKota();
+        // menampilkan kode barang
         $data['kode_barang'] = $this->BerkasBaru_model->getKodeBarang();
+        // get data CNCOID = 16 (kode kab. mojokerto)
         $data['kodekab'] = $this->BerkasBaru_model->getKode();
 
+        // validation form start
         $this->form_validation->set_rules('OVDESB1', 'Nama Barang', 'required');
 
+        // get data tahun dan bulan fiksal
         $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
+        // menyimpan data tahun
         $tahun = $getTahunBulan->CNCFY;
+        // menyimpan data bulan
         $bulan = $getTahunBulan->CNCAP;
 
+        // jika validation form berjalan false, maka yang ditampilkan adalah form tambah berkas baru
         if($this->form_validation->run() == FALSE) {
+            // lihat prosedur penomoran OV pada tabel t0002. NNRSMT nya adalah CM, maka reset NNSEQnya adalah per bulan.
+            // variabel cek adalah untuk memeriksa apakah data tahun dan bulan yang diambil sudah ada atau belum di tabel t0002
             $cek = $this->BerkasBaru_model->Cek($tahun, $bulan);
 
+            // jika data tidak ditemukan
             if($cek->num_rows() == 0) {
+                // melakukan insert ke tabel t0002 dengan NNSEQ = 0
                 $tambah_tahun = $this->BerkasBaru_model->Tambah_t0002($tahun, $bulan);
+                // get nomor dokumen sesuai dengan NNSEQ yang akan ditampilkan pada form dengan type hidden
                 $data['tampil'] = $this->BerkasBaru_model->Get($tahun, $bulan);
 
+                //load header, halaman tambah berkas baru, dan footer
                 $this->load->view('template/Header',$data);
                 $this->load->view('BerkasBaru/Tambah_Berkas',$data);
                 $this->load->view('template/Footer',$data);
             }
             else{
+                // get nomor dokumen sesuai dengan NNSEQ yang akan ditampilkan pada form dengan type hidden
                 $data['tampil'] = $this->BerkasBaru_model->Get($tahun, $bulan);
 
+                //load header, halaman tambah berkas baru, dan footer
                 $this->load->view('template/Header',$data);
                 $this->load->view('BerkasBaru/Tambah_Berkas',$data);
                 $this->load->view('template/Footer',$data);
             }
         }
         else {
-            // $update_nnseq = $this->BerkasBaru_model->Update($tahun, $bulan);
-            // $ovdocno = $this->input->post('OVDOCNO');
-            // $ovidbuid = $this->input->post('OVIDBUID');
-            // $x = $ovdocno + 1;
-            // $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status);
-            // $this->BerkasBaru_model->Tambah_4111($x);
+            // update NNSEQ sesuai dengan tahun dan bulan yang diambil
             $update_nnseq = $this->BerkasBaru_model->Update($tahun, $bulan);
+
+            // ambil inputan user nomor dokumen, tgl dokumen, id opd, dan kode barang
             $ovdocno = $this->input->post('OVDOCNO');
             $ovdocdt = $this->input->post('OVDOCDT');
+            $ovidbuid = $this->input->post('OVIDBUID');
+            $ovidinum = $this->input->post('OVINUM');
+
+            //split tanggal dokumen dan dimasukkan ke dalam array
             $split = explode("-", $ovdocdt);
             $d = $split[0];
             $m = $split[1];
             $y = $split[2];
-            $ovidbuid = $this->input->post('OVIDBUID');
+            
+            // get data ovbuid1 di t0021 sesuai id dari opd yang dipilih untuk diisikan ke tabel t4312 (berkas baru)
             $ovbuid1 = $this->BerkasBaru_model->getOvbuid1($ovidbuid);
+            // get data line type = B
             $ovlnty = $this->BerkasBaru_model->getLineType();
             $linetype = $ovlnty->DTDC;
+            // get status = 0/draft
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
-            $ovidinum = $this->input->post('OVINUM');
+            //get id kode barang dan amglcls = aset untuk diasukkan ke dalam tabel t4312
             $id = $this->BerkasBaru_model->getIdinum($ovidinum);
             $idinum = $id->AMOAN;
             $glcls = $id->AMGLCLS;
 
-            // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
+            //DIGUNAKAN JIKA DATA ICU PADA T0002 DALAM KEADAAN KOSONG. KARENA SUDAH ADA DAN NNRSMT NYA ADA NO RESET MAKA AKAN TERUS TER-UPDATE
             // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
             // if($cekICU->num_rows() == 0) {
             //     $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
@@ -244,34 +310,46 @@ class BerkasBaru extends CI_Controller {
             // else{
                 //NNSEQ + 1 (ICU)
                 // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-                $this->BerkasBaru_model->Update_ICU($tahun);
+            // $this->BerkasBaru_model->Update_ICU($tahun);
             // }
 
-            // Prosedur penomoran tipe dokumen ICU
-            // $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+            // update NNSEQ icu di t0002 (setiap transaksi barang memiliki ICU yang berbeda)
+            $this->BerkasBaru_model->Update_ICU($tahun);
+
+            // get NNSEQ ICU di tabel t0002
             $getICU = $this->BerkasBaru_model->getICU($tahun);
             $nnseqICU= $getICU->NNSEQ;
+            // prosedur penomoran dokumen ICU adalah 9 digit diikuti dengan NNSEQnya *misal = 000000140
             $no = sprintf("%09d", $nnseqICU);
 
+            // jika opd tidak memiliki ovbuid1 (ovbuid1 = 0)
             if($ovbuid1->BNBUID1 == 0) {
+                // set 0 untuk buid1
                 $buid1 = 0;
+                // update nomor dokumen dengan + 1
                 $x = $ovdocno + 1;
+                // insert semua data ke tabel t4312 dengan tipe dokumen OV
                 $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                // insert semua data ke tabel t4111 dengan tipe dokumen OV
                 $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no, $idinum, $glcls);
-                // $this->BerkasBaru_model->Tambah_41021($buid1);
             }
             else{
+                // update nomor dokumen dengan + 1
                 $x = $ovdocno + 1;
+                // set buid1 dengan id opd yang telah disimpan dalan variabel $ovidbuid1
                 $buid1 = $ovbuid1->BNBUID1;
+                // insert semua data ke tabel t4312 dengan tipe dokumen OV
                 $this->BerkasBaru_model->Tambah_Berkas($x, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                // insert semua data ke tabel t4111 dengan tipe dokumen OV
                 $this->BerkasBaru_model->Tambah_4111($x, $m, $y, $buid1, $linetype, $status, $no, $idinum, $glcls);
-                // $this->BerkasBaru_model->Tambah_41021($buid1);
             }
+            // me-refresh ke halaman tambah baru sesuai nomor dokumen yang ter-insert
             redirect('BerkasBaru/Tambah_Baru/'.$x.'/'.$ovidbuid,'refresh');
         }  
     }
 
     // $x = ovdocno;
+    // NOTED! 1 dokumen bisa memuat lebih dari 1 berkas; Halaman ini akan menampilkan semua berkas yang terkandung dalam nomor dokumen $x
     public function Tambah_Baru($x, $ovidbuid) {
         $data['title'] = 'Tambah Berkas Baru 2';
 
@@ -284,78 +362,80 @@ class BerkasBaru extends CI_Controller {
         $data['kode_barang'] = $this->BerkasBaru_model->getKodeBarang();
         $data['kodekab'] = $this->BerkasBaru_model->getKode();
 
+        // get data tahun dan bulan fiksal
         $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
+        // get data tahun fiksal
         $tahun = $getTahunBulan->CNCFY;
+        // get data bulan fiksal
         $bulan = $getTahunBulan->CNCAP;
 
+        // validation form start
         $this->form_validation->set_rules('OVDESB1', 'Nama Barang', 'required');
 
+        // jika validation form berjalan false, maka yang ditampilkan adalah form tambah berkas baru
         if($this->form_validation->run() == FALSE) {
+            // load view header, halaman tambah berkas, dan footer
             $this->load->view('template/Header',$data);
             $this->load->view('BerkasBaru/Tambah_Berkas2',$data);
             $this->load->view('template/Footer',$data);
         }
         else {
-            // update ovdocsq +10
-            //get data ovdocsq dari ovdocno lalu di + 10
+            // get data tanggal dokumen, id opd, dan kode barang
             $ovdocdt = $this->input->post('OVDOCDT');
+            $ovidbuid = $this->input->post('OVIDBUID');
+            $ovidinum = $this->input->post('OVINUM');
+
+            // pisah tanggal by "-" kemudian dimasukkan ke dalam array
             $split = explode("-", $ovdocdt);
             $d = $split[0];
             $m = $split[1];
             $y = $split[2];
+
+            // mengambil ovdocsq (sequence dari nomor dokumen $x) terakhir
             $cek_ovdocsq = $this->BerkasBaru_model->Cek_ovdocsq($x);
+            // ovdocsq+10 => karena urutan menggunakan format 10,20,30,...
             $ovdocsq = $cek_ovdocsq->OVDOCSQ + 10;
 
-            $ovidbuid = $this->input->post('OVIDBUID');
+            // get data ovbuid1 di t0021 sesuai id dari opd yang dipilih untuk diisikan ke tabel t4312 (berkas baru)
             $ovbuid1 = $this->BerkasBaru_model->getOvbuid1($ovidbuid);
+            // get data line type = B
             $ovlnty = $this->BerkasBaru_model->getLineType();
             $linetype = $ovlnty->DTDC;
+            // get status = 0/draft
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
-            $ovidinum = $this->input->post('OVINUM');
+            //get id kode barang dan amglcls = aset untuk diasukkan ke dalam tabel t4312
             $id = $this->BerkasBaru_model->getIdinum($ovidinum);
             $idinum = $id->AMOAN;
             $glcls = $id->AMGLCLS;
 
-            // $no = 0;
-            // $ovmsty = $this->input->post('OVMSTY');
-            // $cek_ovmsty_1 = $this->BerkasBaru_model->Cek_ovmsty_1($x, $ovidbuid);
-            // $hasil_cek_1 = $cek_ovmsty_1->OVMSTY;
-            // $icu_1 = $cek_ovmsty_1->OVICU;
-
-            // if($ovmsty == $hasil_cek_1) {
-            //     $no = $cek_ovmsty_1->OVICU;
-            // }
-            // else{
-            //     $cek_ovmsty_2 = $this->BerkasBaru_model->Cek_ovmsty_2($x, $ovidbuid, $ovmsty);
-            //     if($cek_ovmsty_2->num_rows() == 0) {
-            //         $this->BerkasBaru_model->Update_ICU($tahun);
-            //         $getICU = $this->BerkasBaru_model->getICU($tahun);
-            //         $nnseqICU= $getICU->NNSEQ;
-            //         $no = sprintf("%09d", $nnseqICU);
-            //     }
-            //     else{
-            //         $getICU = $this->BerkasBaru_model->getICU($tahun);
-            //         $nnseqICU= $getICU->NNSEQ;
-            //         $no = sprintf("%09d", $nnseqICU);
-            //     }
-            // }
+            // update ICU + 1
             $this->BerkasBaru_model->Update_ICU($tahun);
+            // get ICU barang terakhir yang paling ter-update
             $getICU = $this->BerkasBaru_model->getICU($tahun);
             $nnseqICU= $getICU->NNSEQ;
+            // prosedur penomoran dokumen ICU adalah 9 digit diikuti dengan NNSEQnya *misal = 000000140
             $no = sprintf("%09d", $nnseqICU);
 
+            // jika opd tidak memiliki ovbuid1 (ovbuid1 = 0)
             if($ovbuid1->BNBUID1 == 0) {
+                // set 0 untuk buid1
                 $buid1 = 0;
+                // insert semua data ke tabel t4312 dengan tipe dokumen OV dengan nomor dokumen yang sama ($x)
                 $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                // insert semua data ke tabel t4111 dengan tipe dokumen OV dengan nomor dokumen yang sama ($x)
                 $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no, $idinum, $glcls);
             }
             else{
+                // set buid1 dengan id opd yang telah disimpan dalan variabel $ovidbuid1
                 $buid1 = $ovbuid1->BNBUID1;
+                // insert semua data ke tabel t4312 dengan tipe dokumen OV dengan nomor dokumen yang sama ($x)
                 $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                // insert semua data ke tabel t4111 dengan tipe dokumen OV dengan nomor dokumen yang sama ($x)
                 $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no, $idinum, $glcls);
             }
+            // me-refresh ke halaman tambah baru sesuai nomor dokumen yang ter-insert
             redirect('BerkasBaru/Tambah_Baru/'.$x.'/'.$ovidbuid,'refresh');
         }
     }
@@ -372,134 +452,156 @@ class BerkasBaru extends CI_Controller {
         $data['kode_barang'] = $this->BerkasBaru_model->getKodeBarang();
         $data['kodekab'] = $this->BerkasBaru_model->getKode();
 
+        // get status = 0/draft
         $ovpost = $this->BerkasBaru_model->getStatusDraft();
         $status = $ovpost->DTDC;
         // ubah status jadi approval->draft di t4312 dan t4111 OV IT
         $this->BerkasBaru_model->UbahKeDraft($x, $ovidbuid, $status);
 
+        // validation form start
         $this->form_validation->set_rules('OVDESB1', 'Nama Barang', 'required');
 
+        // jika validation form berjalan false, maka yang ditampilkan adalah form tambah berkas baru
         if($this->form_validation->run() == FALSE) {
+            // load view header, halaman edit berkas, dan footer
             $this->load->view('template/Header',$data);
             $this->load->view('BerkasBaru/Tambah_Berkas2',$data);
             $this->load->view('template/Footer',$data);
         }
         else{
-            // update ovdocsq +10
-            //get data ovdocsq dari ovdocno lalu di + 10
+            // get data tanggal dokumen, id opd, dan kode barang
             $ovdocdt = $this->input->post('OVDOCDT');
+            $ovidbuid = $this->input->post('OVIDBUID');
+            $ovidinum = $this->input->post('OVINUM');
+
+            // pisah tanggal by "-" kemudian dimasukkan ke dalam array
             $split = explode("-", $ovdocdt);
             $d = $split[0];
             $m = $split[1];
             $y = $split[2];
+
+            // mengambil ovdocsq (sequence dari nomor dokumen $x) terakhir
             $cek_ovdocsq = $this->BerkasBaru_model->Cek_ovdocsq($x);
+            // ovdocsq+10 => karena urutan menggunakan format 10,20,30,...
             $ovdocsq = $cek_ovdocsq->OVDOCSQ + 10;
 
-            $ovidbuid = $this->input->post('OVIDBUID');
+            // get data ovbuid1 di t0021 sesuai id dari opd yang dipilih untuk diisikan ke tabel t4312 (berkas baru)
             $ovbuid1 = $this->BerkasBaru_model->getOvbuid1($ovidbuid);
+            // get data line type = B
             $ovlnty = $this->BerkasBaru_model->getLineType();
             $linetype = $ovlnty->DTDC;
+            // get status = 0/draft
             $ovpost = $this->BerkasBaru_model->getStatusDraft();
             $status = $ovpost->DTDC;
 
-            $ovidinum = $this->input->post('OVINUM');
+            //get id kode barang dan amglcls = aset untuk diasukkan ke dalam tabel t4312
             $id = $this->BerkasBaru_model->getIdinum($ovidinum);
             $idinum = $id->AMOAN;
             $glcls = $id->AMGLCLS;
 
-            // $this->BerkasBaru_model->Update_ICU($tahun);
-
-            // Prosedur penomoran tipe dokumen ICU
+            // get ICU barang terakhir yang paling ter-update
             $getICU = $this->BerkasBaru_model->getICU($tahun);
             $nnseqICU= $getICU->NNSEQ;
+            // prosedur penomoran dokumen ICU adalah 9 digit diikuti dengan NNSEQnya *misal = 000000140
             $no = sprintf("%09d", $nnseqICU);
 
+            // jika opd tidak memiliki ovbuid1 (ovbuid1 = 0)
             if($ovbuid1->BNBUID1 == 0) {
+                // set 0 untuk buid1
                 $buid1 = 0;
+                // edit semua data ke tabel t4312 dengan tipe dokumen OV dengan nomor dokumen yang sama ($x)
                 $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                // edit semua data ke tabel t4111 dengan tipe dokumen OV dengan nomor dokumen yang sama ($x)
                 $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no, $idinum, $glcls);
             }
             else{
+                // set buid1 dengan id opd yang telah disimpan dalan variabel $ovidbuid1
                 $buid1 = $ovbuid1->BNBUID1;
+                // edit semua data ke tabel t4312 dengan tipe dokumen OV dengan nomor dokumen yang sama ($x)
                 $this->BerkasBaru_model->Tambah_Berkas2($x, $ovidbuid, $ovdocsq, $buid1, $linetype, $status, $no, $idinum, $glcls);
+                // edit semua data ke tabel t4111 dengan tipe dokumen OV dengan nomor dokumen yang sama ($x)
                 $this->BerkasBaru_model->Tambah2_4111($x, $m, $y, $buid1, $ovdocsq, $ovidbuid, $linetype, $status, $no, $idinum, $glcls);
             }
+            // me-refresh ke halaman tambah baru sesuai nomor dokumen yang ter-insert
             redirect('BerkasBaru/Tambah_Baru/'.$x.'/'.$ovidbuid,'refresh');
         }
     }
 
+    // perubahan status dokumen dari "draft" menjadi "approval/diusulkan oleh opd/berkas baru"
     public function Approval($ovidbuid, $ovdocno, $ovdocty) {
         $data['title'] = 'Berkas Baru';
+        // menampilkan semua dokumen berkas baru
         $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();
 
+        //cek dokumen berkas baru dengan tipe dokumen IT pada nomor dokumen $x di tabel t4111 apakah ada atau tidak
         $cekIT = $this->BerkasBaru_model->cekIT($ovdocno);
 
-        //Get tahun dan bulan sesuai data t0020
+        //Get tahun dan bulan fiksa di tabel t0020
         $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
+        // get data tahun fiksal
         $tahun = $getTahunBulan->CNCFY;
+        // get data bulan fiksal
         $bulan = $getTahunBulan->CNCAP;
 
+        // jika pemeriksaan pada variabel $cekIT tidak ditemukannya data
         if($cekIT->num_rows() == 0) {
+            // get status "1/berkas baru"
             $getStatus = $this->BerkasBaru_model->getStatusApprov();
             $status = $getStatus->DTDC;
 
-            // edit status di t4312 tipe dokumen OV = Approv
+            // edit status => 1 di t4312 dan t4111 dengan nomor dokumen $ovdocno
             $this->BerkasBaru_model->Edit_Status($ovdocno, $status);
 
             //Periksa tahun dan bulan sudah ada di t0002 atau belum
             $cek = $this->BerkasBaru_model->Cek_IT($tahun, $bulan);
-            // $cekICU = $this->BerkasBaru_model->Cek_ICU($tahun, $bulan);
 
+            // jika pada variabel $cek tidak ditemukan data
             if($cek->num_rows() == 0) {
+                // insert data ke tabel t0002 dengan tipe dokumen IT
                 $this->BerkasBaru_model->Tambah_t0002_IT($tahun, $bulan);
             }
+            // jika pada variabel $cek ditemukan data
             else {
-                //NNSEQ + 1 (IT)
+                // update NNSEQ terakhir (NNSEQ + 1) pada tabel t0002 dengan tipe dokumen IT
                 $this->BerkasBaru_model->Update_IT($tahun, $bulan);
 
-                //Prosedur Penomoran Tipe Dokumen IT
+                // Mengambil data NNSEQ terakhir di t0002 dengan tipe dokumen IT
                 $getIT = $this->BerkasBaru_model->getIT($tahun, $bulan);
-
+                // mengatur 5 digit terakhir pada nomor dokumen yang diikuti dengan NNSEQ
                 $nnseq= $getIT->NNSEQ;
                 $fzeropadded = sprintf("%05d", $nnseq);
-
+                // mengambil 2 digit terakhir tahun fiksa
                 $nnyr = $getIT->NNYR;
                 $x = substr($nnyr, 2);
-
+                // menampilkan 2 digit dari tahun fiksal
                 $nnmo = $getIT->NNMO;
                 $fzeropadded2 = sprintf("%02d", $nnmo);
-                
+                // array $docno untuk menyimpan nilai dari variabel $fzeropadded, $x, dan #fzeropadded2
                 $docno = [
                     'a' => $x,
                     'b' => $fzeropadded2,
                     'c' => $fzeropadded
                 ];
-                // end
 
-                // if($cekICU->num_rows() == 0) {
-                //     $this->BerkasBaru_model->Tambah_t0002_ICU($tahun, $bulan);
-                // }
-                // else{
-                    //NNSEQ + 1 (ICU)
-                    // $this->BerkasBaru_model->Update_ICU($tahun, $bulan);
-                    // $this->BerkasBaru_model->Update_ICU($tahun);
-                // }
-
-                // Prosedur penomoran tipe dokumen ICU
-                // $getICU = $this->BerkasBaru_model->getICU($tahun, $bulan);
+                // mengambil NNSEQ ICU terakhir
                 $getICU = $this->BerkasBaru_model->getICU($tahun);
                 $nnseqICU= $getICU->NNSEQ;
+                // prosedur penomoran dokumen ICU adalah 9 digit diikuti dengan NNSEQnya *misal = 000000140
                 $no = sprintf("%09d", $nnseqICU);
-                // echo $no;
-                // die();
-                // end
+
+                // get status => 2/approval/diusulkan opd/berkasbaru
                 $getStatus = $this->BerkasBaru_model->getStatusApprov();
                 $status = $getStatus->DTDC;     
-                //Mendapatkan berkas yang akan diusulkan OPD
+                
+                //Mendapatkan berkas yang akan diusulkan OPD di t4111
                 $getDataApprov = $this->BerkasBaru_model->getDataApprov($ovidbuid, $ovdocno, $ovdocty);
+                // deklarasi array pada variabel $result untuk penyimpanan data sementara sebelum di-insert
                 $result = array();
+                // set timezone Indonesia
                 date_default_timezone_set('Asia/Jakarta');
+                // mengambil ip pengakses
                 $ip = $_SERVER['REMOTE_ADDR'];
+                // deklarasi variabel untuk insert ke t4111
                 $ituid = "admin1";
                 $docty = "IT";
                 $iticut = "I";
@@ -507,13 +609,15 @@ class BerkasBaru extends CI_Controller {
                 $itft2 = "T";
                 $itqtyf = "-1";
                 $itqtyt = "1";
+                $sq = 10;
+                // get id bpkad
                 $idbuid = $this->BerkasBaru_model->getBnidbuid();
                 $itidbuid = $idbuid->BNIDBUID;
+                // get locid (kode lokasi penyimpanan) milik bpkad
                 $locid = $this->BerkasBaru_model->getLocid();
                 $itlocid = $locid->LMLOCID;
-                $sq = 10;
 
-                // FROM (RECORD 1)
+                // FROM OPD (RECORD 1; tipe dokumen => IT (berkas baru))
                 foreach($getDataApprov as $gda) :
                     $data_array = array(             
                         'ITCOID' => $gda['ITCOID'],
@@ -574,11 +678,11 @@ class BerkasBaru extends CI_Controller {
                 endforeach;
                 $this->db->insert_batch('t4111', $result);
 
-                // TO (RECORD 2)
-                // $getDataApprov2 = $this->BerkasBaru_model->getDataApprov2($no, $itft);
+                // //Mendapatkan berkas yang akan diusulkan OPD di t4111 (berkas yang baru di-insert pada kode di atas)
                 $getDataApprov2 = $this->BerkasBaru_model->getDataApprov2($ovdocno, $itft);
+                // deklarasi array pada variabel $result untuk penyimpanan data sementara sebelum di-insert
                 $result2 = array();
-                
+                // TO BPKAD (RECORD 2; tipe dokumen => IT (berkas baru))
                 foreach($getDataApprov2 as $gda2) :
                     $data_array2 = array(             
                         'ITCOID' => $gda2['ITCOID'],
@@ -641,8 +745,10 @@ class BerkasBaru extends CI_Controller {
             }
         }
         else {
+            // get status => 2/approval/diusulkan opd/berkas baru
             $getStatus = $this->BerkasBaru_model->getStatusApprov();
             $status = $getStatus->DTDC; 
+            // ketika terjadi penambahan
             $check = $this->BerkasBaru_model->Check_It();
             if($check->num_rows() > 0) {
                 //Prosedur Penomoran Tipe Dokumen IT
