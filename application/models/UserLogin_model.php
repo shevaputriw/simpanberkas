@@ -6,7 +6,7 @@ class UserLogin_model extends CI_Model {
 
     public function getAll_user() {
         $query = $this->db->query("SELECT * FROM t9801 AS a JOIN t0021 AS b ON a.`SCIDBUID` = b.`BNIDBUID`
-        WHERE a.`SCDVS` IS NULL");
+        WHERE a.`SCDVS` IS NULL ORDER BY SCDTIN DESC");
 
         return $query->result_array();
     }

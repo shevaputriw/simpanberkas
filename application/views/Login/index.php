@@ -24,9 +24,8 @@
 		}
 	</style>
 	<body>
-		<!-- <section class="ftco-section" style="margin-top:-6%;margin-bottom:-100%;"> -->
-			<div class="container" style="margin-top:5%;">
-				<div class="container">
+		<div class="container" style="margin-top:5%;">
+			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-7 col-lg-5">
 						<div class="login-wrap p-4 p-md-5" style="background-color:#000000;background-color: rgba(0, 0, 0, 0);border: 7px solid white;border-radius:30px;">
@@ -36,18 +35,12 @@
 							<h4 class="text-center mb-4" style="color:#ffffff;"><b>SIMPAN BERKAS</b></h4>
 							<form action="<?=base_url()?>Login/proses_login" class="login-form" style="margin-bottom:-20px;" method="post">
 								<div class="form-group">
-									<!-- <select class="form-control select" aria-label="Default select example" style="height:40px;">
-										<option selected disabled style="text-align:center;">Pilih Login Sebagai</option>
-										<option value="1" style="text-align:center;">One</option>
-										<option value="2" style="text-align:center;">Two</option>
-										<option value="3" style="text-align:center;">Three</option>
-									</select> -->
-                                    <select class="form-control select" aria-label="Default select example" style="height:40px;" name="level" required>
-                                        <option value="" selected="true" disabled="disabled">- Pilih Login Sebagai -</option>
-                                        <?php foreach($level as $l) : ?>
-                                            <option value="<?=$l['level'];?>"><?=$l['level'];?></option>
-                                        <?php endforeach;?>
-                                    </select>
+									<select class="form-control select" aria-label="Default select example" style="height:40px;" name="level" required>
+										<option value="" selected="true" disabled="disabled">- Pilih Login Sebagai -</option>
+										<?php foreach($level as $l) : ?>
+											<option value="<?=$l['DTDESC1'];?>"><?=$l['DTDESC1'];?></option>
+										<?php endforeach;?>
+									</select>
 								</div>
 								<div class="form-group">
 									<input type="text" class="form-control rounded-left" placeholder="Username" style="text-align:center;height:40px;" name="username" autocomplete="off" required>
@@ -63,22 +56,12 @@
 										<button type="button" class="btn rounded submit px-3" style="width:40%;background-color:#ffffff;color:#000000;margin-left:5%"><a href="https://jalasemar.mojokertokab.go.id/CAwal/Pilih_menu" style="color:#000000"><span class="fa fa-times-circle"></span>&nbsp;&nbsp;&nbsp;Batal</a></button>
 									</div>
 								</center>
-								<!-- <center>
-									<div class="alert alert-danger" role="alert" style="width:345px;">
-										<?php
-											if(isset($pesan)) {
-												echo $pesan;
-											}
-										?>
-									</div>
-								</center> -->
 							</form>
 						</div>
 					</div>
 				</div>
-				</div>
 			</div>
-		<!-- </section> -->
+		</div>
 
 		<script src="<?=base_url()?>/assets/login/js/jquery.min.js"></script>
 		<script src="<?=base_url()?>/assets/login/js/popper.js"></script>

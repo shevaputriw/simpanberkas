@@ -22,9 +22,6 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <!-- AJAX -->
-    
-
-    
 
     <style>
         .stepwizard-step p {
@@ -77,22 +74,6 @@
             text-align: center;
             margin-bottom: 20px;
         }
-            /* .countup .timeel {
-            display: inline-block;
-            padding: 10px;
-            background: #151515;
-            margin: 0;
-            color: white;
-            min-width: 2.6rem;
-            margin-left: 13px;
-            border-radius: 10px 0 0 10px;
-        }
-            .countup span[class*="timeRef"] {
-            border-radius: 0 10px 10px 0;
-            margin-left: 0;
-            background: #e8c152;
-            color: black;
-        } */
     </style>
 </head>
 
@@ -116,7 +97,6 @@
         Main wrapper start
     ***********************************-->
     <div id="main-wrapper">
-
         <!--**********************************
             Nav header start
         ***********************************-->
@@ -160,7 +140,7 @@
                         <ul class="navbar-nav header-right">
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown" style="font-size:14px;">
-                                    <i class="mdi mdi-account"></i> Hi, <?= $this->session->userdata('name');?>
+                                    <i class="mdi mdi-account"></i> Halo <?= $this->session->userdata('SCUSG');?>, <?= $this->session->userdata('SCUSI');?>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="./app-profile.html" class="dropdown-item">
@@ -179,27 +159,15 @@
             </div>
         </div>
 
-        <?php if($this->session->userdata('level') == 'bpkad') {?>
-            <!--**********************************
+        <?php if($this->session->userdata('SCUSG') == 'BPKAD' || $this->session->userdata('SCUSG') == 'Administrator') {?>
+        <!--**********************************
             Sidebar start
         ***********************************-->
         <div class="quixnav" style="margin-top:-40px;;">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <!-- <li>
-                        <a href="#" aria-expanded="false" style="pointer-events: none;cursor: default;">
-                            <span class="nav-text">
-                                <center>
-                                    <img class="logo-abbr" src="<?=base_url()?>/assets/focus/images/Logo.jpg" alt="" style="width:100px;height:100px;border-radius:50px;">
-                                    <p style="margin-top:10px;margin-bottom:-10px;"><b>Lorem Ipsum</b></p>
-                                </center>
-                            </span>
-                        </a>
-                    </li> -->
-                    <!-- <li class="nav-label first">Main Menu</li> -->
                     <li><a href="javascript:void()" aria-expanded="false"><i class="fa fa-tachometer-alt"></i><span class="nav-text">Dashboard</span></a>
                     </li>
-                    <!-- <li class="nav-label">Apps</li> -->
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-database"></i><span class="nav-text">Master Data</span></a>
                         <ul aria-expanded="false">
                             <li><a href="<?=base_url()?>MasterUnitKerja/index">Master Unit Kerja</a></li>
@@ -211,20 +179,14 @@
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-sliders-h"></i><span class="nav-text">Konfigurasi</span></a>
                         <ul aria-expanded="false">
                             <li><a href="#">Lorem Ipsum</a></li>
-                            <li><a href="#">Lorem Ipsum</a></li>
-                            <li><a href="#">Lorem Ipsum</a></li>
                         </ul>
                     </li>
-                    <!-- <li class="nav-label">Components</li> -->
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder-plus"></i><span class="nav-text">Berkas Baru</span></a>
                         <ul aria-expanded="false">
                             <li><a href="<?=base_url()?>BerkasBaru/index">Pengajuan Berkas Baru (OPD)</a></li>
-                            <!-- <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_opd_disetujui">Berkas Baru (OPD)</a></li> -->
                             <li><a href="<?=base_url()?>BerkasBaru/Upload_BA">Upload Berita Acara</a></li>
                             <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_bpkad_pengajuan">Pengajuan Berkas Baru (BPKAD)</a></li>
                             <li><a href="<?=base_url()?>BerkasBaru/daftar_berkas">Daftar Berkas (BPKAD)</a></li>
-                            <!-- <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_bpkad_disetujui">Berkas Baru (BPKAD)</a></li> -->
-
                         </ul>
                     </li>
 
@@ -233,87 +195,55 @@
                             <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas (OPD)</a></li>
                             <li><a href="<?=base_url()?>PinjamBerkas/History_Pinjam_Berkas">History Pinjam Berkas (OPD)</a></li>
                             <li><a href="<?=base_url()?>PinjamBerkas/PinjamBerkas_BPKAD_index">Pengajuan Peminjaman (BPKAD)</a></li>
-                            <!-- <li><a href="<?=base_url()?>PinjamBerkas/Pengembalian">Pengembalian (BPKAD)</a></li> -->
                             <li><a href="<?=base_url()?>PinjamBerkas/History">Pengembalian (BPKAD)</a></li>
                         </ul>
                     </li>
-                    <!-- <li class="nav-label">Forms</li> -->
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder-minus"></i><span class="nav-text">Berkas Keluar</span></a>
                         <ul aria-expanded="false">
                             <li><a href="#">Lorem Ipsum</a></li>
-                            <li><a href="#">Lorem Ipsum</a></li>
                         </ul>
                     </li>
-                    <!-- <li class="nav-label">Table</li> -->
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder"></i><span class="nav-text">Laporan</span></a>
                         <ul aria-expanded="false">
                             <li><a href="#">Lorem Ipsum</a></li>
-                            <li><a href="#">Lorem Ipsum</a></li>
-                            <li><a href="#">Lorem Ipsum</a></li>
                         </ul>
                     </li>
-
-                    <!-- <li class="nav-label">Extra</li> -->
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-info-circle"></i><span class="nav-text">Informasi</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Lorem Ipsum</a></li>
-                            <li><a href="#">Lorem Ipsum</a></li>
                             <li><a href="#">Lorem Ipsum</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
-
-
         </div>
         <!--**********************************
             Sidebar end
         ***********************************-->
-        <?php } else if($this->session->userdata('level') == 'opd') {?>
-            <!--**********************************
+
+        <?php } else if($this->session->userdata('SCUSG') == 'OPD') {?>
+        <!--**********************************
             Sidebar start
         ***********************************-->
         <div class="quixnav" style="margin-top:-40px;;">
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
-                    <!-- <li>
-                        <a href="#" aria-expanded="false" style="pointer-events: none;cursor: default;">
-                            <span class="nav-text">
-                                <center>
-                                    <img class="logo-abbr" src="<?=base_url()?>/assets/focus/images/Logo.jpg" alt="" style="width:100px;height:100px;border-radius:50px;">
-                                    <p style="margin-top:10px;margin-bottom:-10px;"><b>Lorem Ipsum</b></p>
-                                </center>
-                            </span>
-                        </a>
-                    </li> -->
-                    <!-- <li class="nav-label first">Main Menu</li> -->
                     <li><a href="javascript:void()" aria-expanded="false"><i class="fa fa-tachometer-alt"></i><span class="nav-text">Dashboard</span></a>
                     </li>
-                    <!-- <li class="nav-label">Components</li> -->
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder-plus"></i><span class="nav-text">Berkas Baru</span></a>
                         <ul aria-expanded="false">
                             <li><a href="<?=base_url()?>BerkasBaru/index">Pengajuan Berkas Baru (OPD)</a></li>
-                            <!-- <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_opd_disetujui">Berkas Baru (OPD)</a></li> -->
                             <li><a href="<?=base_url()?>BerkasBaru/Upload_BA">Upload Berita Acara</a></li>
-                            <!-- <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_bpkad_pengajuan">Pengajuan Berkas Baru (BPKAD)</a></li> -->
-                            <!-- <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_bpkad_disetujui">Berkas Baru (BPKAD)</a></li> -->
-
                         </ul>
                     </li>
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-paste"></i><span class="nav-text">Pinjam Berkas</span></a>
                         <ul aria-expanded="false">
-                            <!-- <li><a href="<?=base_url()?>PinjamBerkas/pengajuan_pinjam_berkas">Pengajuan Pinjam Berkas</a></li> -->
                             <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas (OPD)</a></li>
                             <li><a href="<?=base_url()?>PinjamBerkas/History_Pinjam_Berkas">History Pinjam Berkas (OPD)</a></li>
-                            <!-- <li><a href="<?=base_url()?>PinjamBerkas/PinjamBerkas_BPKAD_index">Pinjam Berkas (BPKAD)</a></li>
-                            <li><a href="<?=base_url()?>PinjamBerkas/Pengembalian">Pengembalian (BPKAD)</a></li> -->
                         </ul>
                     </li>
                 </ul>
             </div>
-
-
         </div>
         <!--**********************************
             Sidebar end
