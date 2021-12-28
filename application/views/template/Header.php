@@ -231,15 +231,16 @@
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder-plus"></i><span class="nav-text">Berkas Baru</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="<?=base_url()?>BerkasBaru/index">Pengajuan Berkas Baru (OPD)</a></li>
+                            <li><a href="<?=base_url()?>BerkasBaru/Daftar_berkas_opd">Daftar Berkas</a></li>
+                            <li><a href="<?=base_url()?>BerkasBaru/index">Pengajuan Berkas Baru</a></li>
                             <li><a href="<?=base_url()?>BerkasBaru/Upload_BA">Upload Berita Acara</a></li>
                         </ul>
                     </li>
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-paste"></i><span class="nav-text">Pinjam Berkas</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas (OPD)</a></li>
-                            <li><a href="<?=base_url()?>PinjamBerkas/History_Pinjam_Berkas">History Pinjam Berkas (OPD)</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/History_Pinjam_Berkas">History Pinjam Berkas</a></li>
                         </ul>
                     </li>
                 </ul>

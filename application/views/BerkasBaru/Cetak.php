@@ -99,7 +99,8 @@
 				<td class="text2" style=" ;float:right;">Kepada</td>
 			</tr>
 			<tr>
-				<td class="text2" style=" ;"><b>Yth. Bapak <?=$gt["jabatan"];?> <br> <?=$gt["BNDESB1"];?><b></td>
+				<!-- <td class="text2" style=" ;"><b>Yth. Bapak <?=$gt["jabatan"];?> <br> <?=$gt["BNDESB1"];?><b></td> -->
+				<td class="text2" style=" ;"><b>Yth. Bapak/Ibu ..... <br> BPKAD<b></td>
 			</tr>
 			<tr>
 				<td class="text2" style=" ;">Kabupaten Mojokerto</td>

@@ -5,33 +5,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class BerkasBaru_model extends CI_Model {
     
     public function getAllBerkas() {
-        // $query = $this->db->query("SELECT t4.`OVIDBUID`, t4.`OVDOCNO`, t4.OVMSTY, t4.OVCOMV, t4.OVBRAND, t4.OVCOLOR, t4.OVCILCAP, t4.OVMFN, t4.OVVHRN, t4.OVVHTAXDT, t4.OVVHRNTAXDT, t4.OVCRTFID, t4.OVCRTFDT, t4.OVLNDOWNST, t4.OVLENGTH, t4.OVWIDTH, t4.OVWIDE, t4.OVASADDR, t4.OVCITY, t4.OVDIST, t4.OVSUBDIST,  t09.`AMOBJ`, t0009.`DTDESC1`, t21.`BNDESB1`, t4.`OVDESB1`, t4.`OVDOCDT` 
-        // FROM t4312 AS t4 JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID` 
-        // JOIN t0901 AS t09 ON t09.`AMOBJ` = t4.`OVINUM` JOIN t0009 ON t0009.`DTDC` = t4.`OVMSTY` 
-        // WHERE t0009.`DTPC` = '20' AND t0009.`DTSC` = 'JB'");
-
-        // $query = $this->db->query("SELECT t4.`OVIDBUID`, t4.`OVDOCNO`, t4.OVMSTY, t4.OVCOMV, t4.OVBRAND, t4.OVCOLOR, t4.OVCILCAP, 
-        // t4.OVMFN, t4.OVVHRN, t4.OVVHTAXDT, t4.OVVHRNTAXDT, t4.OVCRTFID, t4.OVCRTFDT, t4.OVLNDOWNST, t4.OVLENGTH, 
-        // t4.OVWIDTH, t4.OVWIDE, t4.OVASADDR, t4.OVCITY, t4.OVDIST, t4.OVSUBDIST,  t09.`AMOBJ`, t0009.`DTDESC1`, 
-        // t21.`BNDESB1`, t4.`OVDESB1`, t4.`OVDOCDT`, t9kab.`DTDESC1` AS 'kabkota', t9kec.`DTDESC1` AS 'kecamatan', t9des.`DTDESC1` AS 'desa'
-        // FROM t4312 AS t4 JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID`
-        // JOIN t0901 AS t09 ON t09.`AMOBJ` = t4.`OVINUM` 
-        // JOIN t0009 ON t0009.`DTDC` = t4.`OVMSTY` 
-        // JOIN t0009 AS t9kab ON t9kab.`DTDC` = t4.`OVCITY`
-        // JOIN t0009 AS t9kec ON t9kec.`DTDC` = t4.`OVDIST`
-        // JOIN t0009 AS t9des ON t9des.`DTDC` = t4.`OVSUBDIST`
-        // WHERE t9des.`DTPC`='01' AND t9des.`DTSC`='SD' AND SUBSTRING(t9des.`DTDC`, 1, 8) = t9kec.`DTDC`
-        // AND t9kec.`DTPC`='01' AND t9kec.`DTSC`='DT' AND SUBSTRING(t9kec.`DTDC`, 1, 5) = t9kab.`DTDC`
-        // AND t9kab.`DTPC`='01' AND t9kab.`DTSC`='CY' AND t9kab.`DTDC` IN ('35.76','35.16')
-        // AND t0009.`DTPC` = '20' AND t0009.`DTSC` = 'JB'");
-
-        // $query = $this->db->query("SELECT t21.`BNDESB1`, t4.`OVDOCDT`, COUNT(t4.`OVDOCSQ`) AS total_berkas, t4.`OVIDBUID`, t4.`OVDOCNO`, t4.`OVDESB1`, t4.`OVLST`, t4.`OVNST`, t4.`OVLST`, t4.`OVNST`, t4.`OVDOCNO`, t4.`OVLOCID`
-        // FROM t4312 AS t4
-        // JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID`
-        // WHERE t4.`OVLST` = '400' AND t4.`OVNST` = '440'
-        // GROUP BY t4.`OVDOCNO`
-        // ORDER BY t4.`OVDTIN` DESC");
-
         $query = $this->db->query("SELECT t21.`BNDESB1`, t9.`DTDC`, t9.`DTDESC1` AS draft, t09.`DTDESC1` AS approval, pengajuan.`DTDESC1` AS verifikasi_pengajuan, finish.`DTDESC1` AS finish, t4.`OVDOCDT`, COUNT(t4.`OVDOCSQ`) AS total_berkas, t4.`OVIDBUID`, t4.`OVDOCTY`, t.`DTDESC1` AS pengajuan_pinjam, 
         t4.`OVDOCNO`, t4.`OVDESB1`, t4.`OVLST`, t4.`OVNST`, t4.`OVLST`, t4.`OVNST`, t4.`OVDOCNO`, t4.`OVLOCID`, t4.`OVPOST`, t4.`OVDOCSQ`, t4.`OVIDINUM`, t4.`OVINUM`
         FROM t4312 AS t4
@@ -44,6 +17,25 @@ class BerkasBaru_model extends CI_Model {
         LEFT OUTER JOIN t0009 AS t ON t4.`OVPOST` = t.`DTDC` AND t.`DTPC`='00' AND t.`DTIDDC` = '130420'
         -- LEFT OUTER JOIN t0009 AS t009 ON t4.`OVPOST` = t009.`DTDC` AND t009.`DTPC`='00' AND t009.`DTIDDC` = '3210'
         WHERE t4.`OVLST` = '400' AND t4.`OVNST` = '440' AND t4.`OVPOST` IN(0,1,3)
+        GROUP BY t4.`OVDOCNO`
+        ORDER BY t4.`OVDTIN` DESC");
+
+        return $query->result_array();
+    }
+
+    public function getAllBerkas_opd($session_scidbuid) {
+        $query = $this->db->query("SELECT t21.`BNDESB1`, t9.`DTDC`, t9.`DTDESC1` AS draft, t09.`DTDESC1` AS approval, pengajuan.`DTDESC1` AS verifikasi_pengajuan, finish.`DTDESC1` AS finish, t4.`OVDOCDT`, COUNT(t4.`OVDOCSQ`) AS total_berkas, t4.`OVIDBUID`, t4.`OVDOCTY`, t.`DTDESC1` AS pengajuan_pinjam, 
+        t4.`OVDOCNO`, t4.`OVDESB1`, t4.`OVLST`, t4.`OVNST`, t4.`OVLST`, t4.`OVNST`, t4.`OVDOCNO`, t4.`OVLOCID`, t4.`OVPOST`, t4.`OVDOCSQ`, t4.`OVIDINUM`, t4.`OVINUM`
+        FROM t4312 AS t4
+        JOIN t0021 AS t21 ON t4.`OVIDBUID` = t21.`BNIDBUID`
+        LEFT OUTER JOIN t0009 AS t9 ON t4.`OVPOST` = t9.`DTDC` AND t9.`DTPC`='00' AND t9.`DTIDDC`= '130400'
+        -- LEFT OUTER JOIN t0009 AS t09 ON t4.`OVPOST` = t09.`DTDC` AND t09.`DTPC`='00' AND t09.`DTIDDC` = '3200'
+        LEFT OUTER JOIN t0009 AS t09 ON t4.`OVPOST` = t09.`DTDC` AND t09.`DTPC`='00' AND t09.`DTIDDC` = '130410'
+        LEFT OUTER JOIN t0009 AS pengajuan ON t4.`OVPOST` = pengajuan.`DTDC` AND pengajuan.`DTPC`='00' AND pengajuan.`DTIDDC` = '130430'
+        LEFT OUTER JOIN t0009 AS finish ON t4.`OVPOST` = finish.`DTDC` AND finish.`DTPC`='00' AND finish.`DTIDDC` = '130510'
+        LEFT OUTER JOIN t0009 AS t ON t4.`OVPOST` = t.`DTDC` AND t.`DTPC`='00' AND t.`DTIDDC` = '130420'
+        -- LEFT OUTER JOIN t0009 AS t009 ON t4.`OVPOST` = t009.`DTDC` AND t009.`DTPC`='00' AND t009.`DTIDDC` = '3210'
+        WHERE t4.`OVLST` = '400' AND t4.`OVNST` = '440' AND t4.`OVPOST` IN(0,1,3) AND t4.`OVIDBUID` = '$session_scidbuid'
         GROUP BY t4.`OVDOCNO`
         ORDER BY t4.`OVDTIN` DESC");
 
@@ -814,6 +806,24 @@ class BerkasBaru_model extends CI_Model {
         LEFT OUTER JOIN t0009 AS t9kec ON t9kec.`DTDC` = t4.`OVDIST` AND t9kec.`DTPC`='01' AND t9kec.`DTSC`='DT' AND SUBSTRING(t9kec.`DTDC`, 1, 5) = t9kab.`DTDC`
         LEFT OUTER JOIN t0009 AS t9des ON t9des.`DTDC` = t4.`OVSUBDIST` AND t9des.`DTPC`='01' AND t9des.`DTSC`='SD' AND SUBSTRING(t9des.`DTDC`, 1, 8) = t9kec.`DTDC`
         WHERE t0009.`DTPC` = '20' AND t0009.`DTSC` = 'JB' AND t4.`OVDOCNO` = '$x' AND t4.`OVIDBUID` = '$ovidbuid' AND t4.`OVLST` = '400' AND t4.`OVNST` = '440'");
+        
+        return $query->result_array();
+    }
+
+    public function berkas_opd($scidbuid) {
+        $query =  $this->db->query("SELECT b.`BNDESB1`, c.`LMDESA2`, d.`OVICU`, e.`DTDESC1` AS jenis_berkas, kab.`DTDESC1` AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1,
+        a.`FAICU`, d.`OVMSTY`, d.`OVDOCNO`, a.`FADTAQU`, a.`FAPOST`, a.`FAMANAGE`, d.`OVINUM`, a.`FADESB1`, a.`FACOMV`, a.`FABRAND`, a.`FACOLOR`, a.`FACILCAP`,
+        a.`FAMFN`, a.`FAMACHNID`, a.`FAVHRN`, a.`FAVHTAXDT`, a.`FAVHRNTAXDT`, a.`FACRTFID`, a.`FACRTFDT`, a.`FALNDOWNST`, a.`FALENGTH`, a.`FAWIDE`, a.`FAWIDTH`,
+        a.`FAASADDR`
+        FROM t1201 AS a
+        JOIN t0021 AS b ON a.`FAMANAGE` = b.`BNIDBUID`
+        LEFT OUTER JOIN t4100 AS c ON a.`FAALOC` = c.`LMLOCID`
+        JOIN t4312 AS d ON a.`FAICU` = d.`OVICU`
+        JOIN t0009 AS e ON d.`OVMSTY` = e.`DTDC` AND e.`DTPC` = '20' AND e.`DTSC` = 'JB'
+        LEFT OUTER JOIN t0009 AS kab ON a.`FACITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
+        LEFT OUTER JOIN t0009 AS kec ON a.`FADIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
+        LEFT OUTER JOIN t0009 AS desa ON a.`FASUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
+        WHERE a.`FAMANAGE` = '$scidbuid'");
         
         return $query->result_array();
     }

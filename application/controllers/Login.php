@@ -42,6 +42,7 @@
                     $this->session->set_userdata('SCUSI',$data_session['SCUSI']);
                     $this->session->set_userdata('SCUSC',$data_session['SCUSC']);
                     $this->session->set_userdata('SCUSG',$data_session['SCUSG']);
+                    $this->session->set_userdata('SCBUID',$data_session['SCBUID']);
 
                     //halaman akan me-refresh ke halaman Admin
                     redirect('Admin/index');
@@ -56,6 +57,7 @@
                     $this->session->set_userdata('SCUSI',$data_session['SCUSI']);
                     $this->session->set_userdata('SCUSC',$data_session['SCUSC']);
                     $this->session->set_userdata('SCUSG',$data_session['SCUSG']);
+                    $this->session->set_userdata('SCBUID',$data_session['SCBUID']);
                     
                     //halaman akan me-refresh ke halaman Admin
                     redirect('Admin/index');
@@ -69,6 +71,7 @@
                     $this->session->set_userdata('SCUSI',$data_session['SCUSI']);
                     $this->session->set_userdata('SCUSC',$data_session['SCUSC']);
                     $this->session->set_userdata('SCUSG',$data_session['SCUSG']);
+                    $this->session->set_userdata('SCBUID',$data_session['SCBUID']);
 
                     //halaman akan me-refresh ke halaman Admin
                     redirect('Admin/index');

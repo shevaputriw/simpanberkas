@@ -18,6 +18,7 @@ class BerkasBaru extends CI_Controller {
         $data['title'] = 'Berkas Baru';
         // menampilkan seluruh berkas baru yang ditambahkan di status draft, pengajuan berkas baru, dan verifikasi berkas baru (opd)
         $data['getAll'] = $this->BerkasBaru_model->getAllBerkas();
+        $data['getAll_opd'] = $this->BerkasBaru_model->getAllBerkas_opd($this->session->userdata('SCIDBUID'));
 
         //load header, halaman index berkas baru, dan footer
         $this->load->view('template/Header',$data);
@@ -82,17 +83,28 @@ class BerkasBaru extends CI_Controller {
         echo json_encode($data);
     }
 
-    // public function get_Sertifikat()
-    // {
-    //     $data = $this->BerkasBaru_model->getSertifikat();
-    //     echo json_encode($data);
-    // }
+    public function get_Sertifikat()
+    {
+        $data = $this->BerkasBaru_model->getSertifikat();
+        echo json_encode($data);
+    }
 
-    // public function get_Kendaraan()
-    // {
-    //     $data = $this->BerkasBaru_model->getKendaraan();
-    //     echo json_encode($data);
-    // }
+    public function get_Kendaraan()
+    {
+        $data = $this->BerkasBaru_model->getKendaraan();
+        echo json_encode($data);
+    }
+
+    public function Daftar_berkas_opd() {
+        $data['title'] = 'Daftar Berkas';
+        // $data['get_data'] = $this->BerkasBaru_model->GetData($x, $ovidbuid);
+        $data['berkas'] = $this->BerkasBaru_model->berkas_opd($this->session->userdata('SCIDBUID'));
+
+        //load header, halaman tambah berkas baru, dan footer
+        $this->load->view('template/Header',$data);
+        $this->load->view('BerkasBaru/Daftar_berkas_opd',$data);
+        $this->load->view('template/Footer',$data);
+    }
 
     public function Halaman_Tambah() 
     {
