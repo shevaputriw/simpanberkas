@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-block">
-                        <center><h4 class="card-title">HISTORY PINJAM BERKAS</h4></center>
+                        <center><h4 class="card-title">DAFTAR BERKAS</h4></center>
                     </div>
                     <div class="card-body">
                         <!-- TABEL BERKAS BARU START -->
@@ -60,7 +60,7 @@
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label style="color:#2b2a28;"><b>Kode Barang :</b></label>
-                                                        <p style="color:#313236"><?=$gab["OVINUM"];?></p>
+                                                        <p style="color:#313236"><?=$gab["FAAOBJ"];?> / <?=$gab["AMDESB1"];?></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">

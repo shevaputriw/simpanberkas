@@ -97,7 +97,6 @@ class BerkasBaru extends CI_Controller {
 
     public function Daftar_berkas_opd() {
         $data['title'] = 'Daftar Berkas';
-        // $data['get_data'] = $this->BerkasBaru_model->GetData($x, $ovidbuid);
         $data['berkas'] = $this->BerkasBaru_model->berkas_opd($this->session->userdata('SCIDBUID'));
 
         //load header, halaman tambah berkas baru, dan footer
@@ -554,6 +553,9 @@ class BerkasBaru extends CI_Controller {
         $tahun = $getTahunBulan->CNCFY;
         // get data bulan fiksal
         $bulan = $getTahunBulan->CNCAP;
+        $uid = $this->session->userdata('SCUSI');
+        // echo $uid;
+        // die();
 
         // jika pemeriksaan pada variabel $cekIT tidak ditemukannya data
         if($cekIT->num_rows() == 0) {
@@ -614,7 +616,6 @@ class BerkasBaru extends CI_Controller {
                 // mengambil ip pengakses
                 $ip = $_SERVER['REMOTE_ADDR'];
                 // deklarasi variabel untuk insert ke t4111
-                $ituid = "admin1";
                 $docty = "IT";
                 $iticut = "I";
                 $itft = "F";
@@ -673,8 +674,8 @@ class BerkasBaru extends CI_Controller {
                         'ITDIST' => $gda['ITDIST'],
                         'ITSUBDIST' => $gda['ITSUBDIST'],
                         'ITMANAGE' => $gda['ITMANAGE'],
-                        'ITUID' => $ituid,
-                        'ITUIDM' => $ituid,
+                        'ITUID' => $uid,
+                        'ITUIDM' => $uid,
                         'ITDTIN' => date('Y-m-d H:i:s', time()),
                         'ITDTLU' => date('Y-m-d H:i:s', time()),
                         'ITIPUID' => $ip,
@@ -738,8 +739,8 @@ class BerkasBaru extends CI_Controller {
                         'ITDIST' => $gda2['ITDIST'],
                         'ITSUBDIST' => $gda2['ITSUBDIST'],
                         'ITMANAGE' => $gda2['ITMANAGE'],
-                        'ITUID' => $ituid,
-                        'ITUIDM' => $ituid,
+                        'ITUID' => $uid,
+                        'ITUIDM' => $uid,
                         'ITDTIN' => date('Y-m-d H:i:s', time()),
                         'ITDTLU' => date('Y-m-d H:i:s', time()),
                         'ITIPUID' => $ip,
@@ -846,8 +847,8 @@ class BerkasBaru extends CI_Controller {
                         'ITDIST' => $itf['ITDIST'],
                         'ITSUBDIST' => $itf['ITSUBDIST'],
                         'ITMANAGE' => $itf['ITMANAGE'],
-                        'ITUID' => $ituid,
-                        'ITUIDM' => $ituid,
+                        'ITUID' => $uid,
+                        'ITUIDM' => $uid,
                         'ITDTIN' => date('Y-m-d H:i:s', time()),
                         'ITDTLU' => date('Y-m-d H:i:s', time()),
                         'ITIPUID' => $ip,
@@ -908,8 +909,8 @@ class BerkasBaru extends CI_Controller {
                         'ITDIST' => $itf['ITDIST'],
                         'ITSUBDIST' => $itf['ITSUBDIST'],
                         'ITMANAGE' => $itf['ITMANAGE'],
-                        'ITUID' => $ituid,
-                        'ITUIDM' => $ituid,
+                        'ITUID' => $uid,
+                        'ITUIDM' => $uid,
                         'ITDTIN' => date('Y-m-d H:i:s', time()),
                         'ITDTLU' => date('Y-m-d H:i:s', time()),
                         'ITIPUID' => $ip,
@@ -957,6 +958,7 @@ class BerkasBaru extends CI_Controller {
         $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
         $tahun = $getTahunBulan->CNCFY;
         $bulan = $getTahunBulan->CNCAP;
+        $uid = $this->session->userdata('SCUSI');
 
         //GET STATUS DONE
         // $getStatus = $this->BerkasBaru_model->getStatusDone();
@@ -975,7 +977,6 @@ class BerkasBaru extends CI_Controller {
         $hasil = array();
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
-        $iluid = "admin1";
         $ilsqoh = "0";
 
         foreach($getDataIT as $gdit) :
@@ -1006,8 +1007,8 @@ class BerkasBaru extends CI_Controller {
                     'ILCITY' => $gdit["ITCITY"],
                     'ILDIST' => $gdit["ITDIST"],
                     'ILSUBDIST' => $gdit["ITSUBDIST"],
-                    'ILUID' => $gdit["ITUID"],
-                    'ILUIDM' => $gdit["ITUIDM"],
+                    'ILUID' => $uid,
+                    'ILUIDM' => $uid,
                     'ILDTIN' => date('Y-m-d H:i:s', time()),
                     'ILDTLU' => date('Y-m-d H:i:s', time()),
                     'ILIPUID' => $ip,
@@ -1041,8 +1042,8 @@ class BerkasBaru extends CI_Controller {
                     'ILCITY' => $gdit["ITCITY"],
                     'ILDIST' => $gdit["ITDIST"],
                     'ILSUBDIST' => $gdit["ITSUBDIST"],
-                    'ILUID' => $gdit["ITUID"],
-                    'ILUIDM' => $gdit["ITUIDM"],
+                    'ILUID' => $uid,
+                    'ILUIDM' => $uid,
                     'ILDTIN' => date('Y-m-d H:i:s', time()),
                     'ILDTLU' => date('Y-m-d H:i:s', time()),
                     'ILIPUID' => $ip,
@@ -1103,13 +1104,12 @@ class BerkasBaru extends CI_Controller {
                 'FASUBDIST' => $ov["OVSUBDIST"],
                 'FAMANAGE' => $ov["OVMANAGE"],
                 'FAPOST' => $ov["OVPOST"],
-                'FAUID' =>$ov["OVUID"],
-                'FAUIDM' =>$ov["OVUIDM"],
+                'FAUID' =>$uid,
+                'FAUIDM' =>$uid,
                 'FADTIN' =>$ov["OVDTIN"],
                 'FADTLU' =>$ov["OVDTLU"],
-                'FAIPUID' =>$ov["OVIPUID"],
-                'FAIPUIDM' =>$ov["OVIPUIDM"],
-                'FAHISCOL' =>$ov["OVHISCOL"]
+                'FAIPUID' =>$ip,
+                'FAIPUIDM' =>$ip,
             );
             array_push($hasil2, $data_array2);
         endforeach;
@@ -1142,6 +1142,7 @@ class BerkasBaru extends CI_Controller {
 
         $ovpost = $this->BerkasBaru_model->getStatusDraft();
         $status = $ovpost->DTDC;
+        $uid = $this->session->userdata('SCUSI');
 
         $this->form_validation->set_rules('OVDESB1', 'Nama Barang', 'required');
 
@@ -1207,11 +1208,11 @@ class BerkasBaru extends CI_Controller {
                     'ITDIST' => $this->input->post('OVDIST', true),
                     'ITSUBDIST' => $this->input->post('OVSUBDIST', true),
                     'ITMANAGE' => $gda['ITMANAGE'],
-                    'ITUID' => $gda['ITUID'],
-                    'ITUIDM' => $gda['ITUIDM'],
-                    'ITDTIN' => $gda['ITDTIN'],
+                    // 'ITUID' => $gda['ITUID'],
+                    'ITUIDM' => $uid,
+                    // 'ITDTIN' => $gda['ITDTIN'],
                     'ITDTLU' => date('Y-m-d H:i:s', time()),
-                    'ITIPUID' => $gda['ITIPUID'],
+                    // 'ITIPUID' => $gda['ITIPUID'],
                     'ITIPUIDM' => $ip,
                     'ITCOMV' => $this->input->post('OVCOMV', true),
                     'ITQTY' => $gda['ITQTY'],
@@ -1269,11 +1270,11 @@ class BerkasBaru extends CI_Controller {
                         'ITDIST' => $this->input->post('OVDIST', true),
                         'ITSUBDIST' => $this->input->post('OVSUBDIST', true),
                         'ITMANAGE' => $gda2['ITMANAGE'],
-                        'ITUID' => $gda2['ITUID'],
-                        'ITUIDM' => $gda2['ITUIDM'],
-                        'ITDTIN' => $gda2['ITDTIN'],
+                        // 'ITUID' => $gda2['ITUID'],
+                        'ITUIDM' => $uid,
+                        // 'ITDTIN' => $gda2['ITDTIN'],
                         'ITDTLU' => date('Y-m-d H:i:s', time()),
-                        'ITIPUID' => $gda2['ITIPUID'],
+                        // 'ITIPUID' => $gda2['ITIPUID'],
                         'ITIPUIDM' => $ip,
                         'ITCOMV' => $this->input->post('OVCOMV', true),
                         'ITQTY' => $gda2['ITQTY'],
@@ -1354,6 +1355,7 @@ class BerkasBaru extends CI_Controller {
         $getTahunBulan = $this->BerkasBaru_model->getTahunBulan();
         $tahun = $getTahunBulan->CNCFY;
         $bulan = $getTahunBulan->CNCAP;
+        $uid = $this->session->userdata('SCUSI');
         
         $this->form_validation->set_rules('FAMANAGE', 'Pengelola Barang', 'required');
         $this->form_validation->set_rules('FAALOC', 'Lokasi Barang', 'required');
@@ -1402,7 +1404,6 @@ class BerkasBaru extends CI_Controller {
             $result2 = array();
             date_default_timezone_set('Asia/Jakarta');
             $ip = $_SERVER['REMOTE_ADDR'];
-            $ituid = "admin1";
             $docty = "IR";
             $iticut = "I";
             $itft_from = "F";
@@ -1467,8 +1468,8 @@ class BerkasBaru extends CI_Controller {
                     'ITDIST' => $m["FADIST"],
                     'ITSUBDIST' => $m["FASUBDIST"],
                     'ITMANAGE' => $m["FAMANAGE"],
-                    'ITUID' => $ituid,
-                    'ITUIDM' => $ituid,
+                    'ITUID' => $uid,
+                    'ITUIDM' => $uid,
                     'ITDTIN' => date('Y-m-d H:i:s', time()),
                     'ITDTLU' => date('Y-m-d H:i:s', time()),
                     'ITIPUID' => $ip,
@@ -1533,8 +1534,8 @@ class BerkasBaru extends CI_Controller {
                     'ITDIST' => $m2["FADIST"],
                     'ITSUBDIST' => $m2["FASUBDIST"],
                     'ITMANAGE' => $manage,
-                    'ITUID' => $ituid,
-                    'ITUIDM' => $ituid,
+                    'ITUID' => $uid,
+                    'ITUIDM' => $uid,
                     'ITDTIN' => date('Y-m-d H:i:s', time()),
                     'ITDTLU' => date('Y-m-d H:i:s', time()),
                     'ITIPUID' => $ip,

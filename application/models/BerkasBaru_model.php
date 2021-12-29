@@ -260,6 +260,7 @@ class BerkasBaru_model extends CI_Model {
             "NNRSMT" => "CM",
             "NNINYR" => "Y",
             "NNINMO" => "Y",
+            "NNUID" => $this->session->userdata('SCUSI'),
             "NNIPUID" => $ip,
             "NNIPUIDM" => $ip,
             "NNDTIN" => date('Y-m-d H:i:s', time()),
@@ -284,6 +285,7 @@ class BerkasBaru_model extends CI_Model {
             "NNRSMT" => "CM",
             "NNINYR" => "Y",
             "NNINMO" => "Y",
+            "NNUID" => $this->session->userdata('SCUSI'),
             "NNIPUID" => $ip,
             "NNIPUIDM" => $ip,
             "NNDTIN" => date('Y-m-d H:i:s', time()),
@@ -306,6 +308,7 @@ class BerkasBaru_model extends CI_Model {
             "NNRSAT" => 1,
             "NNSEQ" => 1,
             "NNRSMT" => "NR",
+            "NNUID" => $this->session->userdata('SCUSI'),
             "NNIPUID" => $ip,
             "NNIPUIDM" => $ip,
             "NNDTIN" => date('Y-m-d H:i:s', time()),
@@ -357,11 +360,17 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function Update($tahun, $bulan) {
+        $uidm = $this->session->userdata('SCUSI');
         $this->db->query("UPDATE t0002 SET NNSEQ = NNSEQ + 1 WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'OV'");
+        $this->db->query("UPDATE t0002 SET NNUIDM = '$uidm' WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'OV'");
+        $this->db->query("UPDATE t0002 SET NNDTLU = CURRENT_TIMESTAMP WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'OV'");
     }
 
     public function Update_IT($tahun, $bulan) {
+        $uidm = $this->session->userdata('SCUSI');
         $this->db->query("UPDATE t0002 SET NNSEQ = NNSEQ + 1 WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'IT'");
+        $this->db->query("UPDATE t0002 SET NNUIDM = '$uidm' WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'IT'");
+        $this->db->query("UPDATE t0002 SET NNDTLU = CURRENT_TIMESTAMP WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'IT'");
     }
 
     // public function Update_ICU($tahun, $bulan) {
@@ -369,7 +378,10 @@ class BerkasBaru_model extends CI_Model {
     // }
 
     public function Update_ICU($tahun) {
+        $uidm = $this->session->userdata('SCUSI');
         $this->db->query("UPDATE t0002 SET NNSEQ = NNSEQ + 1 WHERE NNYR = '$tahun' AND NNDOCBTY = 'ICU'");
+        $this->db->query("UPDATE t0002 SET NNUIDM = '$uidm' WHERE NNYR = '$tahun' AND NNDOCBTY = 'ICU'");
+        $this->db->query("UPDATE t0002 SET NNDTLU = CURRENT_TIMESTAMP WHERE NNYR = '$tahun' AND NNDOCBTY = 'ICU'");
     }
 
     public function getOvbuid1($ovidbuid) {
@@ -394,8 +406,7 @@ class BerkasBaru_model extends CI_Model {
         $ip = $_SERVER['REMOTE_ADDR'];
         $ovdocty = "OV";
         $uom1 = "UNT";
-        $ovuid = "admin1";
-        $ovuidm = "admin1";
+        $uid = $this->session->userdata('SCUSI');
         $ovicu = "1";
         $ovdocsq = "10";
         $ovqty = "1";
@@ -441,8 +452,8 @@ class BerkasBaru_model extends CI_Model {
             "OVNST" => $this->input->post('OVNST', true),
             "OVMANAGE" => $this->input->post('OVIDBUID', true),
             "OVLOCID" => $this->input->post('OVLOCID', true),
-            "OVUID" => $ovuid,
-            "OVUIDM" => $ovuidm,
+            "OVUID" => $uid,
+            "OVUIDM" => $uid,
             "OVIPUID" => $ip,
             "OVIPUIDM" => $ip,
             "OVDTIN" => date('Y-m-d H:i:s', time()),
@@ -456,8 +467,7 @@ class BerkasBaru_model extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
         $itdocty = "OV";
-        $ituid = "admin1";
-        $ituidm = "admin1";
+        $uid = $this->session->userdata('SCUSI');
         $ituom1 = "UNT";
         $itdocsq = "10";
         $itidinum = "0";
@@ -508,8 +518,8 @@ class BerkasBaru_model extends CI_Model {
             // "ITDOCMO" => $m,
             // "ITDOCYR" => $y,
 
-            "ITUID" => $ituid,
-            "ITUIDM" => $ituidm,
+            "ITUID" => $uid,
+            "ITUIDM" => $uid,
             "ITIPUID" => $ip,
             "ITIPUIDM" => $ip,
             "ITDTIN" => date('Y-m-d H:i:s', time()),
@@ -546,28 +556,38 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function Edit_Status($ovdocno, $status) {
+        $uid = $this->session->userdata('SCUSI');
+
         $this->db->query("UPDATE t4312 SET OVPOST = '$status' WHERE OVDOCNO = '$ovdocno'");
         $this->db->query("UPDATE t4312 SET OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4312 SET OVUIDM = '$uid' WHERE OVDOCNO = '$ovdocno'");
         $this->db->query("UPDATE t4111 SET ITPOST = '$status' WHERE ITDOCNO = '$ovdocno'");
         $this->db->query("UPDATE t4111 SET ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITUIDM = '$uid' WHERE ITDOCNO = '$ovdocno'");
     }
 
     public function Verifikasi_pengajuan($ovdocno, $status) {
-        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
+        $uid = $this->session->userdata('SCUSI');
+
+        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVUIDM = '$uid', OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITUIDM = '$uid', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITUIDM = '$uid', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
     }
 
     public function revisi_pengajuan($ovdocno, $status) {
-        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVDTLU = CURRENT_TIMESTAMP, OVDOCDT = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
+        $uid = $this->session->userdata('SCUSI');
+
+        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVUIDM = '$uid', OVDTLU = CURRENT_TIMESTAMP, OVDOCDT = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITUIDM = '$uid', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITUIDM = '$uid', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
     }
 
     public function Finish($ovdocno, $status) {
-        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVDTLU = CURRENT_TIMESTAMP, OVDOCDT = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
+        $uid = $this->session->userdata('SCUSI');
+
+        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVUIDM = '$uid', OVDTLU = CURRENT_TIMESTAMP, OVDOCDT = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITUIDM = '$uid', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITUIDM = '$uid', ITDTLU = CURRENT_TIMESTAMP, ITDOCDT = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
     }
 
     public function getDataApprov($ovidbuid, $ovdocno, $ovdocty) {
@@ -603,12 +623,14 @@ class BerkasBaru_model extends CI_Model {
     public function Tambah_41021($buid1) {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
+        $uid = $this->session->userdata('SCUSI');
 
         $data = [
             "ILCOID" => $this->input->post('OVCOID', true),
             "ILIDBUID" => $this->input->post('OVIDBUID', true),
             "ILLOCID" => $this->input->post('OVLOCID', true),
             "ILBUID1" => $buid1,
+            "ILUID" => $uid,
             "ILIPUID" => $ip,
             "ILIPUIDM" => $ip,
             "ILDTIN" => date('Y-m-d H:i:s', time()),
@@ -622,8 +644,7 @@ class BerkasBaru_model extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
         $ovdocty = "OV";
-        $ovuid = "admin1";
-        $ovuidm = "admin1";
+        $uid = $this->session->userdata('SCUSI');
         $ovicu = "1";
         $uom1 = "UNT";
         $ovqty = "1";
@@ -669,8 +690,8 @@ class BerkasBaru_model extends CI_Model {
             "OVLST" => $this->input->post('OVLST', true),
             "OVNST" => $this->input->post('OVNST', true),
             "OVLOCID" => $this->input->post('OVLOCID', true),
-            "OVUID" => $ovuid,
-            "OVUIDM" => $ovuidm,
+            "OVUID" => $uid,
+            "OVUIDM" => $uid,
             "OVIPUID" => $ip,
             "OVIPUIDM" => $ip,
             "OVDTIN" => date('Y-m-d H:i:s', time()),
@@ -685,8 +706,7 @@ class BerkasBaru_model extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
         $itdocty = "OV";
-        $ituid = "admin1";
-        $ituidm = "admin1";
+        $uid = $this->session->userdata('SCUSI');
         $ituom1 = "UNT";
         // $itidinum = "0";
 
@@ -734,8 +754,8 @@ class BerkasBaru_model extends CI_Model {
             "ITLOCID" => $this->input->post('OVLOCID', true),
             // "ITDOCMO" => $m,
             // "ITDOCYR" => $y,
-            "ITUID" => $ituid,
-            "ITUIDM" => $ituidm,
+            "ITUID" => $uid,
+            "ITUIDM" => $uid,
             "ITIPUID" => $ip,
             "ITIPUIDM" => $ip,
             "ITDTIN" => date('Y-m-d H:i:s', time()),
@@ -748,12 +768,14 @@ class BerkasBaru_model extends CI_Model {
     public function Tambah2_41021($ovidbuid, $buid1) {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
+        $uid = $this->session->userdata('SCUSI');
 
         $data = [
             "ILCOID" => $this->input->post('OVCOID', true),
             "ILIDBUID" => $ovidbuid,
             "ILLOCID" => $this->input->post('OVLOCID', true),
             "ILBUID1" => $buid1,
+            "ILUID" => $uid,
             "ILIPUID" => $ip,
             "ILIPUIDM" => $ip,
             "ILDTIN" => date('Y-m-d H:i:s', time()),
@@ -813,8 +835,7 @@ class BerkasBaru_model extends CI_Model {
     public function berkas_opd($scidbuid) {
         $query =  $this->db->query("SELECT b.`BNDESB1`, c.`LMDESA2`, d.`OVICU`, e.`DTDESC1` AS jenis_berkas, kab.`DTDESC1` AS kabupaten, kec.`DTDESC1` AS kecamatan, desa.`DTDESC1` AS desa1,
         a.`FAICU`, d.`OVMSTY`, d.`OVDOCNO`, a.`FADTAQU`, a.`FAPOST`, a.`FAMANAGE`, d.`OVINUM`, a.`FADESB1`, a.`FACOMV`, a.`FABRAND`, a.`FACOLOR`, a.`FACILCAP`,
-        a.`FAMFN`, a.`FAMACHNID`, a.`FAVHRN`, a.`FAVHTAXDT`, a.`FAVHRNTAXDT`, a.`FACRTFID`, a.`FACRTFDT`, a.`FALNDOWNST`, a.`FALENGTH`, a.`FAWIDE`, a.`FAWIDTH`,
-        a.`FAASADDR`
+        a.`FAMFN`, a.`FAMACHNID`, a.`FAVHRN`, a.`FAVHTAXDT`, a.`FAVHRNTAXDT`, a.`FACRTFID`, a.`FACRTFDT`, a.`FALNDOWNST`, a.`FALENGTH`, a.`FAWIDE`, a.`FAWIDTH`, f.`AMDESB1`, a.`FAASADDR`, a.`FAAOBJ`
         FROM t1201 AS a
         JOIN t0021 AS b ON a.`FAMANAGE` = b.`BNIDBUID`
         LEFT OUTER JOIN t4100 AS c ON a.`FAALOC` = c.`LMLOCID`
@@ -823,6 +844,7 @@ class BerkasBaru_model extends CI_Model {
         LEFT OUTER JOIN t0009 AS kab ON a.`FACITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
         LEFT OUTER JOIN t0009 AS kec ON a.`FADIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
         LEFT OUTER JOIN t0009 AS desa ON a.`FASUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
+        JOIN t0901 AS f ON a.`FAAOBJ` = f.`AMOBJ`
         WHERE a.`FAMANAGE` = '$scidbuid'");
         
         return $query->result_array();
@@ -845,34 +867,33 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function Cek_ovdocsq($x) {
-        $query = $this->db->query("SELECT OVDOCSQ FROM t4312 AS t4 
-        WHERE t4.`OVDOCNO`='$x' ORDER BY OVDOCSQ DESC LIMIT 1");
+        $query = $this->db->query("SELECT OVDOCSQ FROM t4312 AS t4 WHERE t4.`OVDOCNO`='$x' ORDER BY OVDOCSQ DESC LIMIT 1");
 
         return $query->row();
     }
 
     public function getDocsq_IT($no, $itft) {
-        $query = $this->db->query("SELECT ITDOCSQ, ITDOCNO FROM t4111 AS t4 
-        WHERE t4.`ITICU`='$no' AND t4.`ITFT` = '$itft' ORDER BY ITDOCSQ DESC LIMIT 1");
+        $query = $this->db->query("SELECT ITDOCSQ, ITDOCNO FROM t4111 AS t4 WHERE t4.`ITICU`='$no' AND t4.`ITFT` = '$itft' ORDER BY ITDOCSQ DESC LIMIT 1");
 
         return $query->row();
     }
 
     public function getDocno($ovdocno) {
-        $query = $this->db->query("SELECT ITDOCNO FROM t4111 AS t4 
-        WHERE t4.`ITDOCNO`='$ovdocno' LIMIT 1");
+        $query = $this->db->query("SELECT ITDOCNO FROM t4111 AS t4 WHERE t4.`ITDOCNO`='$ovdocno' LIMIT 1");
 
         return $query->row();
     }
 
     public function Hapus_update($ovdocno, $ovdocsq) {
-        $this->db->query("UPDATE t4312 SET OVLST = '480' WHERE OVDOCNO = '$ovdocno' AND OVDOCSQ = '$ovdocsq'");
-        $this->db->query("UPDATE t4312 SET OVNST = '499' WHERE OVDOCNO = '$ovdocno' AND OVDOCSQ = '$ovdocsq'");
+        $uid = $this->session->userdata('SCUSI');
+        $this->db->query("UPDATE t4312 SET OVLST = '480', OVUIDM = '$uid', OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno' AND OVDOCSQ = '$ovdocsq'");
+        $this->db->query("UPDATE t4312 SET OVNST = '499', OVUIDM = '$uid', OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno' AND OVDOCSQ = '$ovdocsq'");
     }
 
     public function Hapus_berkasupdate($ovidbuid, $ovdocno) {
-        $this->db->query("UPDATE t4312 SET OVLST = '480' WHERE OVDOCNO = '$ovdocno' AND OVIDBUID = '$ovidbuid'");
-        $this->db->query("UPDATE t4312 SET OVNST = '499' WHERE OVDOCNO = '$ovdocno' AND OVIDBUID = '$ovidbuid'");
+        $uid = $this->session->userdata('SCUSI');
+        $this->db->query("UPDATE t4312 SET OVLST = '480', OVUIDM = '$uid', OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno' AND OVIDBUID = '$ovidbuid'");
+        $this->db->query("UPDATE t4312 SET OVNST = '499', OVUIDM = '$uid', OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno' AND OVIDBUID = '$ovidbuid'");
     }
 
     public function getIdinum($ovidinum) {
@@ -885,8 +906,7 @@ class BerkasBaru_model extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
         $ovdocty = "OV";
-        $ovuid = "admin1";
-        $ovuidm = "admin1";
+        $uid = $this->session->userdata('SCUSI');
         $ovicu = "1";
         $post=$this->input->post();
 
@@ -923,7 +943,7 @@ class BerkasBaru_model extends CI_Model {
             "OVLST" => $this->input->post('OVLST', true),
             "OVNST" => $this->input->post('OVNST', true),
             "OVLOCID" => $this->input->post('OVLOCID', true),
-            "OVUIDM" => $ovuidm,
+            "OVUIDM" => $uid,
             "OVIPUIDM" => $ip,
             "OVDTLU" => date('Y-m-d H:i:s', time()),
             "OVPOST" => $this->input->post('OVPOST', true),
@@ -938,8 +958,7 @@ class BerkasBaru_model extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
         $ovdocty = "OV";
-        $ovuid = "admin1";
-        $ovuidm = "admin1";
+        $uid = $this->session->userdata('SCUSI');
         $ovicu = "1";
         $post=$this->input->post();
 
@@ -976,7 +995,7 @@ class BerkasBaru_model extends CI_Model {
             // "ITLST" => $this->input->post('OVLST', true),
             // "ITNST" => $this->input->post('OVNST', true),
             "ITLOCID" => $this->input->post('OVLOCID', true),
-            "ITUIDM" => $ovuidm,
+            "ITUIDM" => $uid,
             "ITIPUIDM" => $ip,
             "ITDTLU" => date('Y-m-d H:i:s', time()),
             "ITPOST" => $this->input->post('OVPOST', true),
@@ -1012,10 +1031,12 @@ class BerkasBaru_model extends CI_Model {
     public function Update_t0002($ovidbuid) {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
+        $uid = $this->session->userdata('SCUSI');
         $post=$this->input->post();
 
         $this->BNCC01 = $post["BNCC01"];
         $this->BNCC02 = $post["BNCC02"];
+        $this->BNUIDM = $uid;
         $this->BNIPUIDM = $ip;
         $this->BNDTLU = date('Y-m-d H:i:s', time());
         
@@ -1023,9 +1044,10 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function UbahKeDraft($ovdocno, $ovidbuid, $status) {
-        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno' AND OVIDBUID = '$ovidbuid'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno' AND ITIDBUID = '$ovidbuid' AND ITDOCTY = 'OV'");
-        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
+        $uid = $this->session->userdata('SCUSI');
+        $this->db->query("UPDATE t4312 SET OVPOST = '$status', OVUIDM = '$uid', OVDTLU = CURRENT_TIMESTAMP WHERE OVDOCNO = '$ovdocno' AND OVIDBUID = '$ovidbuid'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITUIDM = '$uid', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCNO = '$ovdocno' AND ITIDBUID = '$ovidbuid' AND ITDOCTY = 'OV'");
+        $this->db->query("UPDATE t4111 SET ITPOST = '$status', ITUIDM = '$uid', ITDTLU = CURRENT_TIMESTAMP WHERE ITDOCONO = '$ovdocno'");
     }
 
     public function CekIT($ovdocono) {
@@ -1087,7 +1109,8 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function Update_t41021_mutasi($ovidbuid, $ovidinum, $ovinum, $ovlocid, $ilmanage) {
-        $this->db->query("UPDATE t41021 SET ILMANAGE = '$ilmanage' WHERE ILIDBUID = '16445' AND ILIDINUM = '$ovidinum' AND ILINUM = '$ovinum'");
+        $uid = $this->session->userdata('SCUSI');
+        $this->db->query("UPDATE t41021 SET ILMANAGE = '$ilmanage', ILUIDM = '$uid', ILDTLU = CURRENT_TIMESTAMP WHERE ILIDBUID = '16445' AND ILIDINUM = '$ovidinum' AND ILINUM = '$ovinum'");
     }
 
     public function Cek_ir($tahun, $bulan) {
@@ -1103,6 +1126,7 @@ class BerkasBaru_model extends CI_Model {
     public function Insert_ir_t0002($tahun, $bulan) {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
+        $uid = $this->session->userdata('SCUSI');
 
         $data = [
             "NNCOID" => 16,
@@ -1115,6 +1139,7 @@ class BerkasBaru_model extends CI_Model {
             "NNRSMT" => "CM",
             "NNINYR" => "Y",
             "NNINMO" => "Y",
+            "NNUID" => $uid,
             "NNIPUID" => $ip,
             "NNIPUIDM" => $ip,
             "NNDTIN" => date('Y-m-d H:i:s', time()),
@@ -1131,7 +1156,10 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function Update_ir($tahun, $bulan) {
+        $uid = $this->session->userdata('SCUSI');
         $this->db->query("UPDATE t0002 SET NNSEQ = NNSEQ + 1 WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'IR'");
+        $this->db->query("UPDATE t0002 SET NNUIDM = '$uid' WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'IR'");
+        $this->db->query("UPDATE t0002 SET NNDTLU = CURRENT_TIMESTAMP WHERE NNYR = '$tahun' AND NNMO = '$bulan' AND NNDOCBTY = 'IR'");
     }
 
     public function getIR($tahun, $bulan) {
@@ -1186,12 +1214,14 @@ class BerkasBaru_model extends CI_Model {
     }
 
     public function mutasi_t1201($faicu, $manage, $loc) {
-        $this->db->query("UPDATE t1201 SET FAMANAGE = '$manage', FADTLU = CURRENT_TIMESTAMP WHERE FAICU = '$faicu'");
+        $uid = $this->session->userdata('SCUSI');
+        $this->db->query("UPDATE t1201 SET FAMANAGE = '$manage', FAUIDM = '$uid', FADTLU = CURRENT_TIMESTAMP WHERE FAICU = '$faicu'");
     }
 
     public function mutasi_t41021($ilicu, $manage, $loc) {
-        $this->db->query("UPDATE t41021 SET ILMANAGE = '$manage', ILDTLU = CURRENT_TIMESTAMP WHERE ILIDBUID  = '16445' AND ILICU = '$ilicu'");
-        $this->db->query("UPDATE t41021 SET ILMANAGE = '$manage', ILIDBUID = '$manage', ILLOCID = '$loc', ILDTLU = CURRENT_TIMESTAMP WHERE ILIDBUID  != '16445' AND ILICU = '$ilicu'");
+        $uid = $this->session->userdata('SCUSI');
+        $this->db->query("UPDATE t41021 SET ILMANAGE = '$manage', FAUIDM = '$uid', ILDTLU = CURRENT_TIMESTAMP WHERE ILIDBUID  = '16445' AND ILICU = '$ilicu'");
+        $this->db->query("UPDATE t41021 SET ILMANAGE = '$manage', ILUIDM = '$uid', ILIDBUID = '$manage', ILLOCID = '$loc', ILDTLU = CURRENT_TIMESTAMP WHERE ILIDBUID  != '16445' AND ILICU = '$ilicu'");
     }
 
     public function mutasi($faicu) {
