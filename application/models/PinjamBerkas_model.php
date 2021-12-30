@@ -25,7 +25,7 @@ class PinjamBerkas_model extends CI_Model {
         LEFT OUTER JOIN t0009 AS kab ON t4.`ITCITY` = kab.`DTDC` AND kab.`DTPC` = '01' AND kab.`DTSC` = 'CY' AND kab.`DTDC` IN ('35.76','35.16')
         LEFT OUTER JOIN t0009 AS kec ON t4.`ITDIST` = kec.`DTDC` AND kec.`DTPC` = '01' AND kec.`DTSC` = 'DT' AND SUBSTRING(kec.`DTDC`,1,5) = kab.`DTDC`
         LEFT OUTER JOIN t0009 AS desa ON t4.`ITSUBDIST` = desa.`DTDC` AND desa.`DTPC` = '01' AND desa.`DTSC` = 'SD' AND SUBSTRING(desa.`DTDC`,1,8) = kec.`DTDC`
-        WHERE ITDOCTY = 'IT' AND ITFT = 'T' AND ITIDBUID != '16445' AND ITPOST IN(0,2,3,7,11) GROUP BY ITDOCNO ORDER BY t4.`ITDOCNO` DESC");
+        WHERE ITDOCTY = 'IT' AND ITFT = 'T' AND ITIDBUID != '16445' AND ITPOST IN(0,2,3) GROUP BY ITDOCNO ORDER BY t4.`ITDOCNO` DESC");
 
         return $query->result_array();
     }

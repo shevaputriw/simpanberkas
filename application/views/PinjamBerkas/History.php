@@ -48,7 +48,7 @@
                                                     </center>
                                                 </td>
                                                 <td><center>
-                                                    <span class="badge badge-danger"><?=$bd["berkas_keluar"];?></span></center>
+                                                    <span class="badge badge-warning"><?=$bd["berkas_keluar"];?></span></center>
                                                 </td>
                                                 <td><center>
                                                     <!-- DETAIL -->
@@ -78,7 +78,7 @@
                                                     </center>
                                                 </td>
                                                 <td><center>
-                                                    <span class="badge badge-danger"><?=$bd["finish"];?></span></center>
+                                                    <span class="badge badge-dark"><?=$bd["finish"];?></span></center>
                                                 </td>
                                                 <td><center>
                                                     <a data-toggle="modal" href="#basicModal<?=$bd["ITDOCNO"];?><?=$bd["FAICU"];?>" class="pd-setting-ed" style="color:#2b2a28;" title="Lihat Data"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>

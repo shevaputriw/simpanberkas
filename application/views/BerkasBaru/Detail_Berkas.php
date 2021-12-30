@@ -35,7 +35,7 @@
                                 <?php endforeach;?>
                             </div>
                         </div>
-                        <a href="<?=base_url()?>BerkasBaru/History_berkas_baru"><button type="button" class="btn btn-secondary" style="float:right;"><i class="fa fa-times-circle"></i> &nbsp;&nbsp;Tutup</button></a>
+                        <a href="<?=base_url()?>BerkasBaru/index"><button type="button" class="btn btn-secondary" style="float:right;"><i class="fa fa-times-circle"></i> &nbsp;&nbsp;Tutup</button></a>
 
                         <!-- COBA MODAL DETAIL START -->
                         <?php foreach($get_berkas2 as $gb2):?>

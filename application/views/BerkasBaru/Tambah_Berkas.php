@@ -257,6 +257,164 @@
             </div>
         </div>
     </div>
+    
+    <script type="text/javascript">
+        $("#OVIDBUID").select2();
+    </script>
+
+    <script type="text/javascript">
+        $("#OVINUM").select2();
+    </script>
+
+    <script type="text/javascript">
+        $("#OVLOCID").select2();
+    </script>
+
+    <script>
+        $('#OVMSTY').change(function(){
+            var responseID = $("#OVMSTY").val();
+
+            if(responseID == "1") {
+                $('#tab_kendaraan').removeClass('disabled');
+                $('#tab_tanah').addClass('disabled');
+            }
+            else {
+                $('#tab_tanah').removeClass('disabled');
+                $('#tab_kendaraan').addClass('disabled');
+            }
+        });
+    </script>
+
+    <!-- GET KECAMATAN DAN DESA -->
+    <script>
+        $("#OVCITY").change(function(){
+
+            // variabel dari nilai combo box kabupaten/kota
+            var dtdc = $("#OVCITY").val();
+
+            // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+            $.ajax({
+                url: '<?= base_url() ?>BerkasBaru/get_Kecamatan/' + dtdc,
+                method : "POST",
+                data : {dtdc:dtdc},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    var html = '';
+                    var i;
+
+                    for(i=0; i<data.length; i++){
+                        html += '<option value='+data[i].DTDC+'>'+data[i].DTDESC1+'</option>';
+                    }
+                    $('#OVDIST').html(html);
+
+                }
+            });
+        });
+
+        $("#OVDIST").change(function(){
+
+            // variabel dari nilai combo box kecamatan
+            var dtdc1 = $("#OVDIST").val();
+
+            // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+            $.ajax({
+                url: '<?= base_url() ?>BerkasBaru/get_Desa/' + dtdc1,
+                method : "POST",
+                data : {dtdc1:dtdc1},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    var html = '';
+                    var i;
+
+                    for(i=0; i<data.length; i++){
+                        html += '<option value='+data[i].DTDC+'>'+data[i].DTDESC1+'</option>';
+                    }
+                    $('#OVSUBDIST').html(html);
+
+                }
+            });
+        });
+    </script>
+
+    <!-- GET LOKASI BARANG -->
+    <script>
+        $("#OVIDBUID").change(function(){
+        // $(document).ready(function(){
+
+            // variabel dari nilai combo box kabupaten/kota
+            var idbuid = $("#OVIDBUID").val();
+            // var idbuid = <?php echo $this->session->userdata('SCIDBUID')?>;
+
+            // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+            $.ajax({
+                url: '<?= base_url() ?>BerkasBaru/get_Lokasi/' + idbuid,
+                method : "POST",
+                data : {idbuid:idbuid},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    var html = '';
+                    var i;
+
+                    for(i=0; i<data.length; i++){
+                        html += '<option value='+data[i].LMLOCID+'>'+data[i].LMDESA2+'</option>';
+                    }
+                    $('#OVLOCID').html(html);
+
+                }
+            });
+        });
+    </script>
+
+    <!-- GET KODE BARANG -->
+    <script>
+        $("#OVMSTY").change(function(){
+
+            // variabel dari nilai combo box kabupaten/kota
+            var msty = $("#OVMSTY").val();
+            // document.getElementById("result2").innerHTML = msty;
+            if (msty == 1) {
+                // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+                $.ajax({
+                    url: '<?= base_url() ?>BerkasBaru/get_Kendaraan/',
+                    method : "POST",
+                    // data : ,
+                    async : false,
+                    dataType : 'json',
+                    success: function(data){
+                        var html = '';
+                        var i;
+                        
+                        for(i=0; i<data.length; i++){
+                            html += '<option value='+data[i].AMOBJ+'>'+data[i].AMDESB1+'</option>';
+                        }
+                        $('#OVINUM').html(html);
+                    }
+                });
+            }
+            else {
+                // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+                $.ajax({
+                    url: '<?= base_url() ?>BerkasBaru/get_Sertifikat/',
+                    method : "POST",
+                    // data : ,
+                    async : false,
+                    dataType : 'json',
+                    success: function(data){
+                        var html = '';
+                        var i;
+
+                        for(i=0; i<data.length; i++){
+                            html += '<option value='+data[i].AMOBJ+'>'+data[i].AMDESB1+'</option>';
+                        }
+                        $('#OVINUM').html(html);
+                    }
+                });
+            }
+        });
+    </script>
 <?php } else if($this->session->userdata('SCUSG') == 'OPD') {?>
     <div class="content-body" style="margin-bottom:-9.6%;">
         <div class="container-fluid" style="margin-top:-4%;">
@@ -512,162 +670,162 @@
             </div>
         </div>
     </div>
+    
+    <script type="text/javascript">
+        $("#OVIDBUID").select2();
+    </script>
+
+    <script type="text/javascript">
+        $("#OVINUM").select2();
+    </script>
+
+    <script type="text/javascript">
+        $("#OVLOCID").select2();
+    </script>
+
+    <script>
+        $('#OVMSTY').change(function(){
+            var responseID = $("#OVMSTY").val();
+
+            if(responseID == "1") {
+                $('#tab_kendaraan').removeClass('disabled');
+                $('#tab_tanah').addClass('disabled');
+            }
+            else {
+                $('#tab_tanah').removeClass('disabled');
+                $('#tab_kendaraan').addClass('disabled');
+            }
+        });
+    </script>
+
+    <!-- GET KECAMATAN DAN DESA -->
+    <script>
+        $("#OVCITY").change(function(){
+
+            // variabel dari nilai combo box kabupaten/kota
+            var dtdc = $("#OVCITY").val();
+
+            // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+            $.ajax({
+                url: '<?= base_url() ?>BerkasBaru/get_Kecamatan/' + dtdc,
+                method : "POST",
+                data : {dtdc:dtdc},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    var html = '';
+                    var i;
+
+                    for(i=0; i<data.length; i++){
+                        html += '<option value='+data[i].DTDC+'>'+data[i].DTDESC1+'</option>';
+                    }
+                    $('#OVDIST').html(html);
+
+                }
+            });
+        });
+
+        $("#OVDIST").change(function(){
+
+            // variabel dari nilai combo box kecamatan
+            var dtdc1 = $("#OVDIST").val();
+
+            // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+            $.ajax({
+                url: '<?= base_url() ?>BerkasBaru/get_Desa/' + dtdc1,
+                method : "POST",
+                data : {dtdc1:dtdc1},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    var html = '';
+                    var i;
+
+                    for(i=0; i<data.length; i++){
+                        html += '<option value='+data[i].DTDC+'>'+data[i].DTDESC1+'</option>';
+                    }
+                    $('#OVSUBDIST').html(html);
+
+                }
+            });
+        });
+    </script>
+
+    <!-- GET LOKASI BARANG -->
+    <script>
+        // $("#OVIDBUID").change(function(){
+        $(document).ready(function(){
+
+            // variabel dari nilai combo box kabupaten/kota
+            // var idbuid = $("#OVIDBUID").val();
+            var idbuid = <?php echo $this->session->userdata('SCIDBUID')?>;
+
+            // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+            $.ajax({
+                url: '<?= base_url() ?>BerkasBaru/get_Lokasi/' + idbuid,
+                method : "POST",
+                data : {idbuid:idbuid},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    var html = '';
+                    var i;
+
+                    for(i=0; i<data.length; i++){
+                        html += '<option value='+data[i].LMLOCID+'>'+data[i].LMDESA2+'</option>';
+                    }
+                    $('#OVLOCID').html(html);
+
+                }
+            });
+        });
+    </script>
+
+    <!-- GET KODE BARANG -->
+    <script>
+        $("#OVMSTY").change(function(){
+
+            // variabel dari nilai combo box kabupaten/kota
+            var msty = $("#OVMSTY").val();
+            // document.getElementById("result2").innerHTML = msty;
+            if (msty == 1) {
+                // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+                $.ajax({
+                    url: '<?= base_url() ?>BerkasBaru/get_Kendaraan/',
+                    method : "POST",
+                    // data : ,
+                    async : false,
+                    dataType : 'json',
+                    success: function(data){
+                        var html = '';
+                        var i;
+                        
+                        for(i=0; i<data.length; i++){
+                            html += '<option value='+data[i].AMOBJ+'>'+data[i].AMDESB1+'</option>';
+                        }
+                        $('#OVINUM').html(html);
+                    }
+                });
+            }
+            else {
+                // Menggunakan ajax untuk mengirim dan dan menerima data dari server
+                $.ajax({
+                    url: '<?= base_url() ?>BerkasBaru/get_Sertifikat/',
+                    method : "POST",
+                    // data : ,
+                    async : false,
+                    dataType : 'json',
+                    success: function(data){
+                        var html = '';
+                        var i;
+
+                        for(i=0; i<data.length; i++){
+                            html += '<option value='+data[i].AMOBJ+'>'+data[i].AMDESB1+'</option>';
+                        }
+                        $('#OVINUM').html(html);
+                    }
+                });
+            }
+        });
+    </script>
 <?php }?>
-
-<script type="text/javascript">
-    $("#OVIDBUID").select2();
-</script>
-
-<script type="text/javascript">
-    $("#OVINUM").select2();
-</script>
-
-<script type="text/javascript">
-    $("#OVLOCID").select2();
-</script>
-
-<script>
-    $('#OVMSTY').change(function(){
-        var responseID = $("#OVMSTY").val();
-
-        if(responseID == "1") {
-            $('#tab_kendaraan').removeClass('disabled');
-            $('#tab_tanah').addClass('disabled');
-        }
-        else {
-            $('#tab_tanah').removeClass('disabled');
-            $('#tab_kendaraan').addClass('disabled');
-        }
-    });
-</script>
-
-<!-- GET KECAMATAN DAN DESA -->
-<script>
-    $("#OVCITY").change(function(){
-
-        // variabel dari nilai combo box kabupaten/kota
-        var dtdc = $("#OVCITY").val();
-
-        // Menggunakan ajax untuk mengirim dan dan menerima data dari server
-        $.ajax({
-            url: '<?= base_url() ?>BerkasBaru/get_Kecamatan/' + dtdc,
-            method : "POST",
-            data : {dtdc:dtdc},
-            async : false,
-            dataType : 'json',
-            success: function(data){
-                var html = '';
-                var i;
-
-                for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].DTDC+'>'+data[i].DTDESC1+'</option>';
-                }
-                $('#OVDIST').html(html);
-
-            }
-        });
-    });
-
-    $("#OVDIST").change(function(){
-
-        // variabel dari nilai combo box kecamatan
-        var dtdc1 = $("#OVDIST").val();
-
-        // Menggunakan ajax untuk mengirim dan dan menerima data dari server
-        $.ajax({
-            url: '<?= base_url() ?>BerkasBaru/get_Desa/' + dtdc1,
-            method : "POST",
-            data : {dtdc1:dtdc1},
-            async : false,
-            dataType : 'json',
-            success: function(data){
-                var html = '';
-                var i;
-
-                for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].DTDC+'>'+data[i].DTDESC1+'</option>';
-                }
-                $('#OVSUBDIST').html(html);
-
-            }
-        });
-    });
-</script>
-
-<!-- GET LOKASI BARANG -->
-<script>
-    // $("#OVIDBUID").change(function(){
-    $(document).ready(function(){
-
-        // variabel dari nilai combo box kabupaten/kota
-        // var idbuid = $("#OVIDBUID").val();
-        var idbuid = <?php echo $this->session->userdata('SCIDBUID')?>;
-
-        // Menggunakan ajax untuk mengirim dan dan menerima data dari server
-        $.ajax({
-            url: '<?= base_url() ?>BerkasBaru/get_Lokasi/' + idbuid,
-            method : "POST",
-            data : {idbuid:idbuid},
-            async : false,
-            dataType : 'json',
-            success: function(data){
-                var html = '';
-                var i;
-
-                for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].LMLOCID+'>'+data[i].LMDESA2+'</option>';
-                }
-                $('#OVLOCID').html(html);
-
-            }
-        });
-    });
-</script>
-
-<!-- GET KODE BARANG -->
-<script>
-    $("#OVMSTY").change(function(){
-
-        // variabel dari nilai combo box kabupaten/kota
-        var msty = $("#OVMSTY").val();
-        // document.getElementById("result2").innerHTML = msty;
-        if (msty == 1) {
-            // Menggunakan ajax untuk mengirim dan dan menerima data dari server
-            $.ajax({
-                url: '<?= base_url() ?>BerkasBaru/get_Kendaraan/',
-                method : "POST",
-                // data : ,
-                async : false,
-                dataType : 'json',
-                success: function(data){
-                    var html = '';
-                    var i;
-                    
-                    for(i=0; i<data.length; i++){
-                        html += '<option value='+data[i].AMOBJ+'>'+data[i].AMDESB1+'</option>';
-                    }
-                    $('#OVINUM').html(html);
-                }
-            });
-        }
-        else {
-            // Menggunakan ajax untuk mengirim dan dan menerima data dari server
-            $.ajax({
-                url: '<?= base_url() ?>BerkasBaru/get_Sertifikat/',
-                method : "POST",
-                // data : ,
-                async : false,
-                dataType : 'json',
-                success: function(data){
-                    var html = '';
-                    var i;
-
-                    for(i=0; i<data.length; i++){
-                        html += '<option value='+data[i].AMOBJ+'>'+data[i].AMDESB1+'</option>';
-                    }
-                    $('#OVINUM').html(html);
-                }
-            });
-        }
-    });
-</script>

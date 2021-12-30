@@ -27,7 +27,7 @@
                                             <td><?=$gab["FADESB1"];?></td>
                                             <td><?=$gab["LMDESA2"];?></td>
                                             <td><center>
-                                                <a data-toggle="modal" href="#basicModal<?=$gab["OVDOCNO"];?><?=$gab["FAICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat</span></a>
+                                                <a data-toggle="modal" href="#basicModal<?=$gab["OVDOCNO"];?><?=$gab["FAICU"];?>" class="pd-setting-ed" style="color:#2b2a28;" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i></span></a>
                                                 </center>
                                             </td>
                                         </tr>
