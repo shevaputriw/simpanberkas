@@ -91,7 +91,7 @@
                                             <center>
                                                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;Simpan Data</button>
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                                <a href="<?=base_url()?>PinjamBerkas/Pengembalian"><button type="button" class="btn btn-primary"><i class="fa fa-times-circle"></i>&nbsp;&nbsp;Batal</button></a>
+                                                <a href="<?=base_url()?>PinjamBerkas/Berkas_keluar"><button type="button" class="btn btn-primary"><i class="fa fa-times-circle"></i>&nbsp;&nbsp;Batal</button></a>
                                             </center>
                                         </div>
                                     </div>
@@ -195,7 +195,7 @@
                                             <center>
                                                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;Simpan Data</button>
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                                <a href="<?=base_url()?>PinjamBerkas/Pengembalian"><button type="button" class="btn btn-primary"><i class="fa fa-times-circle"></i>&nbsp;&nbsp;Batal</button></a>
+                                                <a href="<?=base_url()?>PinjamBerkas/Berkas_keluar"><button type="button" class="btn btn-primary"><i class="fa fa-times-circle"></i>&nbsp;&nbsp;Batal</button></a>
                                             </center>
                                         </div>
                                     </div>

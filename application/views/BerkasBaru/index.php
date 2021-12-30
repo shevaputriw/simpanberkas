@@ -181,69 +181,86 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header d-block">
-                            <center><h4 class="card-title">BERKAS BARU <?php echo $this->session->userdata('SCIDBUID')?></h4></center>
+                            <center><h4 class="card-title">BERKAS BARU</h4></center>
                         </div>
                         <div class="card-body">
-                            <a href="<?=base_url()?>BerkasBaru/Halaman_Tambah"><button type="button" class="btn btn-primary"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;&nbsp;Tambah Berkas</button></a>
+                            <a href="<?=base_url()?>BerkasBaru/Halaman_Tambah"><button type="button" class="btn btn-primary"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Tambah Berkas</button></a>
 
                             <!-- TABEL BERKAS BARU START -->
                             <div class="table-responsive" style="margin-top:20px;">
                                 <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Nomor Dokumen</th>
-                                            <th>OPD</th>
-                                            <th>Tanggal Dokumen</th>
-                                            <th>Jumlah Berkas</th>
-                                            <th>Status</th>
-                                            <th>Aksi</th>
+                                            <th><center>No</center></th>
+                                            <th><center>Nomor Dokumen</center></th>
+                                            <th><center>Tanggal Dokumen</center></th>
+                                            <th><center>Jumlah Berkas</center></th>
+                                            <th><center>Status</center></th>
+                                            <th><center>Aksi</center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $no=1; foreach($getAll_opd as $gt):?>
                                             <tr>
-                                                <td><?=$no++;?></td>
-                                                <td><?=$gt["OVDOCNO"];?></td>
-                                                <td><?=$gt["BNDESB1"];?></td>
-                                                <td><?= date('d-m-Y', strtotime($gt["OVDOCDT"])); ?></td>
-                                                <td><?=$gt["total_berkas"];?></td>
-                                                
+                                                <td><center><?=$no++;?></center></td>
+                                                <td><center><?=$gt["OVDOCNO"];?></center></td>
+                                                <td><center><?= date('d-m-Y', strtotime($gt["OVDOCDT"])); ?></center></td>
+                                                <td><center><?=$gt["total_berkas"];?></center></td>
                                                 <?php if($gt["OVPOST"] == "0" || $gt["OVPOST"] == NULL) {?>
-                                                    <td>
-                                                        <a href="<?=base_url()?>BerkasBaru/Approval/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-warning"><?=$gt["draft"];?></span></a>
+                                                    <td><center>
+                                                        <a href="<?=base_url()?>BerkasBaru/Approval/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-warning"><?=$gt["draft"];?></span></a></center>
                                                     </td>
-                                                    <td>
-                                                        <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                        <a href="<?=base_url()?>BerkasBaru/Tambah_Baru/<?=$gt['OVDOCNO'];?>/<?=$gt['OVIDBUID'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                        <a data-toggle="modal" href="#basicModal2<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
-                                                        <a href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
-                                                        <a href="<?=base_url()?>BerkasBaru/Approval/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-primary">Serahkan</span></a>
+                                                    <td><center>
+                                                        <!-- DETAIL -->
+                                                        <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i></span></a>
+
+                                                        <!-- EDIT -->
+                                                        <a href="<?=base_url()?>BerkasBaru/Tambah_Baru/<?=$gt['OVDOCNO'];?>/<?=$gt['OVIDBUID'];?>" class="pd-setting-ed" style="color:#000000;" title="Edit"><span class="badge badge-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+
+                                                        <!-- HAPUS -->
+                                                        <a data-toggle="modal" href="#basicModal2<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Hapus" style="color:#2b2a28;"><span class="badge badge-danger"><i class="fa fa-trash"></i></span></a>
+
+                                                        <!-- PRINT -->
+                                                        <a href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
+
+                                                        <!-- SERAHKAN -->
+                                                        <a href="<?=base_url()?>BerkasBaru/Approval/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>" style="color:#2b2a28;" title="Serahkan"><span class="badge badge-success"><i class="fa fa-file-export"></i></span></a></center>
                                                     </td>
                                                 <?php } else if($gt["OVPOST"] == "1") {?>
-                                                    <td>
-                                                        <a href="<?=base_url()?>BerkasBaru/Acc/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-warning"><?=$gt["approval"];?></span></a>
+                                                    <td><center>
+                                                        <a href="<?=base_url()?>BerkasBaru/Acc/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCTY"];?>"><span class="badge badge-warning"><?=$gt["approval"];?></span></a></center>
                                                     </td>
-                                                    <td>
-                                                        <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                        <a data-toggle="modal" href="#basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a>
-                                                        <a data-toggle="modal" href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
+                                                    <td><center>
+                                                        <!-- DETAIL -->
+                                                        <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i></span></a>
+                                                        
+                                                        <!-- EDIT -->
+                                                        <a data-toggle="modal" href="#basicModal<?=$gt["OVIDBUID"];?><?=$gt["OVDOCNO"];?>" title="Edit" style="color:#2b2a28;"><span class="badge badge-warning"><i class="fa fa-edit"></i></span></a>
+
+                                                        <!-- PRINT -->
+                                                        <a href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
                                                     </td>
                                                 <?php } else if($gt["OVPOST"] == "3") {?>
-                                                    <td>
-                                                        <a href="#"><span class="badge badge-success"><?=$gt["verifikasi_pengajuan"];?></span></a>
+                                                    <td><center>
+                                                        <a href="#"><span class="badge badge-success"><?=$gt["verifikasi_pengajuan"];?></span></a></center>
                                                     </td>
-                                                    <td>
-                                                        <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                        <a data-toggle="modal" href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
+                                                    <td><center>
+                                                        <!-- DETAIL -->
+                                                        <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i></span></a>
+                                                        
+                                                        <!-- PRINT -->
+                                                        <a href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
                                                     </td>
                                                 <?php } else if($gt["OVPOST"] == "11") {?>
-                                                    <td>
-                                                        <a href="#"><span class="badge badge-success"><?=$gt["finish"];?></span></a>
+                                                    <td><center>
+                                                        <a href="#"><span class="badge badge-success"><?=$gt["finish"];?></span></a></center>
                                                     </td>
-                                                    <td>
-                                                        <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                        <a data-toggle="modal" href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><i class="fa fa-print"></i></a>
+                                                    <td><center>
+                                                        <!-- DETAIL -->
+                                                        <a href="<?=base_url()?>BerkasBaru/Detail/<?=$gt['OVDOCNO'];?>" class="pd-setting-ed" style="color:#000000;" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i></span></a>
+
+                                                        <!-- PRINT -->
+                                                        <a href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>" title="Cetak Berita Acara" style="color:#2b2a28;"><span class="badge badge-primary"><i class="fa fa-print"></i></span></a>
                                                     </td>
                                                 <?php }?>
                                             </tr>

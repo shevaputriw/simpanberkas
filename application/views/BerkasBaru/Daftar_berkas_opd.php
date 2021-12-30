@@ -12,24 +12,23 @@
                             <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <!-- <th>Nomor Dokumen</th> -->
-                                        <th>Tanggal Masuk</th>
-                                        <th>Nama Barang</th>
-                                        <th>Lokasi</th>
-                                        <th>Aksi</th>
+                                        <th><center>No</center></th>
+                                        <th><center>Tanggal Masuk</center></th>
+                                        <th><center>Nama Barang</center></th>
+                                        <th><center>Lokasi</center></th>
+                                        <th><center>Aksi</center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach($berkas as $gab):?>
                                         <tr>
-                                            <td><?=$no++;?></td>
-                                            <!-- <td><?=$gab["OVDOCNO"];?></td> -->
-                                            <td><?= date('d-m-Y', strtotime($gab["FADTAQU"])); ?></td>
+                                            <td><center><?=$no++;?></center></td>
+                                            <td><center><?= date('d-m-Y', strtotime($gab["FADTAQU"])); ?></center></td>
                                             <td><?=$gab["FADESB1"];?></td>
                                             <td><?=$gab["LMDESA2"];?></td>
-                                            <td>
+                                            <td><center>
                                                 <a data-toggle="modal" href="#basicModal<?=$gab["OVDOCNO"];?><?=$gab["FAICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp;Lihat</span></a>
+                                                </center>
                                             </td>
                                         </tr>
                                     <?php endforeach;?>

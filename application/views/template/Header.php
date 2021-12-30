@@ -181,26 +181,28 @@
                             <li><a href="#">Lorem Ipsum</a></li>
                         </ul>
                     </li>
+                    <li><a href="<?=base_url()?>BerkasBaru/daftar_berkas" aria-expanded="false"><i class="fa fa-folder"></i><span class="nav-text">Berkas</span></a>
+                    </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder-plus"></i><span class="nav-text">Berkas Baru</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="<?=base_url()?>BerkasBaru/index">Pengajuan Berkas Baru (OPD)</a></li>
+                            <li><a href="<?=base_url()?>BerkasBaru/index">Pengajuan Berkas Baru</a></li>
+                            <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_bpkad_pengajuan">Pengajuan Berkas Baru</a></li>
+                            <li><a href="<?=base_url()?>BerkasBaru/History_berkas_baru">History Berkas Baru</a></li>
                             <li><a href="<?=base_url()?>BerkasBaru/Upload_BA">Upload Berita Acara</a></li>
-                            <li><a href="<?=base_url()?>BerkasBaru/Berkas_baru_bpkad_pengajuan">Pengajuan Berkas Baru (BPKAD)</a></li>
-                            <li><a href="<?=base_url()?>BerkasBaru/daftar_berkas">Daftar Berkas (BPKAD)</a></li>
                         </ul>
                     </li>
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-paste"></i><span class="nav-text">Pinjam Berkas</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas (OPD)</a></li>
-                            <li><a href="<?=base_url()?>PinjamBerkas/History_Pinjam_Berkas">History Pinjam Berkas (OPD)</a></li>
-                            <li><a href="<?=base_url()?>PinjamBerkas/PinjamBerkas_BPKAD_index">Pengajuan Peminjaman (BPKAD)</a></li>
-                            <li><a href="<?=base_url()?>PinjamBerkas/History">Pengembalian (BPKAD)</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/PinjamBerkas_BPKAD_index">Pengajuan Peminjaman</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/History_Pinjam_Berkas">History Pinjam Berkas</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder-minus"></i><span class="nav-text">Berkas Keluar</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Lorem Ipsum</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/Berkas_keluar">Berkas Keluar</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/History">History Berkas Keluar</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder"></i><span class="nav-text">Laporan</span></a>
@@ -229,17 +231,19 @@
                 <ul class="metismenu" id="menu">
                     <li><a href="javascript:void()" aria-expanded="false"><i class="fa fa-tachometer-alt"></i><span class="nav-text">Dashboard</span></a>
                     </li>
+                    <li><a href="<?=base_url()?>BerkasBaru/Daftar_berkas_opd" aria-expanded="false"><i class="fa fa-folder"></i><span class="nav-text">Berkas</span></a>
+                    </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-folder-plus"></i><span class="nav-text">Berkas Baru</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="<?=base_url()?>BerkasBaru/Daftar_berkas_opd">Daftar Berkas</a></li>
                             <li><a href="<?=base_url()?>BerkasBaru/index">Pengajuan Berkas Baru</a></li>
+                            <li><a href="<?=base_url()?>BerkasBaru/History_berkas_baru">History Berkas Baru</a></li>
                             <li><a href="<?=base_url()?>BerkasBaru/Upload_BA">Upload Berita Acara</a></li>
                         </ul>
                     </li>
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-paste"></i><span class="nav-text">Pinjam Berkas</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="<?=base_url()?>PinjamBerkas/index">Pinjam Berkas</a></li>
+                            <li><a href="<?=base_url()?>PinjamBerkas/index">Pengajuan Pinjam Berkas</a></li>
                             <li><a href="<?=base_url()?>PinjamBerkas/History_Pinjam_Berkas">History Pinjam Berkas</a></li>
                         </ul>
                     </li>

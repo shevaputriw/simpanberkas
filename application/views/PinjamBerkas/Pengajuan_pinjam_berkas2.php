@@ -55,21 +55,25 @@
                             <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama Barang</th>
-                                        <th>Keterangan</th>
-                                        <th>Aksi</th>
+                                        <th><center>No</center></th>
+                                        <th><center>Nama Barang</center></th>
+                                        <th><center>Keterangan</center></th>
+                                        <th><center>Aksi</center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach($get_data_peminjaman as $gt):?>
                                         <tr>
-                                            <td><?=$no++;?></td>
-                                            <td><?=$gt["ITDESB1"];?></td>
-                                            <td><?=$gt["ITDESB2"];?></td>
-                                            <td>
-                                                <a data-toggle="modal" href="#basicModal<?=$gt["ITICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                <a data-toggle="modal" href="#basicModal2<?=$gt["ITICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            <td><center><?=$no++;?></center></td>
+                                            <td><center><?=$gt["ITDESB1"];?></td>
+                                            <td><center><?=$gt["ITDESB2"];?></td>
+                                            <td><center>
+                                                <!-- DETAIL -->
+                                                <a data-toggle="modal" href="#basicModal<?=$gt["ITICU"];?>" class="pd-setting-ed" style="color:#2b2a28;" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i></span></a>
+
+                                                <!-- HAPUS -->
+                                                <a data-toggle="modal" href="#basicModal2<?=$gt["ITICU"];?>" class="pd-setting-ed" style="color:#2b2a28;" title="Hapus"><span class="badge badge-danger"><i class="fa fa-trash" aria-hidden="true"></i></span></a>
+                                                </center>
                                             </td>
                                         </tr>
                                     <?php endforeach;?>
@@ -280,59 +284,3 @@
         </div>
     </div>
 </div>
-
-<!-- <script type="text/javascript">
-    $("#BNCC01").select2();
-</script>
-
-<script type="text/javascript">
-    $("#BNCC02").select2();
-</script> -->
-
-<!-- GET KODE BARANG -->
-<!-- <script>
-    $("#ILMSTY").change(function(){
-
-        // variabel dari nilai combo box kabupaten/kota
-        var msty = $("#ILMSTY").val();
-        // document.getElementById("result2").innerHTML = msty;
-        if (msty == 1) {
-            // Menggunakan ajax untuk mengirim dan dan menerima data dari server
-            $.ajax({
-                url: '<?= base_url() ?>PinjamBerkas/get_Kendaraan/',
-                method : "POST",
-                // data : ,
-                async : false,
-                dataType : 'json',
-                success: function(data){
-                    var html = '';
-                    var i;
-                    
-                    for(i=0; i<data.length; i++){
-                        html += '<option value='+data[i].AMOBJ+'>'+data[i].AMDESB1+'</option>';
-                    }
-                    $('#ILINUM').html(html);
-                }
-            });
-        }
-        else {
-            // Menggunakan ajax untuk mengirim dan dan menerima data dari server
-            $.ajax({
-                url: '<?= base_url() ?>PinjamBerkas/get_Sertifikat/',
-                method : "POST",
-                // data : ,
-                async : false,
-                dataType : 'json',
-                success: function(data){
-                    var html = '';
-                    var i;
-
-                    for(i=0; i<data.length; i++){
-                        html += '<option value='+data[i].AMOBJ+'>'+data[i].AMDESB1+'</option>';
-                    }
-                    $('#ILINUM').html(html);
-                }
-            });
-        }
-    });
-</script> -->

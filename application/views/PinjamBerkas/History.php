@@ -12,28 +12,26 @@
                             <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>OPD</th>
-                                        <!-- <th>Jenis Barang</th> -->
-                                        <th>Nama Barang</th>
-                                        <th>Tanggal Pinjam</th>
-                                        <th>Tanggal Kembali</th>
-                                        <th>Waktu Peminjaman</th>
-                                        <th>Status</th>
-                                        <th>Aksi</th>
+                                        <th><center>No</center></th>
+                                        <th><center>OPD</center></th>
+                                        <th><center>Nama Barang</center></th>
+                                        <th><center>Tanggal Pinjam</center></th>
+                                        <th><center>Tanggal Kembali</center></th>
+                                        <th><center>Waktu Peminjaman</center></th>
+                                        <th><center>Status</center></th>
+                                        <th><center>Aksi</center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach($berkas_dipinjam as $bd):?>
                                         <tr>
-                                            <td><?=$no++;?></td>
+                                            <td><center><?=$no++;?></center></td>
                                             <td><?=$bd["BNDESB1"];?></td>
-                                            <!-- <td><?=$bd["jenis_berkas"];?></td> -->
                                             <td><?=$bd["FADESB1"];?></td>
                                             <?php if($bd["ITPOST"] == "7") {?>
-                                                <td><?= date('d-m-Y', strtotime($bd["ITDOCDT"])); ?></td>
-                                                <td>-</td>
-                                                <td>
+                                                <td><center><?= date('d-m-Y', strtotime($bd["ITDOCDT"])); ?></center></td>
+                                                <td><center>-</center></td>
+                                                <td><center>
                                                     <span class="badge badge-secondary">
                                                         <?php $now = time();
                                                         $your_date = strtotime($bd["ITDOCDT"]);
@@ -47,18 +45,23 @@
                                                             echo "$hitung hari";
                                                         }?>
                                                     </span>
+                                                    </center>
                                                 </td>
-                                                <td>
-                                                    <span class="badge badge-danger"><?=$bd["berkas_keluar"];?></span>
+                                                <td><center>
+                                                    <span class="badge badge-danger"><?=$bd["berkas_keluar"];?></span></center>
                                                 </td>
-                                                <td>
-                                                    <a data-toggle="modal" href="#basicModal<?=$bd["ITDOCNO"];?><?=$bd["FAICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-warning">Lihat</span></a>
-                                                    <a href="<?=base_url()?>PinjamBerkas/form_perubahan_data/<?=$bd["FAICU"];?>/<?=$bd["ITDOCNO"];?>"><span class="badge badge-primary">Kembali</span></a>
+                                                <td><center>
+                                                    <!-- DETAIL -->
+                                                    <a data-toggle="modal" href="#basicModal<?=$bd["ITDOCNO"];?><?=$bd["FAICU"];?>" class="pd-setting-ed" style="color:#2b2a28;" title="Lihat Data"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+
+                                                    <!-- BERKAS KEMBALI -->
+                                                    <a href="<?=base_url()?>PinjamBerkas/form_perubahan_data/<?=$bd["FAICU"];?>/<?=$bd["ITDOCNO"];?>" title="Berkas Kembali"><span class="badge badge-primary"><i class="fa fa-file-import"></i></span></a>
+                                                    </center>
                                                 </td>
                                             <?php } else if($bd["ITPOST"] == "11") {?>
-                                                <td><?= date('d-m-Y', strtotime($bd["ITDOCDT"])); ?></td>
-                                                <td><?= date('d-m-Y', strtotime($bd["ITDTLU"])); ?></td>
-                                                <td>
+                                                <td><center><?= date('d-m-Y', strtotime($bd["ITDOCDT"])); ?></center></td>
+                                                <td><center><?= date('d-m-Y', strtotime($bd["ITDTLU"])); ?></center></td>
+                                                <td><center>
                                                     <span class="badge badge-secondary">
                                                         <?php $now = strtotime($bd["ITDTLU"]);
                                                         $your_date = strtotime($bd["ITDOCDT"]);
@@ -72,12 +75,14 @@
                                                             echo "$hitung hari";
                                                         }?>
                                                     </span>
+                                                    </center>
                                                 </td>
-                                                <td>
-                                                    <span class="badge badge-danger"><?=$bd["finish"];?></span>
+                                                <td><center>
+                                                    <span class="badge badge-danger"><?=$bd["finish"];?></span></center>
                                                 </td>
-                                                <td>
-                                                    <a data-toggle="modal" href="#basicModal<?=$bd["ITDOCNO"];?><?=$bd["FAICU"];?>" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-warning">Lihat</span></a>
+                                                <td><center>
+                                                    <a data-toggle="modal" href="#basicModal<?=$bd["ITDOCNO"];?><?=$bd["FAICU"];?>" class="pd-setting-ed" style="color:#2b2a28;" title="Lihat Data"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
+                                                    </center>
                                                 </td>
                                             <?php }?>
                                         </tr>

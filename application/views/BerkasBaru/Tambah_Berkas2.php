@@ -249,37 +249,43 @@
                             <center><h4 class="card-title">DETAIL BERKAS</h4></center><br>
                         </div>
                         <div class="card-body">
-                            <?php foreach($get_data as $gt):?>
+                            <!-- <?php foreach($get_data as $gt):?>
                                 <a href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>">
                             <?php endforeach;?>
                                     <button type="button" class="btn btn-primary" style="float:right;"><i class="fa fa-print"></i>&nbsp;&nbsp;Cetak Berita Acara</button>
                                 </a>
-                            <br><br>
+                            <br><br> -->
                             <!-- TABLE START -->
                             <div class="table-responsive">         
                                 <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kode Barang</th>
-                                            <th>Jenis Berkas</th>
-                                            <th>Nama Barang</th>
-                                            <th>Lokasi Barang</th>
-                                            <th>Aksi</th>
+                                            <th><center>No</center></th>
+                                            <th><center>Kode Barang</center></th>
+                                            <th><center>Jenis Berkas</center></th>
+                                            <th><center>Nama Barang</center></th>
+                                            <th><center>Lokasi Barang</center></th>
+                                            <th><center>Aksi</center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $no=1; foreach($get_data as $gt):?>
                                             <tr>
-                                                <td><?=$no++;?></td>
-                                                <td><?=$gt["OVINUM"];?></td>
-                                                <td><?=$gt["DTDESC1"];?></td>
-                                                <td><?=$gt["OVDESB1"];?></td>
-                                                <td><?=$gt["LMDESA2"];?></td>
-                                                <td>
-                                                    <a data-toggle="modal" href="#basicModal<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                    <a href="<?=base_url()?>BerkasBaru/Edit_Berkas/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCSQ"];?>/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCTY"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                    <a data-toggle="modal" href="#basicModal2<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
+                                                <td><center><?=$no++;?></center></td>
+                                                <td><center><?=$gt["OVINUM"];?></center></td>
+                                                <td><center><?=$gt["DTDESC1"];?></center></td>
+                                                <td><center><?=$gt["OVDESB1"];?></center></td>
+                                                <td><center><?=$gt["LMDESA2"];?></center></td>
+                                                <td><center>
+                                                    <!-- DETAIL -->
+                                                    <a data-toggle="modal" href="#basicModal<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i></span></a>
+
+                                                    <!-- EDIT -->
+                                                    <a href="<?=base_url()?>BerkasBaru/Edit_Berkas/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCSQ"];?>/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCTY"];?>" class="pd-setting-ed" style="color:#000000;" title="Edit"><span class="badge badge-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+
+                                                    <!-- HAPUS -->
+                                                    <a data-toggle="modal" href="#basicModal2<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" title="Hapus" style="color:#2b2a28;"><span class="badge badge-danger"><i class="fa fa-trash"></i></span></a>
+                                                    </center>
                                                 </td>
                                             </tr>
                                         <?php endforeach;?>
@@ -747,37 +753,43 @@
                             <center><h4 class="card-title">DETAIL BERKAS</h4></center><br>
                         </div>
                         <div class="card-body">
-                            <?php foreach($get_data as $gt):?>
+                            <!-- <?php foreach($get_data as $gt):?>
                                 <a href="<?=base_url()?>BerkasBaru/Konfirmasi/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCNO"];?>">
                             <?php endforeach;?>
                                     <button type="button" class="btn btn-primary" style="float:right;"><i class="fa fa-print"></i>&nbsp;&nbsp;Cetak Berita Acara</button>
-                                </a>
+                                </a> -->
                             <br><br>
                             <!-- TABLE START -->
                             <div class="table-responsive">         
                                 <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kode Barang</th>
-                                            <th>Jenis Berkas</th>
-                                            <th>Nama Barang</th>
-                                            <th>Lokasi Barang</th>
-                                            <th>Aksi</th>
+                                            <th><center>No</center></th>
+                                            <th><center>Kode Barang</center></th>
+                                            <th><center>Jenis Berkas</center></th>
+                                            <th><center>Nama Barang</center></th>
+                                            <th><center>Lokasi Barang</center></th>
+                                            <th><center>Aksi</center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php $no=1; foreach($get_data as $gt):?>
                                             <tr>
-                                                <td><?=$no++;?></td>
-                                                <td><?=$gt["OVINUM"];?></td>
-                                                <td><?=$gt["DTDESC1"];?></td>
-                                                <td><?=$gt["OVDESB1"];?></td>
-                                                <td><?=$gt["LMDESA2"];?></td>
-                                                <td>
-                                                    <a data-toggle="modal" href="#basicModal<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                    <a href="<?=base_url()?>BerkasBaru/Edit_Berkas/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCSQ"];?>/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCTY"];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                    <a data-toggle="modal" href="#basicModal2<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
+                                                <td><center><?=$no++;?></center></td>
+                                                <td><center><?=$gt["OVINUM"];?></center></td>
+                                                <td><center><?=$gt["DTDESC1"];?></center></td>
+                                                <td><center><?=$gt["OVDESB1"];?></center></td>
+                                                <td><center><?=$gt["LMDESA2"];?></center></td>
+                                                <td><center>
+                                                    <!-- DETAIL -->
+                                                    <a data-toggle="modal" href="#basicModal<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" class="pd-setting-ed" style="color:#2b2a28;" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></span></i></a>
+
+                                                    <!-- EDIT -->
+                                                    <a href="<?=base_url()?>BerkasBaru/Edit_Berkas/<?=$gt["OVDOCNO"];?>/<?=$gt["OVDOCSQ"];?>/<?=$gt["OVIDBUID"];?>/<?=$gt["OVDOCTY"];?>" class="pd-setting-ed" style="color:#000000;" title="Edit"><span class="badge badge-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+
+                                                    <!-- HAPUS -->
+                                                    <a data-toggle="modal" href="#basicModal2<?=$gt["OVDOCNO"];?><?=$gt["OVDOCSQ"];?><?=$gt["OVIDBUID"];?>" title="Hapus" style="color:#2b2a28;"><span class="badge badge-danger"><i class="fa fa-trash"></span></i></a>
+                                                    </center>
                                                 </td>
                                             </tr>
                                         <?php endforeach;?>
