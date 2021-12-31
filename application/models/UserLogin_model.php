@@ -17,10 +17,8 @@ class UserLogin_model extends CI_Model {
     }
 
     public function getOpd() {
-        $this->db->select('*');
-        $this->db->from('t0021');
+        $query = $this->db->query("SELECT * FROM t0021 WHERE BNDVS <> 'V' OR BNDVS IS NULL");
 
-        $query = $this->db->get();
         return $query->result_array();
     }
 
@@ -53,7 +51,9 @@ class UserLogin_model extends CI_Model {
     }
 
     public function Hapus_user($scidbuid, $scseq){
-        $this->db->query("UPDATE t9801 SET SCDVS = 'V' WHERE SCIDBUID = '$scidbuid' AND SCSEQ = '$scseq'");
+        $uid = $this->session->userdata('SCUSI');
+
+        $this->db->query("UPDATE t9801 SET SCDVS = 'V', SCUIDM = '$uid', SCDTLU = CURRENT_TIMESTAMP WHERE SCIDBUID = '$scidbuid' AND SCSEQ = '$scseq'");
     }
 
 }

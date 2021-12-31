@@ -69,25 +69,27 @@
                             <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Kode</th>
-                                        <th>Kabupaten/Kota</th>
-                                        <th>Tahun Fiksal</th>
-                                        <th>Bulan</th>
-                                        <th>Aksi</th>
+                                        <th><center>No</center></th>
+                                        <th><center>Kode</center></th>
+                                        <th><center>Kabupaten/Kota</center></th>
+                                        <th><center>Tahun Fiksal</center></th>
+                                        <th><center>Bulan</center></th>
+                                        <th><center>Aksi</center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach($unitkerja as $uk):?>
                                         <tr>
-                                            <td><?=$no++;?></td>
-                                            <td><?=$uk["CNCOID"];?></td>
-                                            <td><?=$uk["CNDESB1"];?></td>
-                                            <td><?=$uk["CNCFY"];?></td>
-                                            <td><?=$uk["CNCAP"];?></td>
+                                            <td><center><?=$no++;?></center></td>
+                                            <td><center><?=$uk["CNCOID"];?></center></td>
+                                            <td><center><?=$uk["CNDESB1"];?></center></td>
+                                            <td><center><?=$uk["CNCFY"];?></center></td>
+                                            <td><center><?=$uk["CNCAP"];?></center></td>
                                             <td>
-                                                <a data-toggle="modal" href="#basicModal<?=$uk["CNCOID"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a>
-                                                <a data-toggle="modal" href="#basicModal2<?=$uk["CNCOID"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
+                                            <center>
+                                                <a data-toggle="modal" href="#basicModal<?=$uk["CNCOID"];?>"style="color:#2b2a28;" title="Edit"><span class="badge badge-warning"><i class="fa fa-edit"></i></span></a>
+                                                <a data-toggle="modal" href="#basicModal2<?=$uk["CNCOID"];?>" title="Hapus" style="color:#2b2a28;"><span class="badge badge-danger"><i class="fa fa-trash"></i></span></a>
+                                                </center>
                                             </td>
                                         </tr>
                                     <?php endforeach;?>

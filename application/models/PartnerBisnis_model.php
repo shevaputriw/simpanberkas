@@ -54,15 +54,18 @@ class PartnerBisnis_model extends CI_Model {
         $ip = $_SERVER['REMOTE_ADDR'];
         date_default_timezone_set('Asia/Jakarta');
         $nndtlu = date('Y-m-d H:i:s', time());
+        $uid = $this->session->userdata('SCUSI');
 
         $this->db->query("UPDATE t0002 SET NNSEQ = NNSEQ + 1 WHERE NNYR = '$tahun' AND NNDOCBTY = 'AD'");
         $this->db->query("UPDATE t0002 SET NNIPUIDM = '$ip' WHERE NNYR = '$tahun' AND NNDOCBTY = 'AD'");
         $this->db->query("UPDATE t0002 SET NNDTLU = '$nndtlu' WHERE NNYR = '$tahun' AND NNDOCBTY = 'AD'");
+        $this->db->query("UPDATE t0002 SET NNUIDM = '$uid' WHERE NNYR = '$tahun' AND NNDOCBTY = 'AD'");
     }
 
     public function Tambah_t0002($tahun) {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
+        $uid = $this->session->userdata('SCUSI');
 
         $data = [
             "NNCOID" => 16,
@@ -75,6 +78,8 @@ class PartnerBisnis_model extends CI_Model {
             "NNINYR" => "Y",
             "NNIPUID" => $ip,
             "NNIPUIDM" => $ip,
+            "NNIUID" => $uid,
+            "NNIUIDM" => $uid,
             "NNDTIN" => date('Y-m-d H:i:s', time()),
             "NNDTLU" => date('Y-m-d H:i:s', time())
         ];
@@ -85,6 +90,7 @@ class PartnerBisnis_model extends CI_Model {
     public function Tambah_PartnerBisnis($x) {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
+        $uid = $this->session->userdata('SCUSI');
 
         $data = [
             "ADCOID" => 16,
@@ -105,6 +111,8 @@ class PartnerBisnis_model extends CI_Model {
             "ADCC03" => $this->input->post('ADCC03', true),
             "ADIPUID" => $ip,
             "ADIPUIDM" => $ip,
+            "ADUID" => $uid,
+            "ADUIDM" => $uid,
             "ADDTIN" => date('Y-m-d H:i:s', time()),
             "ADDTLU" => date('Y-m-d H:i:s', time())
         ];
@@ -113,7 +121,11 @@ class PartnerBisnis_model extends CI_Model {
     }
 
     public function Update_adidanum($adidanum) {
+        $uid = $this->session->userdata('SCUSI');
+
         $this->db->query("UPDATE t0101 SET ADIDANUM = ADIDANUM + 1 WHERE ADIDANUM = '$adidanum'");
+        $this->db->query("UPDATE t0101 SET ADDTLU = CURRENT_TIMESTAMP WHERE ADIDANUM = '$adidanum'");
+        $this->db->query("UPDATE t0101 SET ADUIDM = '$uid' WHERE ADIDANUM = '$adidanum'");
     }
 
     public function Get_t0101() {
@@ -156,6 +168,7 @@ class PartnerBisnis_model extends CI_Model {
     public function Edit_PartnerBisnis($adidanum) {
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
+        $uid = $this->session->userdata('SCUSI');
         $post=$this->input->post();
 
         $this->ADANUM = $post["ADANUM"];
@@ -173,6 +186,7 @@ class PartnerBisnis_model extends CI_Model {
         $this->ADAR = $post["ADAR"];
         $this->ADEMPL = $post["ADEMPL"];
         $this->ADIPUIDM = $ip;
+        $this->ADUIDM = $uid;
         $this->ADDTLU = date('Y-m-d H:i:s', time());
         
         $this->db->update('t0101',$this, array('ADIDANUM' => $post['ADIDANUM']));

@@ -167,10 +167,7 @@ class BerkasBaru_model extends CI_Model {
     }
     
     public function getOpd() {
-        $this->db->select('*');
-        $this->db->from('t0021');
-
-        $query = $this->db->get();
+        $query = $this->db->query("SELECT * FROM t0021 WHERE BNDVS <> 'V' OR BNDVS IS NULL");
         return $query->result_array();
     }
 

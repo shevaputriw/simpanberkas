@@ -64,25 +64,29 @@
                             <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama User</th>
-                                        <th>Username</th>
-                                        <th>Password</th>
-                                        <th>Hak Akses</th>
-                                        <th>Aksi</th>
+                                        <th><center>No</center></th>
+                                        <th><center>Nama User</center></th>
+                                        <th><center>Username</center></th>
+                                        <th><center>Password</center></th>
+                                        <th><center>Hak Akses</center></th>
+                                        <th><center>Aksi</center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach($getAll as $gt):?>
                                         <tr>
-                                        <td><?=$no++;?></td>
+                                        <td><center><?=$no++;?></center></td>
                                         <td><?=$gt["BNDESB1"];?></td>
-                                        <td><?=$gt["SCUSI"];?></td>
-                                        <td><?=$gt["SCUSC"];?></td>
-                                        <td><?=$gt["SCUSG"];?></td>
-                                        <td>
-                                            <a data-toggle="modal" href="#basicModal<?=$gt["SCIDBUID"];?><?=$gt["SCSEQ"];?>" title="Edit Data" style="color:#2b2a28;"><span class="badge badge-success"><i class="fa fa-edit"></i>&nbsp;&nbsp;Edit</span></a>
-                                            <a data-toggle="modal" href="#basicModal2<?=$gt["SCIDBUID"];?><?=$gt["SCSEQ"];?>" title="Hapus Data" style="color:#2b2a28;"><span class="badge badge-danger"><i class="fa fa-trash"></i>&nbsp;&nbsp;Hapus</span></a>
+                                        <td><center><?=$gt["SCUSI"];?></center></td>
+                                        <td><center><?=$gt["SCUSC"];?></center></td>
+                                        <td><center><?=$gt["SCUSG"];?></center></td>
+                                        <td><center>
+                                            <!-- EDIT -->
+                                            <a data-toggle="modal" href="#basicModal<?=$gt["SCIDBUID"];?><?=$gt["SCSEQ"];?>" title="Edit" style="color:#2b2a28;"><span class="badge badge-warning"><i class="fa fa-edit"></i></span></a>
+
+                                            <!-- HAPUS -->
+                                            <a data-toggle="modal" href="#basicModal2<?=$gt["SCIDBUID"];?><?=$gt["SCSEQ"];?>" title="Hapus" style="color:#2b2a28;"><span class="badge badge-danger"><i class="fa fa-trash"></i></span></a>
+                                            </center>
                                         </tr>
                                     <?php endforeach;?>
                                 </tbody>

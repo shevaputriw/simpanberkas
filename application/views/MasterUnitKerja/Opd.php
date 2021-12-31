@@ -14,24 +14,32 @@
                             <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Kode OPD</th>
-                                        <th>Nama Unit Kerja/OPD</th>
-                                        <th>Tipe</th>
-                                        <th>Action</th>
+                                        <th><center>No</center></th>
+                                        <th><center>No</center></th>
+                                        <th><center>Kode OPD</center></th>
+                                        <th><center>Nama Unit Kerja/OPD</center></th>
+                                        <th><center>Tipe</center></th>
+                                        <th><center>Action</center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach($unitkerja as $opd):?>
                                         <tr>
-                                            <td><?=$no++;?></td>
-                                            <td><?=$opd["BNBUID"];?></td>
-                                            <td><?=$opd["BNDESB1"];?></td>
-                                            <td><?=$opd["DTDESC1"];?></td>
-                                            <td>
-                                                <a data-toggle="modal" href="#basicModalb<?=$opd["BNIDBUID"];?><?=$opd["BNBUID1"]?>" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                                <a data-toggle="modal" href="#basicModal<?=$opd["BNIDBUID"];?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a>
-                                                <a data-toggle="modal" href="#basicModal2<?=$opd["BNIDBUID"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
+                                            <td><center><?=$no++;?></center></td>
+                                            <td><center><?=$opd["BNDVS"];?></center></td>
+                                            <td><center><?=$opd["BNBUID"];?></center></td>
+                                            <td style="width:230px;"><?=$opd["BNDESB1"];?></td>
+                                            <td><center><?=$opd["DTDESC1"];?></center></td>
+                                            <td><center>
+                                                <!-- DETAIL -->
+                                                <a data-toggle="modal" href="#basicModalb<?=$opd["BNIDBUID"];?><?=$opd["BNBUID1"]?>" class="pd-setting-ed" style="color:#2b2a28;" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></span></i></a>
+
+                                                <!-- EDIT -->
+                                                <a data-toggle="modal" href="#basicModal<?=$opd["BNIDBUID"];?>" title="Edit" style="color:#2b2a28;"><span class="badge badge-warning"><i class="fa fa-edit"></i></span></a>
+
+                                                <!-- HAPUS -->
+                                                <a data-toggle="modal" href="#basicModal2<?=$opd["BNIDBUID"];?>" title="Hapus" style="color:#2b2a28;"><span class="badge badge-danger"><i class="fa fa-trash"></i></span></a>
+                                                </center>
                                             </td>
                                         </tr>
                                     <?php endforeach;?>   

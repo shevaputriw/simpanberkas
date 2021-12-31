@@ -66,29 +66,35 @@
                             <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>No. Identitas</th>
-                                        <th>Nama</th>
-                                        <th>Tipe</th>
-                                        <th>Email</th>
-                                        <th>No. Telp</th>
-                                        <th>Aksi</th>
+                                        <th><center>No</center></th>
+                                        <th><center>No. Identitas</center></th>
+                                        <th><center>Nama</center></th>
+                                        <th><center>Tipe</center></th>
+                                        <th><center>Email</center></th>
+                                        <th><center>No. Telp</center></th>
+                                        <th><center>Aksi</center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no=1; foreach($get_t0101 as $gt):?>
                                         <tr>
-                                        <td><?=$no++;?></td>
-                                        <td><?=$gt["ADANUM"];?></td>
+                                        <td><center><?=$no++;?></center></td>
+                                        <td><center><?=$gt["ADANUM"];?></center></td>
                                         <td><?=$gt["ADNM"];?></td>
-                                        <td><?=$gt["tipe"];?></td>
+                                        <td><center><?=$gt["tipe"];?></center></td>
                                         <td><?=$gt["ADEMAIL"];?></td>
-                                        <td><?=$gt["ADPHNO1"];?></td>
+                                        <td><center><?=$gt["ADPHNO1"];?></center></td>
                                         <td>
-                                            <!-- <a href="<?=base_url()?>PartnerBisnis/DetailPartner/<?=$gt['ADIDANUM'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-eye" aria-hidden="true"></i></a> -->
-                                            <a data-toggle="modal" href="#basicModalb<?=$gt["ADIDANUM"];?>" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a href="<?=base_url()?>PartnerBisnis/EditPartner/<?=$gt['ADIDANUM'];?>" class="pd-setting-ed" style="color:#000000;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                            <a data-toggle="modal" href="#basicModal2<?=$gt["ADIDANUM"];?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
+                                        <center>
+                                            <!-- DETAIL -->
+                                            <a data-toggle="modal" href="#basicModalb<?=$gt["ADIDANUM"];?>" class="pd-setting-ed" style="color:#2b2a28;" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i></span></a>
+
+                                            <!-- EDIT -->
+                                            <a href="<?=base_url()?>PartnerBisnis/EditPartner/<?=$gt['ADIDANUM'];?>" class="pd-setting-ed" style="color:#000000;" title="Edit"><span class="badge badge-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span></a>
+
+                                            <!-- HAPUS -->
+                                            <a data-toggle="modal" href="#basicModal2<?=$gt["ADIDANUM"];?>" title="Hapus" style="color:#2b2a28;"><span class="badge badge-danger"><i class="fa fa-trash"></i></span></a>
+                                            </center>
                                         </tr>
                                     <?php endforeach;?>
                                 </tbody>

@@ -38,7 +38,7 @@
                                                     <a href="<?=base_url()?>PinjamBerkas/Detail_pinjam_berkas_bpkad/<?=$gab["ITDOCNO"];?>" class="pd-setting-ed" title="Lihat Detail"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i></span></a>
 
                                                     <!-- SERAHKAN -->
-                                                    <a href="<?=base_url()?>PinjamBerkas/Approval/<?=$gab["ITDOCNO"];?>" title="Serahkan"><span class="badge badge-success"></span></a>
+                                                    <a href="<?=base_url()?>PinjamBerkas/Approval/<?=$gab["ITDOCNO"];?>" title="Serahkan"><span class="badge badge-success"><i class="fa fa-file-export" aria-hidden="true"></i></span></a>
                                                     </center>
                                                 </td>
                                             <?php } else if($gab["ITPOST"] == '2') {?>

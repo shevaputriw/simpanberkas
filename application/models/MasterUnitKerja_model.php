@@ -14,12 +14,16 @@ class MasterUnitKerja_model extends CI_Model {
 
     public function Tambah_unit() {
         date_default_timezone_set('Asia/Jakarta');
+        $uid = $this->session->userdata('SCUSI');
+        $ip = $_SERVER['REMOTE_ADDR'];
 
         $data = [
             "CNCOID" => $this->input->post('CNCOID', true),
             "CNCFY" => $this->input->post('CNCFY', true),
             "CNDESB1" => $this->input->post('CNDESB1', true),
             "CNCAP" => $this->input->post('CNCAP', true),
+            "CNUID" => $uid,
+            "CNPUID" => $ip,
             "CNDTIN" => date('Y-m-d H:i:s', time())
         ];
 
@@ -35,10 +39,14 @@ class MasterUnitKerja_model extends CI_Model {
     public function Edit_unit($cncoid){
         date_default_timezone_set('Asia/Jakarta');
         $post=$this->input->post();
+        $uid = $this->session->userdata('SCUSI');
+        $ip = $_SERVER['REMOTE_ADDR'];
 
         $this->CNCOID = $post["CNCOID"];
         $this->CNCFY = $post["CNCFY"];
         $this->CNCAP = $post["CNCAP"];
+        $this->CNUIDM = $uid;
+        $this->CNPUIDM = $ip;
         $this->CNDTLU = date('Y-m-d H:i:s', time());
         
         $this->db->update('t0020',$this, array('CNCOID' => $post['CNCOID']));
@@ -54,7 +62,7 @@ class MasterUnitKerja_model extends CI_Model {
     }
 
     public function getOpd() {
-        $query = $this->db->query("SELECT t21.BNIDBUID, t21.BNBUID, t21.BNBUID1, ta.BNDESB1 AS relasi_opd, t09.DTDESC1 AS tipe, t21.`BNDESB1`, t21.`BNCC01`, t21.`BNCOID`,
+        $query = $this->db->query("SELECT t21.BNIDBUID, t21.BNBUID, t21.BNBUID1, ta.BNDESB1 AS relasi_opd, t09.DTDESC1 AS tipe, t21.`BNDESB1`, t21.`BNCC01`, t21.`BNCOID`,t21.`BNDVS`,
         t0.`ADNM` AS pimpinan, t21.`BNCC02`, t9.`DTDESC1` 
         AS jabatan, t21.`BNCC03`, t01.`ADNM` AS pengurus_barang, t21.`BNBUTY`, t09.`DTDESC1`, t09.`DTDC`
         FROM t0021 AS t21 
@@ -63,6 +71,7 @@ class MasterUnitKerja_model extends CI_Model {
         LEFT OUTER JOIN t0009 AS t9 ON t9.`DTIDDC` = t21.`BNCC02`
         LEFT OUTER JOIN t0009 AS t09 ON t09.`DTDC` = t21.`BNBUTY` AND t09.`DTPC` = '00' AND t09.`DTSC` = 'BT'
         LEFT OUTER JOIN t0021 AS ta ON t21.BNBUID1 = ta.`BNIDBUID`
+        WHERE t21.`BNDVS` <> 'V' OR t21.`BNDVS` IS NULL
         ORDER BY t21.`BNDTIN` DESC");
         // return $query->result_$postarray();
 
@@ -102,8 +111,7 @@ class MasterUnitKerja_model extends CI_Model {
     }
 
     public function Tambah_opd($bnidbuid) {
-        $bnuid = "admin1";
-        $bnuidm = "admin1";
+        $uid = $this->session->userdata('SCUSI');
         date_default_timezone_set('Asia/Jakarta');
         $ip = $_SERVER['REMOTE_ADDR'];
 
@@ -117,8 +125,8 @@ class MasterUnitKerja_model extends CI_Model {
             "BNCC01" => $this->input->post('BNCC01', true),
             "BNCC02" => $this->input->post('BNCC02', true),
             "BNCC03" => $this->input->post('BNCC03', true),
-            "BNUID" => $bnuid,
-            "BNUIDM" => $bnuidm,
+            "BNUID" => $uid,
+            "BNUIDM" => $uid,
             "BNIPUID" => $ip,
             "BNIPUIDM" => $ip,
             "BNDTIN" => date('Y-m-d H:i:s', time()),
@@ -137,8 +145,7 @@ class MasterUnitKerja_model extends CI_Model {
 
     public function Edit_OPD($bnidbuid) {
         date_default_timezone_set('Asia/Jakarta');
-        $bnuid = "admin1";
-        $bnuidm = "admin1";
+        $uid = $this->session->userdata('SCUSI');
         $ip = $_SERVER['REMOTE_ADDR'];
         $post=$this->input->post();
 
@@ -149,6 +156,7 @@ class MasterUnitKerja_model extends CI_Model {
         $this->BNCC01 = $post["BNCC01"];
         $this->BNCC02 = $post["BNCC02"];
         $this->BNCC03 = $post["BNCC03"];
+        $this->BNUIDM = $uid;
         $this->BNIPUIDM = $ip;
         $this->BNDTLU = date('Y-m-d H:i:s', time());
         
@@ -156,11 +164,15 @@ class MasterUnitKerja_model extends CI_Model {
     }
 
     public function Hapus_OPD($bnidbuid){
-        return $this->db->delete('t0021',array("BNIDBUID" => $bnidbuid));
+        // return $this->db->delete('t0021',array("BNIDBUID" => $bnidbuid));
+        $uid = $this->session->userdata('SCUSI');
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        $this->db->query("UPDATE t0021 SET BNDVS = 'V', BNUIDM = '$uid', BNIPUIDM = '$ip', BNDTLU = CURRENT_TIMESTAMP WHERE BNIDBUID = '$bnidbuid'");
     }
 
     public function Detail_OPD() {
-        $query = $this->db->query("SELECT t21.BNIDBUID, t21.BNBUID, t21.BNBUID1, ta.BNDESB1 AS relasi_opd, t09.DTDESC1 AS tipe, t21.`BNDESB1`, t21.`BNCC01`, 
+        $query = $this->db->query("SELECT t21.BNIDBUID, t21.BNBUID, t21.BNBUID1, ta.BNDESB1 AS relasi_opd, t09.DTDESC1 AS tipe, t21.`BNDESB1`, t21.`BNCC01`, t21.`BNDVS`,
         t0.`ADNM` AS pimpinan, t21.`BNCC02`, t9.`DTDESC1` 
         AS jabatan, t21.`BNCC03`, t01.`ADNM` AS pengurus_barang, t21.`BNBUTY`, t09.`DTDESC1`, t09.`DTDC`
         FROM t0021 AS t21 

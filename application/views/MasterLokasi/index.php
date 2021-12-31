@@ -64,13 +64,13 @@
                             <table id="example" class="display" style="min-width: 845px;color:#4b4b4b;">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th style="width:250px;">OPD</th>
-                                        <th>Kode Gudang</th>
-                                        <th>No. Rak</th>
-                                        <th>Baris</th>
-                                        <th>Kolom</th>
-                                        <th>Aksi</th>
+                                        <th><center>No</center></th>
+                                        <th style="width:250px;"><center>OPD</center></th>
+                                        <th><center>Kode Gudang</center></th>
+                                        <th><center>No. Rak</center></th>
+                                        <th><center>Baris</center></th>
+                                        <th><center>Kolom</center></th>
+                                        <th><center>Aksi</center></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -78,16 +78,22 @@
                                     <?php $lmlocid = $ga["LMLOCID"];?>
                                     <?php $locid = preg_replace("/[^0-9]/","",$lmlocid);?>
                                     <tr>
-                                        <td><?=$no++;?></td>
+                                        <td><center><?=$no++;?></center></td>
                                         <td style="width:250px;"><?=$ga["BNDESB1"];?></td>
-                                        <td><?=$ga["LMWHC"];?></td>
-                                        <td><?=$ga["LMAISLE"];?></td>
-                                        <td><?=$ga["LMROW"];?></td>
-                                        <td><?=$ga["LMCOL"];?></td>
-                                        <td>
-                                            <a data-toggle="modal" href="#basicModalb<?=$ga["LMIDBUID"];?><?=$locid;?>" title="Lihat Data" class="pd-setting-ed" style="color:#2b2a28;"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                            <a data-toggle="modal" href="#basicModal<?=$ga["LMIDBUID"];?><?=$locid;?>" title="Edit Data" style="color:#2b2a28;"><i class="fa fa-edit"></i></a>
-                                            <a data-toggle="modal" href="#basicModal2<?=$ga["LMIDBUID"];?><?=$locid;?>" title="Hapus Data" style="color:#2b2a28;"><i class="fa fa-trash"></i></a>
+                                        <td><center><?=$ga["LMWHC"];?></center></td>
+                                        <td><center><?=$ga["LMAISLE"];?></center></td>
+                                        <td><center><?=$ga["LMROW"];?></center></td>
+                                        <td><center><?=$ga["LMCOL"];?></center></td>
+                                        <td><center>
+                                            <!-- DETAIL -->
+                                            <a data-toggle="modal" href="#basicModalb<?=$ga["LMIDBUID"];?><?=$locid;?>" title="Lihat Detail" class="pd-setting-ed" style="color:#2b2a28;"><span class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i></span></a>
+
+                                            <!-- EDIT -->
+                                            <a data-toggle="modal" href="#basicModal<?=$ga["LMIDBUID"];?><?=$locid;?>" title="Edit" style="color:#2b2a28;"><span class="badge badge-warning"><i class="fa fa-edit"></i></span></a>
+
+                                            <!-- HAPUS -->
+                                            <a data-toggle="modal" href="#basicModal2<?=$ga["LMIDBUID"];?><?=$locid;?>" title="Hapus" style="color:#2b2a28;"><span class="badge badge-danger"><i class="fa fa-trash"></i></span></a>
+                                            </center>
                                         </td>
                                     </tr>
                                 <?php endforeach;?>

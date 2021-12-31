@@ -49,6 +49,7 @@ class MasterLokasi_model extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         $lmstatus = "P";
         $ip = $_SERVER['REMOTE_ADDR'];
+        $uid = $this->session->userdata('SCUSI');
 
         $data = [
             "LMCOID" => $this->input->post('LMCOID', true),
@@ -66,6 +67,8 @@ class MasterLokasi_model extends CI_Model {
             "LMDTLU" => date('Y-m-d H:i:s', time()),
             "LIPUID" => $ip,
             "LIPUIDM" => $ip,
+            "LIUID" => $uid,
+            "LIUIDM" => $uid,
         ];
 
         $this->db->insert('t4100', $data);
@@ -79,6 +82,7 @@ class MasterLokasi_model extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
         $lmstatus = "P";
         $ip = $_SERVER['REMOTE_ADDR'];
+        $uid = $this->session->userdata('SCUSI');
         $post=$this->input->post();
 
         $data = [
@@ -95,6 +99,7 @@ class MasterLokasi_model extends CI_Model {
             "LMSTATUS" => $lmstatus,
             "LMDTLU" => date('Y-m-d H:i:s', time()),
             "LIPUIDM" => $ip,
+            "LIUIDM" => $uid,
         ];
 
         $this->db->update('t4100', $data, array('LMIDBUID' => $lmidbuid,'LMLOCID' => $lmlocid));

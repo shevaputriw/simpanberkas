@@ -29,14 +29,19 @@
                                             <td><?=$bd["BNDESB1"];?></td>
                                             <td><?=$bd["FADESB1"];?></td>
                                             <td><center>
-                                                <span class="badge badge-primary">
-                                                    <?php $now = time();
-                                                    $your_date = strtotime($bd["FADTLU"]);
-                                                    $datediff = $now - $your_date;
+                                                    <span class="badge badge-secondary">
+                                                        <?php $now = time();
+                                                        $your_date = strtotime($bd["FADTLU"]);
+                                                        $datediff = $now - $your_date;
+                                                        $hitung = round($datediff / (60 * 60 * 24));
 
-                                                    echo round($datediff / (60 * 60 * 24)); ?>
-                                                    hari
-                                                </span>
+                                                        if($hitung == "-0") {
+                                                            echo "0 hari"; 
+                                                        }
+                                                        else {
+                                                            echo "$hitung hari";
+                                                        }?>
+                                                    </span>
                                                 </center>
                                             </td>
                                             <?php if($bd["ITPOST"] == "7") {?>

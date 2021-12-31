@@ -57,7 +57,7 @@ class UserLogin extends CI_Controller {
                 // mengambil ip pengakses
                 $ip = $_SERVER['REMOTE_ADDR'];
                 // deklarasi variabel untuk insert ke t4111
-                $uid = "admin1";
+                $uid = $this->session->userdata('SCUSI');
                 $sq = 10;
     
                 // get nama op dari idbuid inputan user
@@ -158,7 +158,7 @@ class UserLogin extends CI_Controller {
                 // mengambil ip pengakses
                 $ip = $_SERVER['REMOTE_ADDR'];
                 // deklarasi variabel untuk insert ke t4111
-                $uid = "admin1";
+                $uid = $this->session->userdata('SCUSI');
     
                 $data_user = array(
                     'SCUSI' => $this->input->post('SCUSI', true),
