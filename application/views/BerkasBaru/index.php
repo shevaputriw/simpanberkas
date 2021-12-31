@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('SCUSG') == 'BPKAD') { ?>
+<?php if($this->session->userdata('SCUSG') == 'BPKAD' || $this->session->userdata('SCUSG') == 'Administrator') { ?>
 <div class="content-body btn-page" style="margin-top:-4%;">
     <div class="container-fluid">
         <div class="row">

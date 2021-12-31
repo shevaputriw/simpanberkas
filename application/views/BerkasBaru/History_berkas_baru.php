@@ -16,6 +16,7 @@
                                         <tr>
                                             <th><center>No</center></th>
                                             <th><center>Nomor Dokumen</center></th>
+                                            <th><center>OPD</center></th>
                                             <th><center>Tanggal Dokumen</center></th>
                                             <th><center>Jumlah Berkas</center></th>
                                             <th><center>Status</center></th>
@@ -27,6 +28,7 @@
                                             <tr>
                                                 <td><center><?=$no++;?></center></td>
                                                 <td><center><?=$gt1["OVDOCNO"];?></center></td>
+                                                <td><center><?=$gt1["BNDESB1"];?></center></td>
                                                 <td><center><?= date('d-m-Y', strtotime($gt1["OVDOCDT"])); ?></center></td>
                                                 <td><center><?=$gt1["total_berkas"];?></center></td>
                                                 

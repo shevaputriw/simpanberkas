@@ -4,7 +4,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-block">
-                        <center><h4 class="card-title">HISTORY PENGEMBALIAN BERKAS</h4></center>
+                        <center><h4 class="card-title">HISTORY BERKAS KELUAR</h4></center>
                     </div>
                     <div class="card-body">
                         <!-- TABEL BERKAS BARU START -->
@@ -55,7 +55,7 @@
                                                     <a data-toggle="modal" href="#basicModal<?=$bd["ITDOCNO"];?><?=$bd["FAICU"];?>" class="pd-setting-ed" style="color:#2b2a28;" title="Lihat Data"><span class="badge badge-info"><i class="fa fa-eye"></i></span></a>
 
                                                     <!-- BERKAS KEMBALI -->
-                                                    <a href="<?=base_url()?>PinjamBerkas/form_perubahan_data/<?=$bd["FAICU"];?>/<?=$bd["ITDOCNO"];?>" title="Berkas Kembali"><span class="badge badge-primary"><i class="fa fa-file-import"></i></span></a>
+                                                    <!-- <a href="<?=base_url()?>PinjamBerkas/form_perubahan_data/<?=$bd["FAICU"];?>/<?=$bd["ITDOCNO"];?>" title="Berkas Kembali"><span class="badge badge-primary"><i class="fa fa-file-import"></i></span></a> -->
                                                     </center>
                                                 </td>
                                             <?php } else if($bd["ITPOST"] == "11") {?>

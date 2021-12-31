@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header d-block">
-                        <center><h4>MUTASI BERKAS <?=$berkas_mutasi["jenis_berkas"];?> <?=$berkas_mutasi["FADESB1"];?></h4></center>
+                        <center><h4>MUTASI BERKAS</h4></center>
                     </div>
                     <br>
                     <div class="card-body">
