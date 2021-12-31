@@ -1592,7 +1592,7 @@ class PinjamBerkas extends CI_Controller {
     
                 }
                 else {
-                    redirect('PinjamBerkas/Pengembalian','refresh');
+                    redirect('PinjamBerkas/Berkas_keluar','refresh');
                 }
             }
             redirect('PinjamBerkas/Pengembalian','refresh');
