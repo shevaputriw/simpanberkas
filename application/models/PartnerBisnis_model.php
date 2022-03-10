@@ -10,7 +10,7 @@ class PartnerBisnis_model extends CI_Model {
     }
 
     public function getPimpinan() {
-        $query = $this->db->query("SELECT ADIDANUM, ADNM FROM T0101 WHERE ADST = 'E'");
+        $query = $this->db->query("SELECT ADIDANUM, ADNM FROM t0101 WHERE ADST = 'E'");
         return $query->result_array();
     }
 
@@ -20,7 +20,7 @@ class PartnerBisnis_model extends CI_Model {
     }
 
     public function getPengurusBarang() {
-        $query = $this->db->query("SELECT ADIDANUM, ADNM FROM T0101 WHERE ADST = 'E'");
+        $query = $this->db->query("SELECT ADIDANUM, ADNM FROM t0101 WHERE ADST = 'E'");
         return $query->result_array();
     }
 
